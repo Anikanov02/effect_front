@@ -1,0 +1,173 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--black);
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+}
+
+h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+address {
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1920px;
+}
+
+.container-main {
+  margin: 0 auto;
+  width: calc(100% - 600px);
+  max-width: calc(100% - 600px);
+}
+
+.container-projects {
+  margin: 0 auto;
+  width: calc(100% - 250px);
+  max-width: calc(100% - 250px);
+}
+
+input,
+textarea,
+a {
+  border-radius: 0px;
+  border: none;
+  font-size: var(--fz3);
+  font-weight: 600;
+  &:focus {
+    outline: none;
+  }
+}
+input {
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  font-style: normal;
+  color:var(--black);
+}
+
+p {
+  margin: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  line-height: 1.5;
+  font-size: var(--fz3);
+}
+
+button {
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+  font-size: var(--fz3);
+}
+
+label {
+  transition: .3s;
+  opacity: .5;
+}
+
+input {
+  background-color: transparent;
+  border-bottom: 1px solid var(--black);
+  transition: .3s;
+  opacity: .5;
+  &:focus {
+    opacity: 1;
+  }
+  &:focus + label {
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar-button {
+  background-repeat:no-repeat;
+  width:5px;
+  height:0px
+}
+  
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-color: var(--green);
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba($color: #206A5D, $alpha: .3);
+  border-radius: 0px;
+}
+  
+  
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+:focus {
+  outline: none;
+}
+
+.margin-main {
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 1600px) {
+  .container-main {
+    margin: 0 auto;
+    width: 1300px;
+    max-width: 1300px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .container-main {
+    margin: 0 auto;
+    width: 1100px;
+    max-width: 1100px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container-main {
+    margin: 0 auto;
+    width: calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+  }
+  .margin-main {
+    margin-top: 40px;
+  }
+
+  .container-projects {
+    margin: 0 auto;
+    width: calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+  }
+}

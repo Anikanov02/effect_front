@@ -1,0 +1,33 @@
+:root {
+  //color
+  --black: #202221;
+  --white: #ffffff;
+  --green: #52A785;
+  --pink: #C6569A;
+  --pink2: #A62585;
+  --grey: #828282;
+  --yellow: #EFDC00;
+  --footer: #FFF9F6;
+
+  //font-size
+  --fz1: 40px;
+  --fz2: 30px;
+  --fz3: 18px;
+  --fz4: 12px;
+  --fz5: 22px;
+  --fz6: 20px;
+  --fz7: 18px;
+}
+
+@media screen and (max-width: 1100px) {
+  :root {
+    //font-size
+    --fz1: 20px;
+    --fz2: 20px;
+    --fz3: 14px;
+    --fz4: 12px;
+    --fz5: 22px;
+    --fz6: 20px;
+    --fz7: 18px;
+  }
+}
