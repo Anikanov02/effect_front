@@ -87,3 +87,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+#Nuxt files
+**/.nuxt
