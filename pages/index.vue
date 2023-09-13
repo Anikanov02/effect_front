@@ -128,6 +128,10 @@
         </template>
       </div>
     </div>
+    <div id="youtube" class="container-main margin-main">
+        <YouTubeEmbed :video-id="yourVideoId"></YouTubeEmbed>
+
+    </div>
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
       <h2>
         Документація
@@ -160,508 +164,540 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import YouTubeEmbed from '../components/YouTubeEmbed.vue'
 
 export default {
-  data() {
-    return {
-      siteUrl: '',
-      projects: [],
-      currentPage: 1,
-      count: 5,
-      prewPage: 0,
-      nextPage: 0,
-      maxPage: 0, 
-      nextPage: 0,
-      slideProjects: {
-        initPoint: 0,
-        startPoint: 0,
-        endPoint: 0,
-      }
-    }
-  },
-  async fetch({store}) {
-    await Promise.all([
-      store.dispatch('default/fetch'),
-      store.dispatch('about/fetch'),
-      store.dispatch('about-members/fetch'),
-      store.dispatch('mainGallery/fetch'),
-      store.dispatch('partners/fetch'),
-      store.dispatch('documents/fetch'),
-      store.dispatch('homePage/fetch')
-    ])
-  },
-  computed: {
-    ...mapGetters({
-      about: 'about/about',
-      members: 'about-members/members',
-      partners: 'partners/partners',
-      gallery: 'mainGallery/gallery',
-      docs: 'documents/docs',
-      seo: 'homePage/seo'
-    })
-  },
-  head() {
-    const i18nSeo = this.$nuxtI18nSeo()
-    return {
-      htmlAttrs: {
-        site: 'Ефект дитини',
-        created_by: 'hoba.digital',
-        ...i18nSeo.htmlAttrs
-      },
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          property: 'og:description',
-          content: this.seo.desc
+    data() {
+        return {
+            siteUrl: '',
+            projects: [],
+            currentPage: 1,
+            count: 5,
+            prewPage: 0,
+            nextPage: 0,
+            maxPage: 0,
+            nextPage: 0,
+            slideProjects: {
+                initPoint: 0,
+                startPoint: 0,
+                endPoint: 0,
+            },
+            yourVideoId: '8Eu3jmEUlzc', //TODO: create backend dependency
+        };
+    },
+    async fetch({ store }) {
+        await Promise.all([
+            store.dispatch('default/fetch'),
+            store.dispatch('about/fetch'),
+            store.dispatch('about-members/fetch'),
+            store.dispatch('mainGallery/fetch'),
+            store.dispatch('partners/fetch'),
+            store.dispatch('documents/fetch'),
+            store.dispatch('homePage/fetch')
+        ]);
+    },
+    computed: {
+        ...mapGetters({
+            about: 'about/about',
+            members: 'about-members/members',
+            partners: 'partners/partners',
+            gallery: 'mainGallery/gallery',
+            docs: 'documents/docs',
+            seo: 'homePage/seo'
+        })
+    },
+    head() {
+        const i18nSeo = this.$nuxtI18nSeo();
+        return {
+            htmlAttrs: {
+                site: 'Ефект дитини',
+                created_by: 'hoba.digital',
+                ...i18nSeo.htmlAttrs
+            },
+            meta: [
+                {
+                    hid: 'description',
+                    name: 'description',
+                    property: 'og:description',
+                    content: this.seo.desc
+                },
+                {
+                    hid: 'title',
+                    name: 'title',
+                    property: 'og:title',
+                    content: this.seo.title
+                },
+                {
+                    hid: 'og:image',
+                    property: 'og:image',
+                    content: this.siteUrl + this.seo.img.data.attributes.url
+                },
+                ...i18nSeo.meta
+            ],
+            title: this.seo.title
+        };
+    },
+    methods: {
+        endTouch(event) {
+            // event.preventDefault()
+            this.slideProjects.endPoint = event.changedTouches[0].clientX;
+            let is = null;
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].classList.contains('active')) {
+                    is = parseInt(i);
+                }
+            }
+            if (this.slideProjects.initPoint < this.slideProjects.startPoint) {
+                is -= 1;
+                if (is > -1) {
+                    this.setActiveProject(`project${is}`);
+                }
+                this.$refs.gal_prod.removeEventListener('touchend', this.endTouch);
+                this.$refs.gal_prod.removeEventListener('touchmove', this.moveTouch);
+            }
+            else if (this.slideProjects.initPoint > this.slideProjects.startPoint) {
+                is += 1;
+                if (is < 4) {
+                    this.setActiveProject(`project${is}`);
+                    this.$refs.gal_prod.removeEventListener('touchend', this.endTouch);
+                    this.$refs.gal_prod.removeEventListener('touchmove', this.moveTouch);
+                }
+            }
         },
-        {
-          hid: 'title',
-          name: 'title',
-          property: 'og:title',
-          content: this.seo.title
+        moveTouch(event) {
+            this.slideProjects.startPoint = event.touches[0].clientX;
         },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: this.siteUrl + this.seo.img.data.attributes.url
+        onScrollProkects(start) {
+            this.slideProjects.startPoint = this.slideProjects.initPoint = start.touches[0].clientX;
+            this.$refs.gal_prod.addEventListener('touchend', this.endTouch);
+            this.$refs.gal_prod.addEventListener('touchmove', this.moveTouch);
+            this.$refs.gal_prod.removeEventListener('click', this.moveTouch);
         },
-        ...i18nSeo.meta
-      ],
-      title: this.seo.title
-    }
-  },
-  methods: {
-    endTouch(event) {
-      // event.preventDefault()
-      this.slideProjects.endPoint = event.changedTouches[0].clientX
-      let is = null
-      for (let i in this.$refs.project) {
-        if (this.$refs.project[i].classList.contains('active')) {
-          is = parseInt(i)
-        }
-      }
-      if (this.slideProjects.initPoint  < this.slideProjects.startPoint) {
-        is -= 1
-        if (is > -1) {
-          this.setActiveProject(`project${is}`)
-        }
-        this.$refs.gal_prod.removeEventListener('touchend', this.endTouch)
-        this.$refs.gal_prod.removeEventListener('touchmove', this.moveTouch)
-      } else if (this.slideProjects.initPoint  > this.slideProjects.startPoint) {
-        is += 1
-        if (is < 4) {
-          this.setActiveProject(`project${is}`)
-          this.$refs.gal_prod.removeEventListener('touchend', this.endTouch)
-          this.$refs.gal_prod.removeEventListener('touchmove', this.moveTouch)
-        }
-      }
-    },
-    moveTouch(event) {
-      this.slideProjects.startPoint = event.touches[0].clientX
-    },
-    onScrollProkects(start) {
-      this.slideProjects.startPoint = this.slideProjects.initPoint = start.touches[0].clientX
-      this.$refs.gal_prod.addEventListener('touchend', this.endTouch)
-      this.$refs.gal_prod.addEventListener('touchmove', this.moveTouch)
-      this.$refs.gal_prod.removeEventListener('click', this.moveTouch)
-    },
-    showParnerIn(p) {
-      this.$refs.showPartner.on = true
-      this.$refs.showPartner.parner = p
-      this.$refs.showPartner.pageUrl = this.siteUrl
-      document.documentElement.style.overflow = 'hidden'
-    },
-    setActiveProjectMouse(pr) {
-      let is = null
-      if (document.documentElement.offsetWidth > 1100) {
-        for (let i in this.$refs.project) {
-          if (this.$refs.project[i].attributes.data_element.value === pr) {
-            this.$refs.project[i].classList.add('active')
-            this.$refs.projectBtn[i].classList.add('active')
-            this.$refs.project[i].classList.remove('isCliced')
-            is = this.$refs.project[i]
-          } else {
-            this.$refs.project[i].classList.remove('active')
-            this.$refs.project[i].classList.remove('isCliced')
-            this.$refs.projectBtn[i].classList.remove('active')
-          }
-        }
-        
-        if (!is.classList.contains('isCliced')) {
-          let numberActiveProj = parseInt(pr.split('project')[1])
-          if (numberActiveProj == 3) {
-            this.$refs.nextProject.classList.remove('active')
-          } else {
-            this.$refs.nextProject.classList.add('active')
-          }
-          if (numberActiveProj == 0) {
-            this.$refs.prewProject.classList.remove('active')
-          } else {
-            this.$refs.prewProject.classList.add('active')
-          }
-          is.classList.add('isCliced')
-        }
-      }
-    },
-    setActiveProject(pr) {
-      let w = 0
-      let is = null
-
-      for (let i in this.$refs.project) {        
-        if (this.$refs.project[i].attributes.data_element.value === pr) {
-            is = this.$refs.project[i]
-        }
-      }
-
-      if (!is.classList.contains('isCliced')) {
-        for (let i in this.$refs.project) {
-          if (this.$refs.project[i].attributes.data_element.value === pr) {
-            this.$refs.project[i].classList.add('active')
-            this.$refs.projectBtn[i].classList.add('active')
-            w = this.$refs.project[i].offsetWidth
-          } else {
-            this.$refs.project[i].classList.remove('active')
-            this.$refs.project[i].classList.remove('isCliced')
-            this.$refs.projectBtn[i].classList.remove('active')
-          }
-        }
-        let numberActiveProj = parseInt(pr.split('project')[1])
-        if (document.documentElement.offsetWidth > 600) {
-          this.$refs.gal_prod.scrollTo({
-            left: numberActiveProj * w,
-            behavior: "smooth"
-          });
-        } else {
-          this.$refs.gal_prod.scrollTo({
-            left: numberActiveProj * w,
-            behavior: "smooth"
-          });
-        }
-        if (numberActiveProj == 3) {
-          this.$refs.nextProject.classList.remove('active')
-        } else {
-          this.$refs.nextProject.classList.add('active')
-        }
-        if (numberActiveProj == 0) {
-          this.$refs.prewProject.classList.remove('active')
-        } else {
-          this.$refs.prewProject.classList.add('active')
-        }
-        is.classList.add('isCliced')
-      }
-    },
-    setActiveProjectMouse2(e, pr, link) {
-      e.preventDefault()
-      let w = 0
-      let is = null
-      for (let i in this.$refs.project) {        
-        if (this.$refs.project[i].attributes.data_element.value === pr) {
-            is = this.$refs.project[i]
-        }
-      }
-      
-      if (!is.classList.contains('isCliced')) {
-        for (let i in this.$refs.project) {        
-          if (this.$refs.project[i].attributes.data_element.value === pr) {
-              this.$refs.project[i].classList.add('active')
-              this.$refs.projectBtn[i].classList.add('active')
-              w = this.$refs.project[i].offsetWidth
-          } else {
-            this.$refs.project[i].classList.remove('active')
-            this.$refs.project[i].classList.remove('isCliced')
-            this.$refs.projectBtn[i].classList.remove('active')
-          }
-        }
-        let numberActiveProj = parseInt(pr.split('project')[1])
-        this.$refs.gal_prod.scrollTo({
-          left: numberActiveProj * w,
-          behavior: "smooth"
-        });
-        
-        if (numberActiveProj == 3) {
-          this.$refs.nextProject.classList.remove('active')
-        } else {
-          this.$refs.nextProject.classList.add('active')
-        }
-        if (numberActiveProj == 0) {
-          this.$refs.prewProject.classList.remove('active')
-        } else {
-          this.$refs.prewProject.classList.add('active')
-        }
-        is.classList.add('isCliced')
-      } else {
-          if (document.documentElement.offsetWidth > 1100) {
-            this.$router.push(`projects?to=${link}`)
-          } else {
-            this.$router.push(`projects/${link}`)
-          }
-        }
-      
-    },
-    nextProject() {
-      let value = ''
-      for (let i in this.$refs.project) {
-        if (this.$refs.project[i].classList.contains('active') === true) {
-          value = this.$refs.project[i].attributes.data_element.value
-        }
-      }
-      if (value !== '') {
-        let numberActiveProj = parseInt(value.split('project')[1])
-        if (numberActiveProj < 3) {
-          numberActiveProj++
-          this.setActiveProject(`project${numberActiveProj}`)
-        }
-        if (numberActiveProj == 3) {
-          this.$refs.nextProject.classList.remove('active')
-        } else {
-          this.$refs.nextProject.classList.add('active')
-        }
-      }
-    },
-    prewProject() {
-      let value = ''
-      for (let i in this.$refs.project) {
-        if (this.$refs.project[i].classList.contains('active') === true) {
-          value = this.$refs.project[i].attributes.data_element.value
-        }
-      }
-      if (value !== '') {
-        let numberActiveProj = parseInt(value.split('project')[1])
-        if (numberActiveProj > 0) {
-          numberActiveProj--
-          this.setActiveProject(`project${numberActiveProj}`)
-        }
-        if (numberActiveProj == 0) {
-          this.$refs.prewProject.classList.remove('active')
-        } else {
-          this.$refs.prewProject.classList.add('active')
-        }
-      }
-    },
-    getActivePosition() {
-      let value = ''
-      let bool = false
-      for (let i in this.$refs.project) {
-        if (this.$refs.project[i].classList.contains('active') === true) {
-          value = this.$refs.project[i].attributes.data_element.value
-          let numberActiveProj = parseInt(value.split('project')[1])
-          if (numberActiveProj !== 0) {
-            bool = true
-          } else {
-            bool = false
-          }
-        }
-      }
-      return bool
-    },
-    getDate(d) {
-      let day = d.split('-')[2]
-      let month = d.split('-')[1]
-      return day + '.' + month
-    },
-    onMousClick(el, index) {
-      if (!this.$refs.gallery[index].classList.contains('in')) {
-        this.$refs.gallery[index].classList.add('in')
-      } else {
-        this.$refs.gallery[index].classList.remove('in')
-      }
-    },
-    onMous(el) {
-      el.preventDefault()
-      el.target.classList.toggle('in')
-    },
-    onScroll(e) {
-      if (document.documentElement.offsetWidth > 1101) {
-        for (let key in this.$refs) {
-          if (key == 'about') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.remove('active')
+        showParnerIn(p) {
+            this.$refs.showPartner.on = true;
+            this.$refs.showPartner.parner = p;
+            this.$refs.showPartner.pageUrl = this.siteUrl;
+            document.documentElement.style.overflow = 'hidden';
+        },
+        setActiveProjectMouse(pr) {
+            let is = null;
+            if (document.documentElement.offsetWidth > 1100) {
+                for (let i in this.$refs.project) {
+                    if (this.$refs.project[i].attributes.data_element.value === pr) {
+                        this.$refs.project[i].classList.add('active');
+                        this.$refs.projectBtn[i].classList.add('active');
+                        this.$refs.project[i].classList.remove('isCliced');
+                        is = this.$refs.project[i];
+                    }
+                    else {
+                        this.$refs.project[i].classList.remove('active');
+                        this.$refs.project[i].classList.remove('isCliced');
+                        this.$refs.projectBtn[i].classList.remove('active');
+                    }
+                }
+                if (!is.classList.contains('isCliced')) {
+                    let numberActiveProj = parseInt(pr.split('project')[1]);
+                    if (numberActiveProj == 3) {
+                        this.$refs.nextProject.classList.remove('active');
+                    }
+                    else {
+                        this.$refs.nextProject.classList.add('active');
+                    }
+                    if (numberActiveProj == 0) {
+                        this.$refs.prewProject.classList.remove('active');
+                    }
+                    else {
+                        this.$refs.prewProject.classList.add('active');
+                    }
+                    is.classList.add('isCliced');
+                }
             }
-          }
-          if (key == 'projects') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.projects[0].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.projects[0].classList.remove('active')
+        },
+        setActiveProject(pr) {
+            let w = 0;
+            let is = null;
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].attributes.data_element.value === pr) {
+                    is = this.$refs.project[i];
+                }
             }
-          }
-          if (key == 'partners') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.partners[0].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.partners[0].classList.remove('active')
+            if (!is.classList.contains('isCliced')) {
+                for (let i in this.$refs.project) {
+                    if (this.$refs.project[i].attributes.data_element.value === pr) {
+                        this.$refs.project[i].classList.add('active');
+                        this.$refs.projectBtn[i].classList.add('active');
+                        w = this.$refs.project[i].offsetWidth;
+                    }
+                    else {
+                        this.$refs.project[i].classList.remove('active');
+                        this.$refs.project[i].classList.remove('isCliced');
+                        this.$refs.projectBtn[i].classList.remove('active');
+                    }
+                }
+                let numberActiveProj = parseInt(pr.split('project')[1]);
+                if (document.documentElement.offsetWidth > 600) {
+                    this.$refs.gal_prod.scrollTo({
+                        left: numberActiveProj * w,
+                        behavior: "smooth"
+                    });
+                }
+                else {
+                    this.$refs.gal_prod.scrollTo({
+                        left: numberActiveProj * w,
+                        behavior: "smooth"
+                    });
+                }
+                if (numberActiveProj == 3) {
+                    this.$refs.nextProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.nextProject.classList.add('active');
+                }
+                if (numberActiveProj == 0) {
+                    this.$refs.prewProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.prewProject.classList.add('active');
+                }
+                is.classList.add('isCliced');
             }
-          }
-          if (key == 'documentations') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.documentations[0].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.documentations[0].classList.remove('active')
+        },
+        setActiveProjectMouse2(e, pr, link) {
+            e.preventDefault();
+            let w = 0;
+            let is = null;
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].attributes.data_element.value === pr) {
+                    is = this.$refs.project[i];
+                }
             }
-          }
-          if (key == 'news') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.news[0].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.news[0].classList.remove('active')
+            if (!is.classList.contains('isCliced')) {
+                for (let i in this.$refs.project) {
+                    if (this.$refs.project[i].attributes.data_element.value === pr) {
+                        this.$refs.project[i].classList.add('active');
+                        this.$refs.projectBtn[i].classList.add('active');
+                        w = this.$refs.project[i].offsetWidth;
+                    }
+                    else {
+                        this.$refs.project[i].classList.remove('active');
+                        this.$refs.project[i].classList.remove('isCliced');
+                        this.$refs.projectBtn[i].classList.remove('active');
+                    }
+                }
+                let numberActiveProj = parseInt(pr.split('project')[1]);
+                this.$refs.gal_prod.scrollTo({
+                    left: numberActiveProj * w,
+                    behavior: "smooth"
+                });
+                if (numberActiveProj == 3) {
+                    this.$refs.nextProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.nextProject.classList.add('active');
+                }
+                if (numberActiveProj == 0) {
+                    this.$refs.prewProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.prewProject.classList.add('active');
+                }
+                is.classList.add('isCliced');
             }
-          }
+            else {
+                if (document.documentElement.offsetWidth > 1100) {
+                    this.$router.push(`projects?to=${link}`);
+                }
+                else {
+                    this.$router.push(`projects/${link}`);
+                }
+            }
+        },
+        nextProject() {
+            let value = '';
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].classList.contains('active') === true) {
+                    value = this.$refs.project[i].attributes.data_element.value;
+                }
+            }
+            if (value !== '') {
+                let numberActiveProj = parseInt(value.split('project')[1]);
+                if (numberActiveProj < 3) {
+                    numberActiveProj++;
+                    this.setActiveProject(`project${numberActiveProj}`);
+                }
+                if (numberActiveProj == 3) {
+                    this.$refs.nextProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.nextProject.classList.add('active');
+                }
+            }
+        },
+        prewProject() {
+            let value = '';
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].classList.contains('active') === true) {
+                    value = this.$refs.project[i].attributes.data_element.value;
+                }
+            }
+            if (value !== '') {
+                let numberActiveProj = parseInt(value.split('project')[1]);
+                if (numberActiveProj > 0) {
+                    numberActiveProj--;
+                    this.setActiveProject(`project${numberActiveProj}`);
+                }
+                if (numberActiveProj == 0) {
+                    this.$refs.prewProject.classList.remove('active');
+                }
+                else {
+                    this.$refs.prewProject.classList.add('active');
+                }
+            }
+        },
+        getActivePosition() {
+            let value = '';
+            let bool = false;
+            for (let i in this.$refs.project) {
+                if (this.$refs.project[i].classList.contains('active') === true) {
+                    value = this.$refs.project[i].attributes.data_element.value;
+                    let numberActiveProj = parseInt(value.split('project')[1]);
+                    if (numberActiveProj !== 0) {
+                        bool = true;
+                    }
+                    else {
+                        bool = false;
+                    }
+                }
+            }
+            return bool;
+        },
+        getDate(d) {
+            let day = d.split('-')[2];
+            let month = d.split('-')[1];
+            return day + '.' + month;
+        },
+        onMousClick(el, index) {
+            if (!this.$refs.gallery[index].classList.contains('in')) {
+                this.$refs.gallery[index].classList.add('in');
+            }
+            else {
+                this.$refs.gallery[index].classList.remove('in');
+            }
+        },
+        onMous(el) {
+            el.preventDefault();
+            el.target.classList.toggle('in');
+        },
+        onScroll(e) {
+            if (document.documentElement.offsetWidth > 1101) {
+                for (let key in this.$refs) {
+                    if (key == 'about') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.remove('active');
+                        }
+                    }
+                    if (key == 'projects') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.projects[0].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.projects[0].classList.remove('active');
+                        }
+                    }
+                    if (key == 'partners') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.partners[0].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.partners[0].classList.remove('active');
+                        }
+                    }
+                    if (key == 'documentations') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.documentations[0].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.documentations[0].classList.remove('active');
+                        }
+                    }
+                    if (key == 'news') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.news[0].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.news[0].classList.remove('active');
+                        }
+                    }
+                }
+                if (window.pageYOffset >= this.$parent.$parent.$refs.footer.$el.offsetTop - 35 && window.pageYOffset <= this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
+                    this.$parent.$parent.$refs.headerMain.$refs.footer[0].classList.add('active');
+                }
+                else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 35 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
+                    this.$parent.$parent.$refs.headerMain.$refs.footer[0].classList.remove('active');
+                }
+                let top = window.pageYOffset;
+                if (top < this.lastScroll) {
+                    try {
+                        this.$parent.$parent.$refs.headerMain.$el.style.top = '0px';
+                    }
+                    catch { }
+                }
+                else {
+                    if (window.pageYOffset >= 300) {
+                        try {
+                            this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px';
+                        }
+                        catch { }
+                    }
+                }
+                this.lastScroll = top;
+            }
+            else {
+                for (let key in this.$refs) {
+                    if (key == 'about') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.remove('active');
+                        }
+                    }
+                    if (key == 'projects') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.projects[1].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.projects[1].classList.remove('active');
+                        }
+                    }
+                    if (key == 'partners') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.partners[1].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.partners[1].classList.remove('active');
+                        }
+                    }
+                    if (key == 'documentations') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.documentations[1].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.documentations[1].classList.remove('active');
+                        }
+                    }
+                    if (key == 'news') {
+                        if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.news[1].classList.add('active');
+                        }
+                        else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
+                            this.$parent.$parent.$refs.headerMain.$refs.news[1].classList.remove('active');
+                        }
+                    }
+                }
+                if (window.pageYOffset >= this.$parent.$parent.$refs.footer.$el.offsetTop - 18 && window.pageYOffset <= this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
+                    this.$parent.$parent.$refs.headerMain.$refs.footer[1].classList.add('active');
+                }
+                else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 18 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
+                    this.$parent.$parent.$refs.headerMain.$refs.footer[1].classList.remove('active');
+                }
+                let top = window.pageYOffset;
+                if (top < this.lastScroll) {
+                    try {
+                        this.$parent.$parent.$refs.headerMain.$el.style.top = '-1px';
+                    }
+                    catch { }
+                }
+                else {
+                    if (window.pageYOffset >= 300) {
+                        try {
+                            this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px';
+                        }
+                        catch { }
+                    }
+                }
+                this.lastScroll = top;
+            }
+        },
+        async getProjects() {
+            await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=4&sort=date:desc`, {
+                headers: {
+                    Authorization: `Bearer ${process.env.tokken}`
+                }
+            })
+                .then(data => {
+                this.projects = data.data.data;
+                setTimeout(() => {
+                    for (let i in this.$refs.project) {
+                        if (i == 0 || i == 4) {
+                            this.$refs.project[i].classList.add('active');
+                            this.$refs.project[i].classList.add('isCliced');
+                            this.$refs.projectBtn[i].classList.add('active');
+                            let numberActiveProj = parseInt(this.$refs.project[i].attributes.data_element.value.split('project')[1]);
+                            if (numberActiveProj == 3) {
+                                this.$refs.nextProject.classList.remove('active');
+                            }
+                            else {
+                                this.$refs.nextProject.classList.add('active');
+                            }
+                            if (numberActiveProj == 0) {
+                                this.$refs.prewProject.classList.remove('active');
+                            }
+                            else {
+                                this.$refs.prewProject.classList.add('active');
+                            }
+                        }
+                    }
+                });
+            });
         }
-        if (window.pageYOffset >= this.$parent.$parent.$refs.footer.$el.offsetTop - 35 && window.pageYOffset <= this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
-          this.$parent.$parent.$refs.headerMain.$refs.footer[0].classList.add('active')
-        } else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 35 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
-          this.$parent.$parent.$refs.headerMain.$refs.footer[0].classList.remove('active')
-        }
-  
-        let top = window.pageYOffset;
-  
-        if(top < this.lastScroll) {
-          try {
-            this.$parent.$parent.$refs.headerMain.$el.style.top = '0px'
-          } catch {}
-        } else {
-          if (window.pageYOffset >= 300) {
-            try {
-              this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px'
-            } catch {}
-          }
-        }
-        this.lastScroll = top
-      } else {
-        for (let key in this.$refs) {
-          if (key == 'about') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.remove('active')
-            }
-          }
-          if (key == 'projects') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.projects[1].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.projects[1].classList.remove('active')
-            }
-          }
-          if (key == 'partners') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.partners[1].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.partners[1].classList.remove('active')
-            }
-          }
-          if (key == 'documentations') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.documentations[1].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.documentations[1].classList.remove('active')
-            }
-          }
-          if (key == 'news') {
-            if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.news[1].classList.add('active')
-            } else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.news[1].classList.remove('active')
-            }
-          }
-        }
-        if (window.pageYOffset >= this.$parent.$parent.$refs.footer.$el.offsetTop - 18 && window.pageYOffset <= this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
-          this.$parent.$parent.$refs.headerMain.$refs.footer[1].classList.add('active')
-        } else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 18 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
-          this.$parent.$parent.$refs.headerMain.$refs.footer[1].classList.remove('active')
-        }
-  
-        let top = window.pageYOffset;
-  
-        if(top < this.lastScroll) {
-          try {
-            this.$parent.$parent.$refs.headerMain.$el.style.top = '-1px'
-          } catch {}
-        } else {
-          if (window.pageYOffset >= 300) {
-            try {
-              this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px'
-            } catch {}
-          }
-        }
-        this.lastScroll = top
-      }
     },
-    async getProjects() {
-      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=4&sort=date:desc`, {
-        headers: {
-          Authorization: `Bearer ${process.env.tokken}`
-        }
-      })
-      .then(data => {
-        this.projects = data.data.data
+    mounted() {
+        this.siteUrl = process.env.apiUrl;
+        this.getProjects();
         setTimeout(() => {
-          for (let i in this.$refs.project) {
-            if (i == 0 || i == 4) {
-              this.$refs.project[i].classList.add('active')
-              this.$refs.project[i].classList.add('isCliced')
-              this.$refs.projectBtn[i].classList.add('active')
-              let numberActiveProj = parseInt(this.$refs.project[i].attributes.data_element.value.split('project')[1])
-              if (numberActiveProj == 3) {
-                this.$refs.nextProject.classList.remove('active')
-              } else {
-                this.$refs.nextProject.classList.add('active')
-              }
-              if (numberActiveProj == 0) {
-                this.$refs.prewProject.classList.remove('active')
-              } else {
-                this.$refs.prewProject.classList.add('active')
-              }
-            }
-          }
+            window.addEventListener('scroll', this.onScroll);
         });
-      })
-    }
-  },
-  mounted() {
-    this.siteUrl = process.env.apiUrl
-    this.getProjects()
-    setTimeout(()=> {
-      window.addEventListener('scroll', this.onScroll)
-    })
-
-    this.$nextTick(() => {
-      try {
-        if (document.documentElement.offsetWidth > 601) {
-          this.$refs.gallery.forEach((g, index) => {
-            setTimeout(() => {
-              setTimeout(() => {
-                g.classList.add('in')
-              },index * 1000)
-            }, 1000)
-            setTimeout(() => {
-              setTimeout(() => {
-                g.classList.remove('in')
-              }, index * 1000)
-            },3000)
-          })
-        } else {
-          this.$refs.gallery.forEach((g, index) => {
-            setTimeout(() => {
-              setTimeout(() => {
-                g.classList.add('in')
-              },index * 500)
-            }, 1000)
-            setTimeout(() => {
-              setTimeout(() => {
-                g.classList.remove('in')
-              }, index * 500)
-            },2000)
-          })
-        }
-      } catch {}
-      console.log(this.$refs)
-      console.log('after mounted')
-    })
-  }
+        this.$nextTick(() => {
+            try {
+                if (document.documentElement.offsetWidth > 601) {
+                    this.$refs.gallery.forEach((g, index) => {
+                        setTimeout(() => {
+                            setTimeout(() => {
+                                g.classList.add('in');
+                            }, index * 1000);
+                        }, 1000);
+                        setTimeout(() => {
+                            setTimeout(() => {
+                                g.classList.remove('in');
+                            }, index * 1000);
+                        }, 3000);
+                    });
+                }
+                else {
+                    this.$refs.gallery.forEach((g, index) => {
+                        setTimeout(() => {
+                            setTimeout(() => {
+                                g.classList.add('in');
+                            }, index * 500);
+                        }, 1000);
+                        setTimeout(() => {
+                            setTimeout(() => {
+                                g.classList.remove('in');
+                            }, index * 500);
+                        }, 2000);
+                    });
+                }
+            }
+            catch { }
+            console.log(this.$refs);
+            console.log('after mounted');
+        });
+    },
+    components: { YouTubeEmbed }
 }
 </script>
 
@@ -1113,6 +1149,9 @@ export default {
         }
       }
     }
+    .youtube{
+
+    }
     .documentations {
       h2 {
         font-size: var(--fz1);
@@ -1167,6 +1206,9 @@ export default {
   @media screen and (max-width: 1660px) {
     #homePage {
       .partners {
+        margin-top: 100px;
+      }
+      .youtube{
         margin-top: 100px;
       }
       .documentations {
