@@ -3,7 +3,8 @@ export default {
   ssr: false,
   env: {
     tokken: '1f3f797c4bab29842afb7402b15412bb0b1905150c3d9045b3cd0c662a303e30a7cfe600be9d8b5399e7fb65706c7529993818f0cdedd2b94d2074c7f62b1df763d721f6c35a220fd454f8ef4fc245c9e7e8b9492519d9b9a6b494031124537bbd49b5b9659d13c91ec04b7df5a6c1eefe9d383d674ec1b844be4c3d4404ae22',
-    apiUrl: 'http://anik.serveftp.com:12764'
+    // apiUrl: 'http://anik.serveftp.com:12764'
+    apiUrl: 'http://localhost:1341'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
