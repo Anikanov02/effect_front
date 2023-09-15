@@ -36,18 +36,18 @@ export default {
       this.message = "New Message!";
     },
 
-    async fetchYoutubeData({ url }) {
-      console.log("fetching data")
+    async fetchYoutubeData(url) {
       await this.$axios
         .get(url)
-        .then(({ html }) => {
+        .then(( response ) => {
           console.log("got response")
+          const html = response.data
           this.readData(html)
         })
     },
 
     async readData(html) {
-        console.log("reading data")
+        console.log(html)
         const json = this.extractJson(html);
         console.log("parsed json " + json)
         const jsonObject = JSON.parse(json);
