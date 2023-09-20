@@ -1,8 +1,6 @@
 <template>
-    <div>
-      <youtube :video-id="videoId"></youtube>
-    </div>
-  </template>
+  <youtube :video-id="videoId"></youtube>
+</template>
   
   <script>
   export default {

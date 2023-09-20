@@ -2,8 +2,11 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
   env: {
-    tokken: '1f3f797c4bab29842afb7402b15412bb0b1905150c3d9045b3cd0c662a303e30a7cfe600be9d8b5399e7fb65706c7529993818f0cdedd2b94d2074c7f62b1df763d721f6c35a220fd454f8ef4fc245c9e7e8b9492519d9b9a6b494031124537bbd49b5b9659d13c91ec04b7df5a6c1eefe9d383d674ec1b844be4c3d4404ae22',
-    // apiUrl: 'http://anik.serveftp.com:12764'
+    //tokken: '1f3f797c4bab29842afb7402b15412bb0b1905150c3d9045b3cd0c662a303e30a7cfe600be9d8b5399e7fb65706c7529993818f0cdedd2b94d2074c7f62b1df763d721f6c35a220fd454f8ef4fc245c9e7e8b9492519d9b9a6b494031124537bbd49b5b9659d13c91ec04b7df5a6c1eefe9d383d674ec1b844be4c3d4404ae22',
+    //apiUrl: 'http://anik.serveftp.com:12764'
+
+    //local
+    tokken:  '862e71e546becaff6278976bf2aceff9f26a679b883d9107c696e7381dda4b85c54054edc45177b31ca3b6d51484674a5914d824e4fe024c5ac28a33bf05d7a6c05044d7c67bff0fcae96f3eb81a1e32e1fd749478c7f6d9d70a971f57d4cb8560a630f7ae1cbc182361bfa73e49749008b63419362769ebfa310e87d6da9a14',
     apiUrl: 'http://localhost:1341'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head

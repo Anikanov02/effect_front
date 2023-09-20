@@ -120,7 +120,7 @@
       <h2>
         Наші партнери
       </h2>
-      <div class="all-parners">
+      <div class="all-partners">
         <template v-for="par in partners">
           <button @click.prevent="showParnerIn(par.attributes)" class="partner" :key="par.id">
             <img :src="siteUrl + par.attributes.img.data.attributes.url" alt="">
@@ -128,8 +128,28 @@
         </template>
       </div>
     </div>
-    <div id="youtube" class="container-main margin-main">
-        <YouTubeEmbed :video-id="yourVideoId"></YouTubeEmbed>
+    <div id="youtube" class="youtube container-main margin-main">
+      <h2>
+        Наш Ютуб
+      </h2>
+      <div class="videos">
+        <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed> <!--TODO: youtube-->
+        <div class="video-link-container">
+          asdf<br>
+          asd<br>
+          asd
+        </div>
+        <div class="video-link-container" style="margin-top: 50px;">
+          asdf<br>
+          asd<br>
+          asd
+        </div>
+        <div class="video-link-container">
+          asdf<br>
+          asd<br>
+          asd
+        </div>
+      </div>
 
     </div>
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
@@ -183,6 +203,7 @@ export default {
                 endPoint: 0,
             },
             yourVideoId: '8Eu3jmEUlzc', //TODO: create backend dependency
+            
         };
     },
     async fetch({ store }) {
@@ -1130,7 +1151,7 @@ export default {
         font-family: 'Montserrat Alternates', sans-serif;
         margin-bottom: 60px;
       }
-      .all-parners {
+      .all-partners {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-column-gap: 95px;
@@ -1150,7 +1171,37 @@ export default {
       }
     }
     .youtube{
+      h2 {
+        font-size: var(--fz1);
+        font-weight: 600;
+        font-family: 'Montserrat Alternates', sans-serif;
+        margin-bottom: 60px;
+      }
+      .videos{
+        display: grid; 
 
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        
+        gap: 0px;
+        height: 100%;
+
+        #static-video{
+          #youtube-player-1{
+            width: 100%;
+            height: 100%;
+          }
+          grid-row-start: 1;
+          grid-column-start: 1;
+
+          grid-row-end: 4;
+          grid-column-end: 2;
+        }
+
+        .video-link-container{
+          width: 100%;
+        }
+      }
     }
     .documentations {
       h2 {
@@ -1241,8 +1292,29 @@ export default {
         }
       }
       .partners {
-        .all-parners {
+        .all-partners {
           grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .youtube{
+        .videos{
+
+          grid-template-rows: auto 1fr 1fr 1fr;
+          grid-template-columns: 1fr;
+
+          #static-video{
+            grid-row-start: 1;
+            grid-column-start: 1;
+
+            grid-row-end: 2;
+            grid-column-end: 2;
+
+            margin-bottom: 20px;
+
+            #youtube-player-1{
+              height: 600px;
+            }
+          }
         }
       }
     }
@@ -1320,8 +1392,13 @@ export default {
         h2 {
           margin-bottom: 20px;
         }
-        .all-parners {
+        .all-partners {
           grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .youtube{
+        h2 {
+          margin-bottom: 20px;
         }
       }
       .documentations {
@@ -1349,7 +1426,7 @@ export default {
         }
       }
       .partners {
-        .all-parners {
+        .all-partners {
           grid-template-columns: repeat(2, 1fr);
         }
       }
@@ -1401,7 +1478,7 @@ export default {
         }
       }
       .partners {
-        .all-parners {
+        .all-partners {
           grid-column-gap: 50px;
           .partner {
             img {
@@ -1479,7 +1556,7 @@ export default {
   @media screen and (max-width: 345px) {
     #homePage {
       .partners {
-        .all-parners {
+        .all-partners {
           grid-template-columns: 1fr;
         }
       }
