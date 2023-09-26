@@ -139,7 +139,7 @@
           <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
         </div>
         <div class="right">
-          <div class="video-link-container">
+          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
             <img
               src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
             <div class="desc">
@@ -148,7 +148,7 @@
               <span class="duration">5:34</span>
             </div>
           </div>
-          <div class="video-link-container">
+          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
             <img
               src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
             <div class="desc">
@@ -157,7 +157,7 @@
               <span class="duration">5:34</span>
             </div>
           </div>
-          <div class="video-link-container">
+          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
             <img
               src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
             <div class="desc">
@@ -1325,20 +1325,20 @@ export default {
             margin-right: 20px;
           }
 
-          .desc{
+          .desc {
             display: flex;
             flex-direction: column;
-  
+
             .name {
               font-weight: 600;
             }
-  
-            .added-ago{
+
+            .added-ago {
               margin-top: 10px;
               color: #BDBDBD;
             }
-  
-            .duration{
+
+            .duration {
               margin-top: auto;
               color: #BDBDBD;
             }
@@ -1462,38 +1462,7 @@ export default {
     .youtube {
 
       //TODO
-      .videos {
 
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
-
-        #static-video {
-          grid-row-start: 1;
-          grid-column-start: 1;
-
-          grid-row-end: 2;
-          grid-column-end: 4;
-
-          margin-bottom: 20px;
-
-          iframe {
-            height: 500px;
-          }
-
-        }
-
-        .video-link-container {
-          flex-direction: column;
-
-          img {
-            width: 100%;
-          }
-
-          p {
-            margin: 10px 20px;
-          }
-        }
-      }
     }
   }
 }
@@ -1594,11 +1563,6 @@ export default {
       }
     }
 
-    .youtube {
-      h2 {
-        margin-bottom: 20px; //TODO
-      }
-    }
 
     .documentations {
       margin-top: 40px;
@@ -1637,6 +1601,29 @@ export default {
     .documentations {
       .all-docs {
         grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .youtube {
+      .videos {
+        flex-direction: column;
+
+        .left {
+          flex: none;
+
+          #static-video {
+            height: 330px;
+          }
+        }
+
+        .right {
+          flex: none;
+          margin-left: 0px;
+
+          .video-link-container {
+            margin-top: 20px;
+          }
+        }
       }
     }
   }
@@ -1747,34 +1734,10 @@ export default {
     }
 
     .youtube {
-
-      //TODO 
       .videos {
-
-        grid-template-rows: auto 1fr 1fr 1fr;
-        grid-template-columns: 1fr;
-
-        #static-video {
-          grid-row-start: 1;
-          grid-column-start: 1;
-
-          grid-row-end: 2;
-          grid-column-end: 2;
-
-          iframe {
-            height: 300px;
-          }
-        }
-
-        .video-link-container {
-          flex-direction: row;
-
-          img {
-            width: 100px;
-          }
-
-          p {
-            margin: auto 20px;
+        .left {
+          #static-video {
+            height: 209px;
           }
         }
       }
