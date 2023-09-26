@@ -134,25 +134,38 @@
       </div>
     </div>
     <div id="youtube" class="youtube container-main margin-main">
-      <h2>
-        Наш Ютуб
-      </h2>
       <div class="videos">
-        <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
-        <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-          <img
-            src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-          <p>Your video description Your video description </p>
+        <div class="left">
+          <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
         </div>
-        <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-          <img
-            src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-          <p>Your video description Your video description </p>
-        </div>
-        <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-          <img
-            src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-          <p>Your video description Your video description </p>
+        <div class="right">
+          <div class="video-link-container">
+            <img
+              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+            <div class="desc">
+              <span class="name">Your video description</span>
+              <span class="added-ago">1 місяць тому</span>
+              <span class="duration">5:34</span>
+            </div>
+          </div>
+          <div class="video-link-container">
+            <img
+              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+            <div class="desc">
+              <span class="name">Your video description</span>
+              <span class="added-ago">1 місяць тому</span>
+              <span class="duration">5:34</span>
+            </div>
+          </div>
+          <div class="video-link-container">
+            <img
+              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+            <div class="desc">
+              <span class="name">Your video description</span>
+              <span class="added-ago">1 місяць тому</span>
+              <span class="duration">5:34</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -686,7 +699,7 @@ export default {
         });
     },
     redirectToAnotherPage() {
-    // Change the URL to the page you want to redirect to
+      // Change the URL to the page you want to redirect to
       window.open('https://google.com', '_blank')
     }
   },
@@ -1263,57 +1276,79 @@ export default {
   }
 
   .youtube {
-    h2 {
-      font-size: var(--fz1);
-      font-weight: 600;
-      font-family: 'Montserrat Alternates', sans-serif;
-      margin-bottom: 60px;
-    }
+
+    //TODO
+
 
     .videos {
-      display: grid;
+      display: flex;
 
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-template-columns: 3fr 2fr;
+      .left {
+        flex: 2;
 
-      column-gap: 40px;
-      row-gap: 20px;
-      height: 100%;
+        #static-video {
+          height: 444px;
 
-      #static-video {
-        iframe {
-          width: 100%;
-          height: 100%;
+          iframe {
+            width: 100%;
+            height: 100%;
+          }
         }
-
-        grid-row-start: 1;
-        grid-column-start: 1;
-
-        grid-row-end: 4;
-        grid-column-end: 2;
       }
 
-      .video-link-container {
-        background-color: rgb(247, 247, 247);
+      .right {
+        flex: 1;
+        margin-left: 50px;
+
         display: flex;
-        width: 100%;
-        opacity: 0.7;
-        transition: .3s;
+        flex-direction: column;
+        justify-content: space-between;
 
-        &:hover {
-          opacity: 1;
-          cursor: pointer;
-        }
+        .video-link-container {
+          display: flex;
 
-        img {
-          width: 200px;
-        }
 
-        p {
-          margin: auto 20px;
-          font-weight: 600;
+          width: 100%;
+
+          opacity: 0.7;
+          transition: .3s;
+
+          &:hover {
+            opacity: 1;
+            cursor: pointer;
+          }
+
+          img {
+            width: 202px;
+            height: 109px;
+            object-fit: cover;
+            margin-right: 20px;
+          }
+
+          .desc{
+            display: flex;
+            flex-direction: column;
+  
+            .name {
+              font-weight: 600;
+            }
+  
+            .added-ago{
+              margin-top: 10px;
+              color: #BDBDBD;
+            }
+  
+            .duration{
+              margin-top: auto;
+              color: #BDBDBD;
+            }
+          }
         }
       }
+
+
+
+
     }
   }
 
@@ -1425,6 +1460,8 @@ export default {
     }
 
     .youtube {
+
+      //TODO
       .videos {
 
         grid-template-rows: auto 1fr;
@@ -1442,16 +1479,17 @@ export default {
           iframe {
             height: 500px;
           }
-          
+
         }
 
-        .video-link-container{
+        .video-link-container {
           flex-direction: column;
-          img{
+
+          img {
             width: 100%;
           }
 
-          p{
+          p {
             margin: 10px 20px;
           }
         }
@@ -1558,7 +1596,7 @@ export default {
 
     .youtube {
       h2 {
-        margin-bottom: 20px;
+        margin-bottom: 20px; //TODO
       }
     }
 
@@ -1707,32 +1745,35 @@ export default {
         }
       }
     }
-    
-    .youtube{
-      .videos{
 
-        grid-template-rows: auto 1fr 1fr 1fr; 
+    .youtube {
+
+      //TODO 
+      .videos {
+
+        grid-template-rows: auto 1fr 1fr 1fr;
         grid-template-columns: 1fr;
 
-        #static-video{
+        #static-video {
           grid-row-start: 1;
           grid-column-start: 1;
 
           grid-row-end: 2;
           grid-column-end: 2;
 
-          iframe{
+          iframe {
             height: 300px;
           }
         }
 
-        .video-link-container{
+        .video-link-container {
           flex-direction: row;
-          img{
+
+          img {
             width: 100px;
           }
 
-          p{
+          p {
             margin: auto 20px;
           }
         }
@@ -1778,4 +1819,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
