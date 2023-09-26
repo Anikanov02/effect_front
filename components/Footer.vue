@@ -41,7 +41,18 @@
           </div>
         </div>
         <div class="right">
-          <FormSendMail />
+          <p class="title">
+            Реквізити
+          </p>
+          <div class="requisites">
+            <p class="label">UA1111111111111111111111111111</p>
+            <p class="label">ГО ЕФЕКТ ДИТИНИ</p>
+            <p class="label-mt35">Код отримувача: 44024979</p>
+          </div>
+          <nuxt-link to="/" class="btn-donate">
+            підтримати
+            <span class="svg-donate"></span>
+          </nuxt-link>
         </div>
       </div>
       <div class="bottom">
@@ -104,7 +115,6 @@ export default {
     .top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
       .left {
         .title {
           font-size: var(--fz1);
@@ -168,6 +178,38 @@ export default {
           }
         }
       }
+      .right{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        
+        .title {
+          font-size: var(--fz1);
+          font-weight: 600;
+          font-family: 'Montserrat Alternates', sans-serif;
+          margin-bottom: 10px;
+        }
+        .requisites{
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          .label {
+            font-size: var(--fz3);
+            font-weight: 400;
+            font-family: 'Montserrat Alternates', sans-serif;
+            margin-bottom: 15px;
+          }
+          .label-mt35{
+            font-size: var(--fz3);
+            font-weight: 400;
+            font-family: 'Montserrat Alternates', sans-serif;
+            margin-top: 35px;
+          }
+        }
+        .btn-donate{
+          margin-top: 35px;
+        }
+      }     
     }
     .bottom {
       display: flex;
