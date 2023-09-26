@@ -207,7 +207,7 @@ export default {
           }
         }
         .btn-donate{
-          margin-top: 35px;
+          margin-top: auto;
         }
       }     
     }
@@ -319,6 +319,14 @@ export default {
         }
         .right {
           width: 100%;
+          align-items: start;
+          .requisites{
+            align-items: start;
+
+            .label-mt35{
+              margin-top: 0px;
+            }
+          }
         }
       }
       .bottom {
