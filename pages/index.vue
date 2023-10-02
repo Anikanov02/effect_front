@@ -139,35 +139,21 @@
           <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
         </div>
         <div class="right">
-          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-            <img
-              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-            <div class="desc">
-              <span class="name">Your video description</span>
-              <span class="added-ago">1 місяць тому</span>
-              <span class="duration">5:34</span>
+          <template v-for="video in youtubeVideos" >
+            <div class="video-link-container" @click.prevent="redirectToAnotherPage(video.attributes.video_url)" :key="video.id">
+              <img :src="video.attributes.preview_picture_url">
+              <div class="desc">
+                <div>
+                  <p class="name">{{ video.attributes.title }}</p>
+                  <p class="added-ago">{{ video.attributes.publishment_time}}</p>
+                </div>
+                <p class="duration">{{ video.attributes.video_length }}</p>
+              </div>
             </div>
-          </div>
-          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-            <img
-              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-            <div class="desc">
-              <span class="name">Your video description</span>
-              <span class="added-ago">1 місяць тому</span>
-              <span class="duration">5:34</span>
-            </div>
-          </div>
-          <div class="video-link-container" @click.prevent="redirectToAnotherPage()">
-            <img
-              src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
-            <div class="desc">
-              <span class="name">Your video description</span>
-              <span class="added-ago">1 місяць тому</span>
-              <span class="duration">5:34</span>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
+    </div>
 
     </div>
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
@@ -226,6 +212,7 @@ export default {
         endPoint: 0,
       },
       yourVideoId: '8Eu3jmEUlzc', //TODO: create backend dependency
+      youtubeVideos: [],
 
     };
   },
@@ -698,14 +685,25 @@ export default {
           });
         });
     },
-    redirectToAnotherPage() {
+    async getYoutubeVideos() {
+      await this.$axios.get(`${process.env.apiUrl}/api/youtube-data?populate=*&pagination[pageSize]=3&sort=id:asc`, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      }).then(data => {
+        this.youtubeVideos = data.data.data
+        window.console.log(JSON.stringify(this.youtubeVideos, null, 2))
+      })
+    },
+    redirectToAnotherPage(url) {
       // Change the URL to the page you want to redirect to
-      window.open('https://google.com', '_blank')
+      window.open(url, '_blank')
     }
   },
   mounted() {
     this.siteUrl = process.env.apiUrl;
     this.getProjects();
+    this.getYoutubeVideos();
     setTimeout(() => {
       window.addEventListener('scroll', this.onScroll);
     });
@@ -1320,27 +1318,37 @@ export default {
 
           img {
             width: 202px;
-            height: 109px;
             object-fit: cover;
             margin-right: 20px;
+            padding: 0;
           }
-
+          
+          p{
+            font-family: 'Montserrat Alternates', sans-serif;
+          }
+          
           .desc {
             display: flex;
             flex-direction: column;
 
             .name {
               font-weight: 600;
+              line-height: normal;
             }
 
             .added-ago {
-              margin-top: 10px;
+              font-size: 14px;
+              margin-top: 5px;
               color: #BDBDBD;
+              line-height: normal;
             }
 
             .duration {
+              font-size: 14px;
               margin-top: auto;
               color: #BDBDBD;
+              line-height: normal;
+              padding: 0;
             }
           }
         }
