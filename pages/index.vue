@@ -1630,6 +1630,14 @@ export default {
 
           .video-link-container {
             margin-top: 20px;
+
+            img{
+              flex: 1;
+            }
+
+            .desc{
+              flex: 1;
+            }
           }
         }
       }
