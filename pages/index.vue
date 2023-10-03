@@ -155,6 +155,48 @@
         </div>
       </div>
     </div>
+    <div id="instagram" class="instagram container-main margin-main">
+      <div class="panel quote">
+        <svg>
+          <circle r="60%" cx="0" cy="0" fill="#50A785"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант -- це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div class="panel">
+        <img src="https://s3.amazonaws.com/www-inside-design/uploads/2020/10/aspect-ratios-blogpost-1x1-1.png" alt="">
+      </div>
+      <div class="panel quote">
+        <svg>
+          <circle r="60%" cx="100%" cy="100%" fill="#C6569A"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант -- це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div class="panel">
+        <img src="https://s3.amazonaws.com/www-inside-design/uploads/2020/10/aspect-ratios-blogpost-1x1-1.png" alt="">
+      </div>
+      <div class="panel quote">
+        <svg>
+          <circle r="40%" cx="0" cy="0" fill="#A62585"/>
+        </svg>
+        <svg>
+          <circle r="13%" cx="80%" cy="75%" fill="#EFDC00"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант - <br>це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
+        <div class="text_holder">
+          <p class="inst_tag">@efectdytyny</p>
+          <p class="subtext">перейти на сторінку</p>
+        </div>
+      </div>
+      
+    </div>
   </main>
 </template>
 
@@ -1099,6 +1141,7 @@ export default {
         grid-template-columns: repeat(5, 1fr);
         grid-column-gap: 95px;
         grid-row-gap: 30px;
+
         .partner {
           display: flex;
           &:hover {
@@ -1147,6 +1190,96 @@ export default {
         .btn-all {
           height: calc(50px - 22px);
           margin-top: 5px;
+        }
+      }
+    }
+
+    .instagram{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+      //grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 50px;
+      grid-row-gap: 50px;
+      margin-top: 150px;
+
+      .panel{
+        max-width: 400px;
+        aspect-ratio: 1/1;
+        border-radius: 6px;
+        
+        
+        
+
+        img{
+          display: block;
+          width: 100%;
+          object-fit: cover;
+          border-radius: 6px;
+        }
+      }
+
+      
+
+      .quote{
+        border: 3px solid#e4e4e4;
+        position: relative;
+        place-items: center;
+
+        
+
+        svg{
+          z-index: -1;
+          position: absolute;
+          border-radius: 4px;
+          display: block;
+          height: 100%;
+          width: 100%
+        }
+
+        .text_holder{
+          height: 100%;
+          padding: 0 15%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        
+          p{
+            color: var(--text-color, #202221);
+            font-family: Montserrat Alternates;
+            font-size: var(--fz1);
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            white-space: pre-line;
+          }
+        }
+      }
+
+      #link{
+        border: none;
+        background-color: #52A785;
+        box-shadow: none;
+        transition: .3s;
+        
+        &:hover{
+          cursor: pointer;
+          box-shadow: 0px 0px 30px 0px rgb(94, 194, 156);
+
+        }
+
+        p{
+          color: var(--white, #FFF);
+          font-size: var(--fz1);
+        }
+        .subtext{
+          margin-top: 10px;
+          text-align: center;
+          font-family: Montserrat Alternates;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 26px; /* 144.444% */
         }
       }
     }
@@ -1431,6 +1564,40 @@ export default {
           }
         }
       }
+
+      .instagram{
+        
+        grid-column-gap: 15px;
+        grid-row-gap: 15px;
+        margin-top: 50px;
+
+        .quote{
+          border-width: 1px;
+          .text_holder{
+
+            p{
+              font-size: 14px;
+              line-height: 15px;
+            }
+
+          }
+
+        }
+
+        #link{
+          p{
+            font-size: 10px;
+          }
+          .subtext{
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 15px; /* 150% */
+          }
+
+        }
+
+      }
     }
   }
 
@@ -1439,6 +1606,17 @@ export default {
       .partners {
         .all-parners {
           grid-template-columns: 1fr;
+        }
+      }
+      .instagram{
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+        div:nth-child(3){
+          grid-area: 3;
+        }
+
+        div:nth-child(4){
+          grid-area: 2;
         }
       }
     }
