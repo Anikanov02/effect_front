@@ -2,8 +2,8 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
   env: {
-    tokken: '1f3f797c4bab29842afb7402b15412bb0b1905150c3d9045b3cd0c662a303e30a7cfe600be9d8b5399e7fb65706c7529993818f0cdedd2b94d2074c7f62b1df763d721f6c35a220fd454f8ef4fc245c9e7e8b9492519d9b9a6b494031124537bbd49b5b9659d13c91ec04b7df5a6c1eefe9d383d674ec1b844be4c3d4404ae22',
-    apiUrl: 'http://anik.serveftp.com:12764'
+    tokken: '023831bd37407eba2e0d5642585318c685c13d6edd6327d1af42d3aae8c5d7345810e5a68daa94820addea06e70ea964a02dcd30f7fdc9e1c7d1b1246a83c0fec82c63778ba4cb600141717a61a4f65fd9818ccd370f7980a13f81a374385bfd7974c155d0beb20f58cfedf3f656294e5f5635271f8eee801688e320e36566ed',
+    apiUrl: 'http://localhost:1341'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

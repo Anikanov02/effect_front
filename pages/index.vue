@@ -195,13 +195,17 @@
           <p class="subtext">перейти на сторінку</p>
         </div>
       </div>
-      
     </div>
+    <instagram-embed
+        :url="'https://www.instagram.com/p/B3jnT0WBdUI/'"
+        :max-width=500
+      />
   </main>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
+import InstagramEmbed from 'vue-instagram-embed';
 
 export default {
   data() {
@@ -241,6 +245,9 @@ export default {
       docs: 'documents/docs',
       seo: 'homePage/seo'
     })
+  },
+  components:{
+    InstagramEmbed
   },
   head() {
     const i18nSeo = this.$nuxtI18nSeo()
