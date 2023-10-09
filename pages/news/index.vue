@@ -1,11 +1,14 @@
 <template>
   <div id="news" class="container-projects">
     <div class="top">
-      <h2>
-        Новини
-      </h2>
+      <h2>Новини</h2>
       <div class="search">
-        <input type="text" @keypress="InputSearch($event)" @keyup="InputSearch($event)" v-model="search">
+        <input
+          type="text"
+          @keypress="InputSearch($event)"
+          @keyup="InputSearch($event)"
+          v-model="search"
+        />
         <button class="btn-search" @click.prevent="searchNewsItem()">
           <span class="ico-search"></span>
         </button>
@@ -15,17 +18,26 @@
     <div class="all-news">
       <div class="news-item">
         <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
+        />
         <div class="desc">
           <p class="title-word">Конкурс</p>
           <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та ...</p>
+          <p class="text">
+            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та ...
+          </p>
 
           <div class="meta">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+            >
               <path
                 d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282" />
+                fill="#828282"
+              />
             </svg>
             <p class="date">16 липня 2021</p>
           </div>
@@ -33,18 +45,27 @@
       </div>
       <div class="news-item">
         <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
+        />
         <div class="desc">
           <p class="title-word">Конкурс</p>
           <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та fadfadfadfasdfasdfasdfa
-            asdfasdfas sdfasdfa...</p>
+          <p class="text">
+            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та
+            fadfadfadfasdfasdfasdfa asdfasdfas sdfasdfa...
+          </p>
 
           <div class="meta">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+            >
               <path
                 d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282" />
+                fill="#828282"
+              />
             </svg>
             <p class="date">16 липня 2021</p>
           </div>
@@ -52,24 +73,32 @@
       </div>
       <div class="news-item">
         <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=">
+          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
+        />
         <div class="desc">
           <p class="title-word">Конкурс</p>
           <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та fadfadfadfasdfasdfasdfa
-            asdfasdfas sdfasdfa...</p>
+          <p class="text">
+            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та
+            fadfadfadfasdfasdfasdfa asdfasdfas sdfasdfa...
+          </p>
 
           <div class="meta">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+            >
               <path
                 d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282" />
+                fill="#828282"
+              />
             </svg>
             <p class="date">16 липня 2021</p>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="paginations container-projects">
@@ -78,7 +107,12 @@
       </button>
       <div class="all-page">
         <template v-for="p in paginations.allPage">
-          <button class="btn-to" :key="p" @click.prevent="GotoPage(p)" :class="{ active: p == paginations.currentPage }">
+          <button
+            class="btn-to"
+            :key="p"
+            @click.prevent="GotoPage(p)"
+            :class="{ active: p == paginations.currentPage }"
+          >
             <span>
               {{ p }}
             </span>
@@ -93,70 +127,66 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      search: '',
+      search: "",
       ifSearch: false,
       searchNews: [],
-      siteUrl: '',
+      siteUrl: "",
       paginations: {
         inPage: 5,
         allPage: 0,
         currentPage: 1,
         nextPage: 0,
-        prewPage: 0
-      }
-    }
+        prewPage: 0,
+      },
+    };
   },
   async fetch({ store }) {
-    await Promise.all([
-      store.dispatch('default/fetch'),
-    ])
+    await Promise.all([store.dispatch("default/fetch")]);
   },
   computed: {
-    ...mapGetters({
-
-    })
+    ...mapGetters({}),
   },
   head() {
     //TODO seo
   },
   methods: {
     InputSearch(e) {
-      if (e.code == 'Enter') {
-        if (this.search !== '') {
-          this.searchNewsItem()
+      if (e.code == "Enter") {
+        if (this.search !== "") {
+          this.searchNewsItem();
         } else {
         }
       }
-      if (this.search == '') {
-        this.ifSearch = false
+      if (this.search == "") {
+        this.ifSearch = false;
       }
     },
     searchNewsItem() {
-      this.searchNews = []
-      if (this.search !== '') {
-        this.docs.forEach(d => {
+      this.searchNews = [];
+      if (this.search !== "") {
+        this.docs.forEach((d) => {
           if (JSON.stringify(d).toUpperCase().indexOf(this.search.toUpperCase()) !== -1) {
-            this.searchNews.push(d)
+            this.searchNews.push(d);
           }
-        })
-        this.ifSearch = true
+        });
+        this.ifSearch = true;
       }
-    }
+    },
   },
   mounted() {
-    this.siteUrl = process.env.apiUrl
-  }
-}
+    this.siteUrl = process.env.apiUrl;
+  },
+};
 </script>
 
 <style lang="scss">
 #news {
-  border-bottom: 1px solid #BDBDBD;
+  border-bottom: 1px solid #bdbdbd;
   margin-top: 21px;
 
   .top {
@@ -168,7 +198,7 @@ export default {
     h2 {
       font-size: var(--fz1);
       font-weight: 600;
-      font-family: 'Montserrat Alternates', sans-serif;
+      font-family: "Montserrat Alternates", sans-serif;
     }
 
     .search {
@@ -177,7 +207,7 @@ export default {
       input {
         margin-right: 50px;
         width: 640px;
-        border: 1px solid #BDBDBD;
+        border: 1px solid #bdbdbd;
         border-radius: 6px;
         padding: 0px 15px;
       }
@@ -192,9 +222,10 @@ export default {
 
     .news-item {
       border-radius: 6px;
-      border: 1px solid var(--Gray-4, #BDBDBD);
+      border: 1px solid var(--Gray-4, #bdbdbd);
       display: flex;
       flex-direction: column;
+      transition: .3s;
 
       img {
         width: 100%;
@@ -204,8 +235,9 @@ export default {
       }
 
       &:hover {
-        border: 1px solid var(--dark-pink, #A62585);
+        border: 1px solid var(--dark-pink, #a62585);
         cursor: pointer;
+        transition: .3s;
       }
 
       .desc {
@@ -223,7 +255,6 @@ export default {
         }
 
         .title-word {
-
           font-size: 18px;
           font-weight: 600;
           line-height: 26px;
@@ -247,7 +278,6 @@ export default {
           flex-direction: row;
           align-items: center;
           margin-top: auto;
-
 
           svg {
             fill: var(--Gray-3, #828282);
@@ -289,7 +319,7 @@ export default {
         margin-right: 11px;
         padding-bottom: 18px;
         width: 26px;
-        transition: .3s;
+        transition: 0.3s;
 
         &:hover {
           span {
@@ -297,14 +327,13 @@ export default {
           }
         }
 
-        &:nth-last-child(-n+1) {
+        &:nth-last-child(-n + 1) {
           margin-right: 0;
         }
 
         span {
           font-size: 14px;
           font-weight: 400;
-
         }
 
         &.active {
@@ -313,7 +342,7 @@ export default {
           }
 
           &::after {
-            content: '';
+            content: "";
             display: block;
             width: 26px;
             height: 6px;
@@ -371,14 +400,11 @@ export default {
       }
     }
 
-
     .paginations {
       margin-top: 20px;
     }
-
   }
 }
-
 
 @media screen and (max-width: 860px) {
   #news {
