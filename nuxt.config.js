@@ -2,7 +2,11 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
   env: {
-    tokken: '8573828dc23cf2577982f245bedd5c8ad33e935fc34cff5ec46d40c2d105522b6dbe04a936b377c7c88ae1640e1017e729bb124a0915893fcfba194d7fc26afa7f6b876256aa2f3a6ca1f1d9208cce753007f88c53c745997583089798f4cd0a7eb90ac5283d8c5ba042d1f1389f35fc7cfc28bbfba689e4a32ca3ee7f81428e',
+    //tokken: '8573828dc23cf2577982f245bedd5c8ad33e935fc34cff5ec46d40c2d105522b6dbe04a936b377c7c88ae1640e1017e729bb124a0915893fcfba194d7fc26afa7f6b876256aa2f3a6ca1f1d9208cce753007f88c53c745997583089798f4cd0a7eb90ac5283d8c5ba042d1f1389f35fc7cfc28bbfba689e4a32ca3ee7f81428e',
+    //apiUrl: 'http://localhost:1341'
+
+    //local
+    tokken: '862e71e546becaff6278976bf2aceff9f26a679b883d9107c696e7381dda4b85c54054edc45177b31ca3b6d51484674a5914d824e4fe024c5ac28a33bf05d7a6c05044d7c67bff0fcae96f3eb81a1e32e1fd749478c7f6d9d70a971f57d4cb8560a630f7ae1cbc182361bfa73e49749008b63419362769ebfa310e87d6da9a14',
     apiUrl: 'http://localhost:1341'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -33,6 +37,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@plugins/v-mask.js',
+    '@plugins/youtube-embed.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
