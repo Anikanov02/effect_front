@@ -155,6 +155,66 @@
         </div>
       </div>
     </div>
+    <div id="instagram" class="instagram container-main margin-main">
+      <div class="panel quote">
+        <svg>
+          <circle r="60%" cx="0" cy="0" fill="#50A785"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант -- це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div v-if="instagram[0]">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
+          style="fill:#FFFFFF;">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z"></path></g></g>
+          </svg>
+          <a :href="instagram[0].attributes.permalink">
+            <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
+          </a>
+        </div>
+        <img v-else :src="require('~/assets/images/inst_image.png')">
+      </div>
+      <div class="panel quote">
+        <svg>
+          <circle r="60%" cx="100%" cy="100%" fill="#C6569A"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант -- це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div v-if="instagram[1]">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
+          style="fill:#FFFFFF;">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z"></path></g></g>
+          </svg>
+          <a :href="instagram[1].attributes.permalink">
+            <img class="inst-image" :src="instagram[1].attributes.media_url" alt="">
+          </a>
+        </div>
+        <img v-else :src="require('~/assets/images/inst_image.png')">
+      </div>
+      <div class="panel quote">
+        <svg>
+          <circle r="40%" cx="0" cy="0" fill="#A62585"/>
+        </svg>
+        <svg>
+          <circle r="13%" cx="80%" cy="75%" fill="#EFDC00"/>
+        </svg>
+        <div class="text_holder">
+          <p>Талант - <br>це світло на шляху до великого!</p>
+        </div>
+      </div>
+      <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
+        <div class="text_holder">
+          <p class="inst_tag">@efectdytyny</p>
+          <p class="subtext">перейти на сторінку</p>
+        </div>
+      </div>
+      
+    </div>
   </main>
 </template>
 
@@ -162,6 +222,7 @@
 import {mapGetters} from 'vuex'
 
 export default {
+  
   data() {
     return {
       siteUrl: '',
@@ -176,7 +237,8 @@ export default {
         initPoint: 0,
         startPoint: 0,
         endPoint: 0,
-      }
+      },
+      instagram: [],
     }
   },
   async fetch({store}) {
@@ -590,6 +652,17 @@ export default {
         this.lastScroll = top
       }
     },
+    async getInstagram(){
+      await this.$axios.get(`${process.env.apiUrl}/api/instagram-data`, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      })
+      .then(data => {
+        this.instagram = data.data.data
+        window.console.log(JSON.stringify(this.instagram, null, 2))
+      })
+    },
     async getProjects() {
       await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=4&sort=date:desc`, {
         headers: {
@@ -624,6 +697,7 @@ export default {
   mounted() {
     this.siteUrl = process.env.apiUrl
     this.getProjects()
+    this.getInstagram()
     setTimeout(()=> {
       window.addEventListener('scroll', this.onScroll)
     })
@@ -661,7 +735,7 @@ export default {
       console.log(this.$refs)
       console.log('after mounted')
     })
-  }
+  },
 }
 </script>
 
@@ -1099,6 +1173,7 @@ export default {
         grid-template-columns: repeat(5, 1fr);
         grid-column-gap: 95px;
         grid-row-gap: 30px;
+
         .partner {
           display: flex;
           &:hover {
@@ -1147,6 +1222,115 @@ export default {
         .btn-all {
           height: calc(50px - 22px);
           margin-top: 5px;
+        }
+      }
+    }
+
+    .instagram{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+      //grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 50px;
+      grid-row-gap: 50px;
+      margin-top: 150px;
+
+      .panel{
+        max-width: 400px;
+        aspect-ratio: 1/1;
+        border-radius: 6px;
+        position: relative;
+
+
+
+        .logo{
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 5px;
+          width: 15%;
+          height: 15%;
+          background: rgb(54,11,83);
+          background: linear-gradient(320deg, rgba(54,11,83,1) 5%, rgba(253,29,29,1) 58%, rgba(252,176,69,1) 100%);
+          border-radius: 6px 0 6px 0;
+
+
+          pointer-events: none;
+        }
+        
+        img{
+          display: block;
+          height: 100%;
+          max-width: 100%;
+          object-fit: cover;
+          border-radius: 6px;   
+          
+          box-shadow: none;
+         transition: .3s;
+
+          &:hover{
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.717);
+          }
+        }        
+      }
+
+      .quote{
+        border: 3px solid#e4e4e4;
+        position: relative;
+        place-items: center;
+
+        svg{
+          z-index: -1;
+          position: absolute;
+          border-radius: 4px;
+          display: block;
+          height: 100%;
+          width: 100%
+        }
+
+        .text_holder{
+          height: 100%;
+          padding: 0 15%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        
+          p{
+            color: var(--text-color, #202221);
+            font-family: Montserrat Alternates;
+            font-size: var(--fz1);
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            white-space: pre-line;
+          }
+        }
+      }
+
+      #link{
+        border: none;
+        background-color: #52A785;
+        box-shadow: none;
+        transition: .3s;
+        
+        &:hover{
+          cursor: pointer;
+          box-shadow: 0px 0px 30px 0px rgb(94, 194, 156);
+
+        }
+
+        p{
+          color: var(--white, #FFF);
+          font-size: var(--fz1);
+        }
+        .subtext{
+          margin-top: 10px;
+          text-align: center;
+          font-family: Montserrat Alternates;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 26px; /* 144.444% */
         }
       }
     }
@@ -1431,6 +1615,40 @@ export default {
           }
         }
       }
+
+      .instagram{
+        
+        grid-column-gap: 15px;
+        grid-row-gap: 15px;
+        margin-top: 50px;
+
+        .quote{
+          border-width: 1px;
+          .text_holder{
+
+            p{
+              font-size: 14px;
+              line-height: 15px;
+            }
+
+          }
+
+        }
+
+        #link{
+          p{
+            font-size: 10px;
+          }
+          .subtext{
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 15px; /* 150% */
+          }
+
+        }
+
+      }
     }
   }
 
@@ -1439,6 +1657,17 @@ export default {
       .partners {
         .all-parners {
           grid-template-columns: 1fr;
+        }
+      }
+      .instagram{
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+        div:nth-child(3){
+          grid-area: 3;
+        }
+
+        div:nth-child(4){
+          grid-area: 2;
         }
       }
     }
