@@ -3,116 +3,79 @@
     <div class="top">
       <h2>Новини</h2>
       <div class="search">
-        <input
-          type="text"
-          @keypress="InputSearch($event)"
-          @keyup="InputSearch($event)"
-          v-model="search"
-        />
+        <input type="text" @keypress="InputSearch($event)" @keyup="InputSearch($event)" v-model="search" />
         <button class="btn-search" @click.prevent="searchNewsItem()">
           <span class="ico-search"></span>
         </button>
       </div>
     </div>
 
-    <div class="all-news">
-      <div class="news-item">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
-        />
-        <div class="desc">
-          <p class="title-word">Конкурс</p>
-          <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">
-            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та ...
-          </p>
-
-          <div class="meta">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="20"
-              viewBox="0 0 18 20"
-            >
-              <path
-                d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282"
-              />
-            </svg>
-            <p class="date">16 липня 2021</p>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
-        />
-        <div class="desc">
-          <p class="title-word">Конкурс</p>
-          <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">
-            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та
-            fadfadfadfasdfasdfasdfa asdfasdfas sdfasdfa...
-          </p>
-
-          <div class="meta">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="20"
-              viewBox="0 0 18 20"
-            >
-              <path
-                d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282"
-              />
-            </svg>
-            <p class="date">16 липня 2021</p>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY="
-        />
-        <div class="desc">
-          <p class="title-word">Конкурс</p>
-          <p class="title-remain">на кращий дитячий малюнок</p>
-          <p class="text">
-            Оголошуємо конкурс для маленьких художників! Надсилайте роботи дітей та
-            fadfadfadfasdfasdfasdfa asdfasdfas sdfasdfa...
-          </p>
-
-          <div class="meta">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="20"
-              viewBox="0 0 18 20"
-            >
-              <path
-                d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
-                fill="#828282"
-              />
-            </svg>
-            <p class="date">16 липня 2021</p>
-          </div>
-        </div>
-      </div>
+    <div class="type-selector">
+      <button :class="{ active: currentType == 'all' }" @click.prevent="SetType('all')">Усі</button>
+      <button :class="{ active: currentType == 'option1' }" @click.prevent="SetType('option1')">option1</button>
+      <button :class="{ active: currentType == 'option2' }" @click.prevent="SetType('option2')">option2</button>
+      <button :class="{ active: currentType == 'option3' }" @click.prevent="SetType('option3')">option3</button>
     </div>
 
-    <div class="paginations container-projects">
+
+    <div class="all-news">
+      <template v-if="ifSearch">
+        <template v-for="(news_item, index) in searchNews">
+          <div class="news-item"
+            v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage">
+            <img
+              :src="news_item.attributes.previewPicture.data !== null ? siteUrl + news_item.attributes.previewPicture.data.attributes.url : null"
+              alt="">
+            <div class="desc">
+              <p class="title-word">{{ news_item.attributes.main_title }}</p>
+              <p class="title-remain">{{ news_item.attributes.title_remain }}</p>
+              <p class="text">{{ news_item.attributes.shortParagraph }}</p>
+
+              <div class="meta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+                  <path
+                    d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
+                    fill="#828282" />
+                </svg>
+                <p class="date">{{ GetDate(news_item.attributes.date) }}</p>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template v-else>
+          <template v-for="(news_item, index) in news">
+            <div class="news-item"
+              v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage"
+              @click.prevent="GotoNewsPiece(news_item.id)">
+              <img
+                :src="news_item.attributes.previewPicture.data !== null ? siteUrl + news_item.attributes.previewPicture.data.attributes.url : null"
+                alt="">
+              <div class="desc">
+                <p class="title-word">{{ news_item.attributes.main_title }}</p>
+                <p class="title-remain">{{ news_item.attributes.title_remain }}</p>
+                <p class="text">{{ news_item.attributes.shortParagraph }}</p>
+
+                <div class="meta">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+                    <path
+                      d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
+                      fill="#828282" />
+                  </svg>
+                  <p class="date">{{ GetDate(news_item.attributes.date) }}</p>
+                </div>
+              </div>
+            </div>
+          </template>
+      </template>
+    </div>
+    <div v-if="this.paginations.allPage > 0" class="paginations container-projects">
       <button class="prew-page" @click.prevent="GotoPage(paginations.currentPage - 1)">
         <span class="prew-arrow2"></span>
       </button>
       <div class="all-page">
         <template v-for="p in paginations.allPage">
-          <button
-            class="btn-to"
-            :key="p"
-            @click.prevent="GotoPage(p)"
-            :class="{ active: p == paginations.currentPage }"
-          >
+          <button class="btn-to" :key="p" @click.prevent="GotoPage(p)" :class="{ active: p == paginations.currentPage }">
             <span>
               {{ p }}
             </span>
@@ -123,6 +86,10 @@
         <span class="next-arrow2"></span>
       </button>
     </div>
+    <div v-else>
+      <H2 style="margin: 100px 0;">За цим запитом нічого не знайдено</H2>
+    </div>
+
   </div>
 </template>
 
@@ -136,8 +103,10 @@ export default {
       ifSearch: false,
       searchNews: [],
       siteUrl: "",
+      news: [],
+      currentType: "all",
       paginations: {
-        inPage: 5,
+        inPage: 9,
         allPage: 0,
         currentPage: 1,
         nextPage: 0,
@@ -155,6 +124,85 @@ export default {
     //TODO seo
   },
   methods: {
+    async getNews(type) {
+      var filterString = "&filters[type][$eq]=";
+      if (type == "all") {
+        filterString = "";
+      }
+      else {
+        filterString = filterString + type;
+      }
+      await this.$axios.get(`${process.env.apiUrl}/api/news?populate[paragraph]=*&populate[previewPicture]=*&pagination[pageSize]=999&sort=date:desc` + filterString, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      })
+        .then(data => {
+          this.news = data.data.data;
+          this.news.forEach((element) => {
+            var main_title = element.attributes.title;
+            if (main_title !== null) {
+              var words = main_title.split(" ");
+              element.attributes.main_title = words.shift();
+              element.attributes.title_remain = words.join(' ');
+            }
+            var text = element.attributes.paragraph[0].text;
+            if (text !== null) {
+              element.attributes.shortParagraph = text.slice(0, 70) + " ...";
+            }
+          })
+          this.calculatePaginations(this.news.length);
+        })
+    },
+    GotoPage(p) {
+      if (p !== 0 && p <= this.paginations.allPage) {
+        p < this.paginations.allPage ? this.paginations.currentPage = p : this.paginations.currentPage = this.paginations.allPage
+        p + 1 < this.paginations.allPage ? this.paginations.nextPage = p + 1 : this.paginations.nextPage = this.paginations.allPage - 1
+        p !== 0 ? this.paginations.prewPage = p - 1 : this.paginations.prewPage = p
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    },
+    GotoNewsPiece(id){
+      this.$router.push(`news/${id}`)
+    },
+    calculatePaginations(elementsCount) {
+      this.paginations.allPage > 1 ? this.paginations.nextPage = 2 : this.paginations.nextPage = 0
+      this.paginations.allPage = Math.ceil(elementsCount / this.paginations.inPage)
+      this.paginations.prewPage = 0
+    },
+    GetDate(date) {
+      let month = new Date(date).getMonth();
+      let months = [
+        'січеня',
+        'лютого',
+        'квітеня',
+        'березеня',
+        'травня',
+        'червня',
+        'липня',
+        'серпня',
+        'вересня',
+        'жовтня',
+        'листопада',
+        'грудня'
+      ]
+      let a = String
+      months.forEach((d, index) => {
+        if (index == month) {
+          a = d
+        }
+      })
+      return new Date(date).getDate() + " " + a + " " + new Date(date).getFullYear();
+    },
+    SetType(type) {
+      this.currentType = type;
+      this.getNews(this.currentType)
+      // this.search = "";
+      this.ifSearch = false;
+    },
     InputSearch(e) {
       if (e.code == "Enter") {
         if (this.search !== "") {
@@ -164,15 +212,17 @@ export default {
       }
       if (this.search == "") {
         this.ifSearch = false;
+        this.calculatePaginations(this.news.length)
       }
     },
     searchNewsItem() {
       this.searchNews = [];
       if (this.search !== "") {
-        this.docs.forEach((d) => {
-          if (JSON.stringify(d).toUpperCase().indexOf(this.search.toUpperCase()) !== -1) {
+        this.news.forEach((d) => {
+          if (JSON.stringify(d.attributes.title).toUpperCase().indexOf(this.search.toUpperCase()) !== -1) {
             this.searchNews.push(d);
           }
+          this.calculatePaginations(this.searchNews.length)
         });
         this.ifSearch = true;
       }
@@ -180,6 +230,7 @@ export default {
   },
   mounted() {
     this.siteUrl = process.env.apiUrl;
+    this.getNews(this.currentType);
   },
 };
 </script>
@@ -211,6 +262,47 @@ export default {
         border-radius: 6px;
         padding: 0px 15px;
       }
+    }
+  }
+
+  .type-selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+
+    position: relative;
+
+    margin: 20px 0;
+
+    border-bottom: 1px solid #BDBDBD;
+
+    button {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 0 5px;
+
+      color: var(--text-color, #202221);
+      font-family: Montserrat;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+    }
+
+    button.active {
+      font-weight: 700;
+    }
+
+    button.active::after {
+      position: absolute;
+      content: " ";
+      bottom: -44px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--dark-pink, #A62585);
+      border-radius: 6px;
     }
   }
 

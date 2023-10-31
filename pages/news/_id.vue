@@ -1,81 +1,35 @@
 <template>
   <div id="news-piece" class="container-projects">
     <div class="top">
-      <h2>Конкурс на кращий дитячий малюнок</h2>
+      <h2>{{ news.attributes.title }}</h2>
     </div>
-    <img class="main-image"
-      src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
+    <img  class="main-image"
+              :src="news.attributes.previewPicture.data !== null ? siteUrl + news.attributes.previewPicture.data.attributes.url : null"
+              alt="">
     <div class="meta">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
         <path
           d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
           fill="#BDBDBD" />
       </svg>
-      <p class="date">2 липня 2021</p>
+      <p class="date">{{GetDate(news.attributes.date)}}</p>
     </div>
     <div class="news-block">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        ducimus ullam saepe at quod dicta soluta est aliquam esse omnis iusto
-        similique vel, facere suscipit ex! Asperiores repellendus quaerat
-        dignissimos?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        ducimus ullam saepe at quod dicta soluta est aliquam esse omnis iusto
-        similique vel, facere suscipit ex! Asperiores repellendus quaerat
-        dignissimos?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        ducimus ullam saepe at quod dicta soluta est aliquam esse omnis iusto
-        similique vel, facere suscipit ex! Asperiores repellendus quaerat
-        dignissimos? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Nihil atque ex nam, culpa eius suscipit voluptatum quibusdam totam quod
-        iste porro tempora. Soluta voluptas rerum magni, quas nobis numquam
-        ratione?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        ducimus ullam saepe at quod dicta soluta est aliquam esse omnis iusto
-        similique vel, facere suscipit ex! Asperiores repellendus quaerat
-        dignissimos?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-        ducimus ullam saepe at quod dicta soluta est aliquam esse omnis iusto
-        similique vel, facere suscipit ex! Asperiores repellendus quaerat
-        dignissimos?
-      </p>
-      <div class="image-holder">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
-      </div>
-      <div class="image-holder">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
-      </div>
-      <div class="image-holder">
-        <img
-          src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/03/ChromeDevTools-computed.png?resize=410%2C383&ssl=1" />
-      </div>
-      <p>
-        Незважаючи на карантин, запроваджений через пандемію COVID-19, а може, і завдяки карантинним обмеженням юні
-        українці з таким завзяттям взялися за пензлі та олівці, що встановили рекорд – надіслали для участі у відбірковому
-        турі 14 316 малюнків (зазвичай їхня кількість близько 10 тисяч).
-      </p>
-      <p>
-        Незважаючи на карантин, запроваджений через пандемію COVID-19, а може, і завдяки карантинним обмеженням юні
-        українці з таким завзяттям взялися за пензлі та олівці, що встановили рекорд – надіслали для участі у відбірковому
-        турі 14 316 малюнків (зазвичай їхня кількість близько 10 тисяч).
-      </p>
+      <template v-for="paragraph in news.attributes.paragraph">
+        <p>{{ paragraph.text }}</p>
+        <template v-for="media in paragraph.media.data">
+          <div class="image-holder">
+            <img :src="media.attributes.url !== '' ? siteUrl + media.attributes.url : null" />
+          </div>
+        </template>
+      </template>
     </div>
-    <div class="quote">
-      <p class="quote-text">У творчості набагато простіше
-        зупинити мить</p>
+    <div v-if="news.attributes.quote !== ''" class="quote">
+      <p class="quote-text">{{ news.attributes.quote }}</p>
     </div>
-    <img class="main-image"
-      src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
+    <img  v-if="news.attributes.endImage.data !== null" class="main-image"
+              :src="news.attributes.endImage.data !== null ? siteUrl + news.attributes.endImage.data.attributes.url : null"
+              alt="">
   </div>
 </template>
 
@@ -84,16 +38,148 @@ import { mapGetters } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      siteUrl: "",
+      news: {
+        "attributes": {
+            "createdAt": "0",
+            "updatedAt": "0",
+            "title": "",
+            "type": "",
+            "date": "",
+            "quote": "",
+            "paragraph": [
+            ],
+            "previewPicture": {
+                "data": {
+                    "id": 38,
+                    "attributes": {
+                        "name": "изображение_2023-10-30_220308779.png",
+                        "alternativeText": "изображение_2023-10-30_220308779.png",
+                        "caption": "изображение_2023-10-30_220308779.png",
+                        "width": 800,
+                        "height": 451,
+                        "formats": {
+                            "small": {
+                                "ext": ".png",
+                                "url": "/uploads/small_izobrazhenie_2023_10_30_220308779_ba7404e895.png",
+                                "hash": "small_izobrazhenie_2023_10_30_220308779_ba7404e895",
+                                "mime": "image/png",
+                                "name": "small_изображение_2023-10-30_220308779.png",
+                                "path": null,
+                                "size": 413.05,
+                                "width": 500,
+                                "height": 282
+                            },
+                            "medium": {
+                                "ext": ".png",
+                                "url": "/uploads/medium_izobrazhenie_2023_10_30_220308779_ba7404e895.png",
+                                "hash": "medium_izobrazhenie_2023_10_30_220308779_ba7404e895",
+                                "mime": "image/png",
+                                "name": "medium_изображение_2023-10-30_220308779.png",
+                                "path": null,
+                                "size": 926.12,
+                                "width": 750,
+                                "height": 423
+                            },
+                            "thumbnail": {
+                                "ext": ".png",
+                                "url": "/uploads/thumbnail_izobrazhenie_2023_10_30_220308779_ba7404e895.png",
+                                "hash": "thumbnail_izobrazhenie_2023_10_30_220308779_ba7404e895",
+                                "mime": "image/png",
+                                "name": "thumbnail_изображение_2023-10-30_220308779.png",
+                                "path": null,
+                                "size": 99.26,
+                                "width": 245,
+                                "height": 138
+                            }
+                        },
+                        "hash": "izobrazhenie_2023_10_30_220308779_ba7404e895",
+                        "ext": ".png",
+                        "mime": "image/png",
+                        "size": 817.44,
+                        "url": "/uploads/izobrazhenie_2023_10_30_220308779_ba7404e895.png",
+                        "previewUrl": null,
+                        "provider": "local",
+                        "provider_metadata": null,
+                        "createdAt": "2023-10-30T20:03:10.760Z",
+                        "updatedAt": "2023-10-30T20:03:10.760Z"
+                    }
+                }
+            },
+            "endImage": {
+                "data": {
+                    "id": 28,
+                    "attributes": {
+                        "name": "Frame-3.png",
+                        "alternativeText": "Frame-3.png",
+                        "caption": "Frame-3.png",
+                        "width": 191,
+                        "height": 62,
+                        "formats": null,
+                        "hash": "Frame_3_b1cc832a6e",
+                        "ext": ".png",
+                        "mime": "image/png",
+                        "size": 2.88,
+                        "url": "/uploads/Frame_3_b1cc832a6e.png",
+                        "previewUrl": null,
+                        "provider": "local",
+                        "provider_metadata": null,
+                        "createdAt": "2021-12-15T13:26:33.607Z",
+                        "updatedAt": "2021-12-15T13:26:33.607Z"
+                    }
+                }
+            }
+        }
+      },
+    };
   },
   async fetch({ store }) {
     await Promise.all([store.dispatch("default/fetch")]);
   },
-  computed: {},
+  computed: {
+    ...mapGetters({}),
+  },
   head() { },
-  methods: {},
+  methods: {
+    async getNewsPiece(){
+      await this.$axios.get(`${process.env.apiUrl}/api/news/` + this.$route.params.id + "?populate[paragraph][populate][media]=*&populate[previewPicture]=*&populate[endImage]=*", {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      }).then(data => {
+        this.news = data.data.data;
+        console.log(this.news)
+      })
+    },
+    GetDate(date) {
+      let month = new Date(date).getMonth();
+      let months = [
+        'січеня',
+        'лютого',
+        'квітеня',
+        'березеня',
+        'травня',
+        'червня',
+        'липня',
+        'серпня',
+        'вересня',
+        'жовтня',
+        'листопада',
+        'грудня'
+      ]
+      let a = String
+      months.forEach((d, index) => {
+        if (index == month) {
+          a = d
+        }
+      })
+      return new Date(date).getDate() + " " + a + " " + new Date(date).getFullYear();
+    },
+  },
   mounted() {
     this.siteUrl = process.env.apiUrl;
+    this.getNewsPiece();
   },
 };
 </script>
