@@ -24,7 +24,7 @@
         </template>
       </template>
     </div>
-    <div v-if="news.attributes.quote !== ''" class="quote">
+    <div v-if=" news.attributes.quote !== null" class="quote">
       <p class="quote-text">{{ news.attributes.quote }}</p>
     </div>
     <img  v-if="news.attributes.endImage.data !== null" class="main-image"

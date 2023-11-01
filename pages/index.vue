@@ -116,47 +116,28 @@
         </nuxt-link>
       </div>
     </div>
-    <div id="news" class="news container-main" ref="news">
-      <div class="box box-1">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
-        <div class="desc">
-          <p class="title-main">Фотозвіт</p>
-          <p class="title-remain">з виставки дитячих художніх робіт</p>
-        </div>
-      </div>
-      <div class="box box-2">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
+    <div id="" class="news-all
+     container-main margin-main" ref="news">
+      <h2>
+        Новини
+      </h2>
+      <div class="news">
+        <template v-for="(element, index) in this.news" >
+          <div :class="`box box-${index + 1}`" @click.prevent="GotoNewsPiece(element.id)">
+          <img
+            :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
           <div class="desc">
-          <p class="title-main">Фотозвіт</p>
-          <p class="title-remain">з виставки дитячих художніх робіт</p>
+            <p class="title-main">{{element.attributes.main_title}}</p>
+            <p class="title-remain">{{ element.attributes.title_remain }}</p>
+          </div>
         </div>
+        </template>
       </div>
-      <div class="box box-3">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />        
-          <div class="desc">
-          <p class="title-main">Фотозвіт</p>
-          <p class="title-remain">з виставки дитячих художніх робіт</p>
-        </div>
-      </div>
-      <div class="box box-4">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
-          <div class="desc">
-          <p class="title-main">Фотозвіт</p>
-          <p class="title-remain">з виставки дитячих художніх робіт</p>
-        </div>
-      </div>
-      <div class="box box-5">
-        <img
-          src="https://media.istockphoto.com/id/517188688/uk/%D1%84%D0%BE%D1%82%D0%BE/%D0%B3%D1%96%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D0%BF%D0%B5%D0%B9%D0%B7%D0%B0%D0%B6.jpg?s=2048x2048&w=is&k=20&c=n8Qrv0bVsEiOm4_NB9JZ5HtnjP1ThqmuGDG640Em8ZY=" />
-          <div class="desc">
-          <p class="title-main">Фотозвіт</p>
-          <p class="title-remain">з виставки дитячих художніх робіт</p>
-        </div>
-      </div>
+      <div class="all-news">
+          <nuxt-link to="news" class="btn-all">
+            переглянути всі
+          </nuxt-link>
+        </div>  
     </div>
     <div id="partners" class="partners container-main margin-main" ref="partners">
       <h2>
@@ -208,6 +189,7 @@ export default {
     return {
       siteUrl: '',
       projects: [],
+      news: [],
       currentPage: 1,
       count: 5,
       prewPage: 0,
@@ -661,11 +643,33 @@ export default {
           }
         });
       })
-    }
+    },
+    async getNews() {
+      await this.$axios.get(`${process.env.apiUrl}/api/news?populate[previewPicture]=*&pagination[pageSize]=5&sort=date:desc`, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      })
+      .then(data => {
+        this.news = data.data.data
+        this.news.forEach((element) => {
+          var main_title = element.attributes.title;
+          if (main_title !== null) {
+            var words = main_title.split(" ");
+            element.attributes.main_title = words.shift();
+            element.attributes.title_remain = words.join(' ');
+          }
+        })
+      })
+    },
+    GotoNewsPiece(id){
+      this.$router.push(`news/${id}`)
+    },
   },
   mounted() {
     this.siteUrl = process.env.apiUrl
     this.getProjects()
+    this.getNews()
     setTimeout(()=> {
       window.addEventListener('scroll', this.onScroll)
     })
@@ -1126,102 +1130,129 @@ export default {
         margin-top: 30px;
       }
     }
-    .news{ 
-      margin-top: 100px;
-      display: grid;
-      grid-template-columns: 3fr 1fr 1fr 3fr;
-      grid-template-rows: 450px 300px 300px;
-      grid-column-gap: 30px;
-      grid-row-gap: 30px;
+    .news-all{
+      h2 {
+        font-size: var(--fz1);
+        font-weight: 600;
+        font-family: 'Montserrat Alternates', sans-serif;
+        margin-bottom: 60px;
+      }
+      .all-news {
+        display: flex;
+        justify-content: end;
+        margin-top: 30px;
+      }
+      .news{ 
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr 3fr;
+        grid-template-rows: 450px 300px 300px;
+        grid-column-gap: 30px;
+        grid-row-gap: 30px;
 
-      .box{
-        position: relative;
-        border-radius: 6px;
+        
 
-        img{
-          max-width: 100%;
-          height: 100%;
-          opacity: 1;
-          object-fit: cover;
+        .box{
+          position: relative;
           border-radius: 6px;
 
-          transition: .3s;
-          &:hover{
-            opacity: .25;
+          img{
+            max-width: 100%;
+            height: 100%;
+            opacity: 1;
+            object-fit: cover;
+            border-radius: 6px;
+
+            transition: .3s;
+            &:hover{
+              opacity: .25;
+            }
           }
-        }
-
-        .desc{
-          display: none;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-
-          margin-left: 56px;
-          margin-bottom: 35px;
-
-          pointer-events: none;
-          p{
-            color: var(--text-color, #202221);
-            font-family: Montserrat Alternates;
-            font-style: normal;
-            line-height: normal;
-          }
-          .title-main{
-            font-size: 40px;
-            font-weight: 600;
-
-          }
-
-          .title-remain{
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 26px;
-          }
-        }
-
-        &:hover{
-          cursor: pointer;
 
           .desc{
-            display: block;
+            display: none;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            margin-left: 56px;
+            margin-bottom: 35px;
+
+            pointer-events: none;
+            p{
+              color: var(--text-color, #202221);
+              font-family: Montserrat Alternates;
+              font-style: normal;
+              line-height: normal;
+            }
+            .title-main{
+              font-size: 40px;
+              font-weight: 600;
+
+            }
+
+            .title-remain{
+              font-size: 18px;
+              font-weight: 400;
+              line-height: 26px;
+            }
+          }
+
+          &:hover{
+            cursor: pointer;
+
+            .desc{
+              display: block;
+            }
           }
         }
-      }
 
-      .box-1{
-        grid-area: 1 / 1 / 2 / 3;
-        background-color: #EFDC00;
+        .box-1{
+          grid-area: 1 / 1 / 2 / 3;
+          background-color: #EFDC00;
 
 
-      }
-
-      .box-2{
-        grid-area: 1 / 3 / 2 / 5;
-        background-color: #C6569A;
-      }
-
-      .box-3{
-        grid-area: 2 / 1 / 4 / 4;
-        
-        background-color: #52A785;
-      }
-
-      .box-4{
-        grid-area: 2 / 4 / 3 / 5;
-        background-color: #A62585;
-
-        .desc{
-          margin-left: 35px;
         }
-      }
 
-      .box-5{
-        grid-area: 3 / 4 / 4 / 5;
-        background-color: #EFDC00;
+        .box-2{
+          grid-area: 1 / 3 / 2 / 5;
+          background-color: #C6569A;
+          .desc{
+            p{
+              color: #fff;
+            }
+          }
+        }
 
-        .desc{
-          margin-left: 35px;
+        .box-3{
+          grid-area: 2 / 1 / 4 / 4;
+          background-color: #52A785;
+          color: #fff;
+          .desc{
+            p{
+              color: #fff;
+            }
+          }
+        }
+
+        .box-4{
+          grid-area: 2 / 4 / 3 / 5;
+          background-color: #A62585;
+          color: #fff;
+          .desc{
+            margin-left: 35px;
+            p{
+              color: #fff;
+            }
+          }
+        }
+
+        .box-5{
+          grid-area: 3 / 4 / 4 / 5;
+          background-color: #EFDC00;
+
+          .desc{
+            margin-left: 35px;
+          }
         }
       }
     }

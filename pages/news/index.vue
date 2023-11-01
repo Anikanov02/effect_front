@@ -11,10 +11,10 @@
     </div>
 
     <div class="type-selector">
-      <button :class="{ active: currentType == 'all' }" @click.prevent="SetType('all')">Усі</button>
-      <button :class="{ active: currentType == 'option1' }" @click.prevent="SetType('option1')">option1</button>
-      <button :class="{ active: currentType == 'option2' }" @click.prevent="SetType('option2')">option2</button>
-      <button :class="{ active: currentType == 'option3' }" @click.prevent="SetType('option3')">option3</button>
+      <button :class="{ active: currentType == 'all' }" @click.prevent="SetType('all')">Всі</button>
+      <button :class="{ active: currentType == 'blog' }" @click.prevent="SetType('blog')">Блог команди</button>
+      <button :class="{ active: currentType == 'massMedia' }" @click.prevent="SetType('massMedia')">Ми у ЗМІ</button>
+    
     </div>
 
 
@@ -22,7 +22,8 @@
       <template v-if="ifSearch">
         <template v-for="(news_item, index) in searchNews">
           <div class="news-item"
-            v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage">
+            v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage"
+            @click.prevent="GotoNewsPiece(news_item.id)">
             <img
               :src="news_item.attributes.previewPicture.data !== null ? siteUrl + news_item.attributes.previewPicture.data.attributes.url : null"
               alt="">
