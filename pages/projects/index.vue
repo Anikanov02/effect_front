@@ -1,6 +1,21 @@
 <template>
   <div id="projects-page" class="prod">
-    <div class="projs container-projects">
+    <div v-if="this.windowWidth > 1100" class="type-selector">
+      <template v-for="(element, index) in projectTypes">
+        <button :class="{ active: currentType == element.attributes.type }" :title="element.attributes.name"  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
+      </template>
+    </div>
+    <div v-else class="dropdown container-projects">
+      <div class="dropdown-type-selector">
+        <button class="dropbtn">{{this.currentTypeName}} &#11167;</button>
+        <div class="dropdown-content">
+          <template v-for="(element, index) in projectTypes">
+            <button  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div v-if="projects.length > 0" class="projs container-projects">
       <div class="left">
         <div class="all-projects">
           <template v-for="(proj, index) in projects">
@@ -58,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="paginations container-projects">
+    <div v-if="projects.length > 0" class="paginations container-projects">
       <button class="prew-page" @click.prevent="GotoPage(paginations.currentPage-1)">
         <span class="prew-arrow2"></span>
       </button>
@@ -74,6 +89,9 @@
       <button class="next-page" @click.prevent="GotoPage(paginations.currentPage+1)">
         <span class="next-arrow2"></span>
       </button>
+    </div>
+    <div v-if="projects.length <= 0" style="margin: 50px 0; text-align: center;">
+      <h2>В цьому розділі проектів ще немає</h2>
     </div>
   </div>
 </template>
@@ -144,8 +162,12 @@ export default {
             }
           }
         },
+      windowWidth: '',
       siteUrl: '',
       projects: [],
+      projectTypes: [],
+      currentType: "",
+      currentTypeName: "",
       paginations: {
         inPage: 5,
         allPage: 0,
@@ -238,15 +260,37 @@ export default {
         });
       }
     },
-    async getProjects() {
-      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=999&sort=date:desc`, {
+    SetType(type) {
+      this.currentType = type;
+      this.projectTypes.forEach(element => {
+        if(element.attributes.type == this.currentType)
+        {
+          this.currentTypeName = element.attributes.name
+        }
+      });
+      this.getProjects(this.currentType)
+      console.log("type set to: " + this.currentType)
+    },
+    async getProjectTypes(){
+      await this.$axios.get(`${process.env.apiUrl}/api/project-types`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
       })
+      .then(data =>{
+        this.projectTypes = data.data.data;
+        this.currentType = this.projectTypes[0].attributes.type
+        this.currentTypeName = this.projectTypes[0].attributes.name
+      })
+    },
+    async getProjects(type) {
+      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=999&sort=date:desc&filters[types][type][$eq]=` + type, {
+
+      })
       .then(data => {
         let i = 1
         this.projects = data.data.data
+        console.log("got " + this.projects.length + " projects")
         if (document.documentElement.offsetWidth > 1100) {
           if (this.$route.query.to) {
             data.data.data.forEach((p, index) => {
@@ -270,9 +314,15 @@ export default {
       })
     }
   },
-  mounted() {
+  async mounted() {
+    this.windowWidth = window.innerWidth
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth
+      console.log(this.windowWidth)
+    })
     this.siteUrl = process.env.apiUrl
-    this.getProjects()
+    await this.getProjectTypes()
+    this.getProjects(this.currentType)
   }
 }
 </script>
@@ -281,6 +331,109 @@ export default {
   #projects-page {
     border-bottom: 1px solid #BDBDBD;
     margin-top: 21px;
+    .type-selector {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: 30px;
+
+      position: relative;
+
+      margin: 20px 0;
+
+      border-bottom: 1px solid #BDBDBD;
+
+      button {
+        position: relative;
+        margin-bottom: 40px;
+        padding: 0 5px;
+        width: fit-content;
+
+        color: var(--text-color, #202221);
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: normal;
+        
+        &:hover {
+          font-weight: 600;
+        }
+        
+        &::before {
+          display: block;
+          content: attr(title);
+          font-weight: bold;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
+        }
+
+      }
+
+      button.active {
+        font-weight: 700;
+      }
+
+      button.active::after {
+        position: absolute;
+        content: " ";
+        bottom: -44px;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: var(--pink);
+        border-radius: 6px;
+      }
+
+    }
+
+    .dropdown{
+      .dropdown-type-selector{
+        width: fit-content;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+        .dropbtn{
+          padding: 8px 15px 10px 15px;
+          background-color: #C6569A;
+          background-color: var(--pink);
+          color: #ffffff;
+          color: var(--white);
+          display: flex;
+          align-items: center;
+          max-width: 200px;
+          border-radius: 6px;
+          font-weight: 600;
+          font-size: 18px;
+          font-size: var(--fz3);
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 200px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+
+          button{
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+          }
+        }
+
+        &:hover .dropdown-content {
+          display: block;
+        }
+      }
+    }
+
+    
+
     .projs {
       display: grid;
       grid-template-columns: 30% 1fr;
