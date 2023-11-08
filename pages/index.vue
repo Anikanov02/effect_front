@@ -51,69 +51,27 @@
         </template>
       </div>
     </div>
-    <div id="projects" class="projects margin-main" ref="projects">
+    <div id="projects" class="projects container-main margin-main" ref="projects">
       <h2>
         Проекти
       </h2>
-      <div class="gal" ref="gal_prod">
-        <div class="gallery-projects" @touchstart="onScrollProkects($event)">
-          <template v-for="(p, index) in projects">
-            <button class="project" :data_element="`project${index}`" :key="p.id"
-              @click.prevent="setActiveProjectMouse2($event, `project${index}`, p.attributes.link)" ref="project">
-              <div class="date" @mouseenter="setActiveProjectMouse(`project${index}`)">
-                <svg width="151" height="151" viewBox="0 0 151 151" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M151 0.0921069L0 1.80066e-06L1.80066e-06 151C83.4183 151 151 83.4595 151 0.0921069Z" />
-                </svg>
-                <p>
-                  {{ getDate(p.attributes.date) }}
-                </p>
+      <div class="carousel-container" ref="gal_prod">
+        <div class="carousel-inner">
+          <template>
+          <div class="track" ref="card_track">
+              <div v-for="prType in projectTypes" class="card-container" @click.prevent="goToProjectType(prType.attributes.type)">
+                <div class="card" ref="card">
+                  <img class=".img" :src="siteUrl + prType.attributes.previewPicture.data.attributes.url"></img>
+                  <span>{{prType.attributes.name}}</span>
+                </div>
               </div>
-              <div class="desc" @mouseenter="setActiveProjectMouse(`project${index}`)">
-                <p class="name">
-                  {{ p.attributes.title }}
-                </p>
-                <p class="address">
-                  {{ p.attributes.address }}
-                </p>
-              </div>
-              <div class="img">
-                <img :src="siteUrl + p.attributes.img.data.attributes.url" alt="">
-                <span class="bg" @mouseenter="setActiveProjectMouse(`project${index}`)"></span>
-              </div>
-            </button>
-          </template>
-        </div>
-      </div>
-      <div class="pagintaion">
-        <button class="prew" @click.prevent="prewProject()" ref="prewProject">
-          <div class="svg">
-            <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11.5712 0.0849695C11.4418 0.021861 11.2965 -0.00701434 11.1509 0.00144188C11.0053 0.00989905 10.8649 0.0553683 10.7448 0.132972L0.344421 6.88333C0.238147 6.95235 0.1513 7.0445 0.0913169 7.15187C0.0313327 7.25925 6.6628e-07 7.37865 6.55683e-07 7.49986C6.45087e-07 7.62107 0.0313327 7.74047 0.0913168 7.84784C0.1513 7.95522 0.238146 8.04736 0.344421 8.11639L10.7448 14.8667C10.8648 14.9446 11.0052 14.9902 11.1509 14.9986C11.2966 15.007 11.442 14.9778 11.5712 14.9143C11.7005 14.8508 11.8088 14.7554 11.8844 14.6383C11.96 14.5213 12 14.387 12 14.2502L12 0.749505C12 0.612595 11.9601 0.47829 11.8845 0.361148C11.8089 0.244006 11.7005 0.148497 11.5712 0.0849695Z" />
-            </svg>
           </div>
-        </button>
-        <div class="points">
-          <template v-for="(p, index) in projects">
-            <button class="point" :key="p.id" @click.prevent="setActiveProject(`project${index}`)"
-              :data_element="`project${index}`" ref="projectBtn">
-              <div class="svg">
-                <svg fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="5" cy="5" r="5" />
-                </svg>
-              </div>
-            </button>
-          </template>
+        </template>
         </div>
-        <button class="next" @click.prevent="nextProject()" ref="nextProject">
-          <div class="svg">
-            <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0.428812 14.915C0.558228 14.9781 0.703534 15.007 0.849131 14.9986C0.994729 14.9901 1.13512 14.9446 1.25524 14.867L11.6556 8.11667C11.7619 8.04765 11.8487 7.9555 11.9087 7.84813C11.9687 7.74075 12 7.62135 12 7.50014C12 7.37893 11.9687 7.25953 11.9087 7.15216C11.8487 7.04478 11.7619 6.95264 11.6556 6.88361L1.25524 0.133254C1.13522 0.0553947 0.994759 0.00980153 0.849079 0.00141157C0.703398 -0.00697839 0.558045 0.0221546 0.428758 0.085656C0.299471 0.149157 0.191177 0.244608 0.115601 0.361671C0.0400259 0.478735 4.91733e-05 0.612951 -1.05295e-07 0.749786L-2.19691e-06 14.2505C-2.62837e-05 14.3874 0.0399215 14.5217 0.115511 14.6389C0.191101 14.756 0.299449 14.8515 0.428812 14.915Z"
-                fill="#E0E0E0" />
-            </svg>
-          </div>
-        </button>
+        <div class="nav">
+          <button class="prev material-symbols-outlined">chevron_left</button>
+          <button class="next material-symbols-outlined">chevron_right</button>
+        </div>
       </div>
       <div class="all-projects">
         <nuxt-link to="projects" class="btn-all">
@@ -278,6 +236,7 @@ export default {
     return {
       siteUrl: '',
       projects: [],
+      projectTypes: [],
       currentPage: 1,
       count: 5,
       prewPage: 0,
@@ -563,6 +522,9 @@ export default {
         }
       }
     },
+    goToProjectType(type){
+      this.$router.push("/projects?type=" + type)
+    },
     getActivePosition() {
       let value = '';
       let bool = false;
@@ -584,6 +546,75 @@ export default {
       let day = d.split('-')[2];
       let month = d.split('-')[1];
       return day + '.' + month;
+    },
+    test(){
+      const card_track = this.$refs.card_track
+    },
+    projectsCarousel(){
+      const prev = document.querySelector('.prev');
+      const next = document.querySelector('.next');
+      const track = document.querySelector('.track');
+      let carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+
+
+      
+      const card = document.querySelectorAll(".card-container")
+      let cardWidth = card[0].offsetWidth;
+      
+      
+      let cardCount = 3
+      if(window.innerWidth < 1100 && window.innerWidth > 830 ){
+        cardCount = 2 
+      }
+      else if(window.innerWidth < 830){
+        cardCount = 1
+      }
+      
+      card.forEach(element => {
+        element.style.width = `${carouselWidth / cardCount}px`
+      });
+      cardWidth = document.querySelector('.card-container').offsetWidth;
+      console.log(cardWidth)
+
+      window.addEventListener('resize', () => {
+        console.log(window.innerWidth)
+        if(window.innerWidth < 1100 && window.innerWidth > 830 ){
+          cardCount = 2 
+        }
+        else if(window.innerWidth < 830){
+          cardCount = 1
+        }
+        carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+        card.forEach(element => {
+          element.style.width = `${carouselWidth / cardCount}px`
+        });
+        cardWidth = document.querySelector('.card-container').offsetWidth;
+      })
+
+      let index = 0;
+
+      next.addEventListener('click', () => {
+        index++;
+        prev.classList.add('show');
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2)){
+          next.classList.add("hide")
+        }
+      })
+
+      prev.addEventListener('click', () => {
+        index--;
+        if(index == 0){
+          prev.classList.remove('show');
+        }
+        next.classList.remove('hide');
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2) ){
+          next.classList.add("hide")
+        }
+      })
     },
     onMousClick(el, index) {
       if (!this.$refs.gallery[index].classList.contains('in')) {
@@ -739,39 +770,21 @@ export default {
       })
         .then(data => {
           this.instagram = data.data.data
-          window.console.log(JSON.stringify(this.instagram, null, 2))
+          //window.console.log(JSON.stringify(this.instagram, null, 2))
         })
     },
     async getProjects() {
-      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=4&sort=date:desc`, {
+      await this.$axios.get(`${process.env.apiUrl}/api/project-types?populate=previewPicture`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
       })
-        .then(data => {
-          this.projects = data.data.data;
-          setTimeout(() => {
-            for (let i in this.$refs.project) {
-              if (i == 0 || i == 4) {
-                this.$refs.project[i].classList.add('active');
-                this.$refs.project[i].classList.add('isCliced');
-                this.$refs.projectBtn[i].classList.add('active');
-                let numberActiveProj = parseInt(this.$refs.project[i].attributes.data_element.value.split('project')[1]);
-                if (numberActiveProj == 3) {
-                  this.$refs.nextProject.classList.remove('active');
-                }
-                else {
-                  this.$refs.nextProject.classList.add('active');
-                }
-                if (numberActiveProj == 0) {
-                  this.$refs.prewProject.classList.remove('active');
-                }
-                else {
-                  this.$refs.prewProject.classList.add('active');
-                }
-              }
-            }
-          });
+        .then(({data}) => {
+          this.projectTypes = data.data;
+          this.$nextTick(() =>{
+
+            this.projectsCarousel();
+          })
         });
     },
     async getYoutubeVideos() {
@@ -781,7 +794,7 @@ export default {
         }
       }).then(data => {
         this.youtubeVideos = data.data.data
-        window.console.log(JSON.stringify(this.youtubeVideos, null, 2))
+        //window.console.log(JSON.stringify(this.youtubeVideos, null, 2))
       })
     },
     redirectToAnotherPage(url) {
@@ -794,6 +807,8 @@ export default {
     this.getProjects();
     this.getYoutubeVideos();
     this.getInstagram()
+    
+    
     setTimeout(() => {
       window.addEventListener('scroll', this.onScroll);
     });
@@ -829,7 +844,10 @@ export default {
         }
       }
       catch { }
+      
+      //this.projectsCarousel()
       console.log(this.$refs);
+      this.test()
       console.log('after mounted');
     });
   },
@@ -838,6 +856,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 #homePage {
   max-width: 1920px;
   margin: 0 auto;
@@ -1055,267 +1074,95 @@ export default {
   }
 
   .projects {
-    width: 100%;
-    max-width: 1920px;
 
     h2 {
       font-size: var(--fz1);
       font-weight: 600;
       font-family: 'Montserrat Alternates', sans-serif;
       margin-bottom: 60px;
-      margin-left: 300px;
     }
+    
+    .carousel-container{
+      position: relative;
+      margin: 50px auto;
+      min-height: 200px;
+      .carousel-inner{
+        overflow: hidden;
+        .track{
+          display: inline-flex;
+          transition: transform .6s;
 
-    .gallery-projects {
-      display: flex;
-      width: 100%;
-      max-height: 600px;
-      height: 600px;
+          .card-container{
+            flex-shrink: 0;
+            height: 450px;
+            box-sizing: border-box;
 
-      .project {
-        position: relative;
-        transition: .3s;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        z-index: 0;
-
-        &:nth-child(1) {
-          .date {
-            p {
+            .card{
               position: relative;
-              color: var(--black);
-            }
 
-            svg {
-              path {
-                fill: var(--yellow);
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: end;
+              cursor: pointer;
+              transition: .3s;
+              
+              img{
+                position:absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: .3s;
+                filter: brightness(50%);
+
+                z-index: 0;
+
+                &:hover{
+                  filter: brightness(100%)
+                }
+              }
+
+              span{
+                color: var(--white, #FFF);
+                font-family: Montserrat Alternates;
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                margin: 20px 40px;
+                z-index: 1;
               }
             }
           }
         }
+      }
 
-        &:nth-child(2) {
-          .date {
-            p {
-              position: relative;
-              color: var(--white);
-            }
-
-            svg {
-              path {
-                fill: var(--green);
-              }
-            }
-          }
-        }
-
-        &:nth-child(3) {
-          .date {
-            p {
-              position: relative;
-              color: var(--white);
-            }
-
-            svg {
-              path {
-                fill: var(--pink2);
-              }
-            }
-          }
-        }
-
-        &:nth-child(4) {
-          .date {
-            p {
-              position: relative;
-              color: var(--black);
-            }
-
-            svg {
-              path {
-                fill: var(--yellow);
-              }
-            }
-          }
-        }
-
-        &.active {
-          width: 150%;
-
-          .img {
-            .bg {
-              opacity: 0;
-            }
-          }
-
-          .desc {
-            background-color: var(--pink2);
-          }
-        }
-
-        .date,
-        .desc {
-          z-index: 1;
-          position: relative;
-        }
-
-        .date {
-          width: 125px;
-          height: 105px;
-          font-weight: 600;
-          padding-left: 25px;
-          padding-top: 45px;
-          position: relative;
-
-          p {
-            font-size: var(--fz2);
-            text-align: left;
-          }
-
-          svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-          }
-        }
-
-        .desc {
-          padding: 30px 60px;
-          width: calc(100% - 120px);
-          transition: .3s;
-          overflow: hidden;
-
-          .name {
-            font-size: var(--fz2);
-            font-weight: 600;
-            font-family: 'Montserrat Alternates', sans-serif;
-          }
-
-          .address {
-            font-size: var(--fz3);
-            font-weight: 400;
-          }
-
-          p {
-            color: var(--white);
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            text-align: left;
-          }
-        }
-
-        .img {
-          height: 100%;
-          width: 100%;
-          z-index: 0;
+      .nav{
+        button{
           position: absolute;
-          top: 0;
-          left: 0;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-          }
-
-          .bg {
-            position: absolute;
-            display: block;
-            background-color: rgba($color: #202221, $alpha: .7);
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            transition: .3s;
-            z-index: 1;
-          }
-        }
-      }
-    }
-
-    .pagintaion {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 15px;
-      margin-top: 30px;
-
-      .prew {
-        margin-right: 15px;
-      }
-
-      .next {
-        margin-left: 15px;
-      }
-
-      .prew,
-      .next {
-        height: 15px;
-
-        path {
-          transition: .3s;
-          fill: #E0E0E0;
+          width: 30px;
+          height: 80px;
+          background-color: var(--pink);
+          border-radius: 6px;
+          top: 50%;
+          z-index: 2;
+          transform: translateY(-50%);
+          color: #fff;
         }
 
-        &.active {
-          path {
-            fill: #828282;
-          }
+        .prev{
+          left: -15px;
+          display: none;
         }
-      }
-
-      .points {
-        display: flex;
-        justify-content: space-between;
-        max-width: 96px;
-        width: 100%;
-
-        .point {
-          width: 15px;
-          height: 15px;
-
-          &.active {
-            .svg {
-              svg {
-                transform: scale(1.4)
-              }
-            }
-          }
-
-          .svg {
-            width: 15px;
-            height: 15px;
-          }
-
-          svg {
-            width: 10px;
-            height: 10px;
-            transition: .3s;
-          }
-
-          &:nth-child(1),
-          &:nth-child(4) {
-            circle {
-              fill: var(--pink);
-            }
-          }
-
-          &:nth-child(2) {
-            circle {
-              fill: var(--yellow);
-            }
-          }
-
-          &:nth-child(3) {
-            circle {
-              fill: var(--green);
-            }
-          }
+        .show{
+          display: block;
+        }
+        .hide{
+          display: none;
+        }
+        .next{
+          right: -15px;
         }
       }
     }
@@ -1734,30 +1581,17 @@ export default {
         margin-bottom: 20px;
       }
 
-      .gal {
-        overflow: hidden;
-      }
-
-      .gallery-projects {
-        width: calc(300px * 3 + 500px);
-        transition: .3s;
-
-        .project {
-          width: 300px;
-          min-width: 300px;
-
-          &.active {
-            min-width: 500px;
-          }
+      .carousel-container{
+        width: 80%;
+        .carousel-inner{
+          .track{
+            .card-container{
+              .card{
+                filter: brightness(100%)
+              }
+            }
+          } 
         }
-      }
-
-      .pagintaion {
-        .points {
-          display: none;
-        }
-
-        // display: none;
       }
     }
 
@@ -1811,6 +1645,14 @@ export default {
     .documentations {
       .all-docs {
         grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .projects{
+      .carousel-container{
+        .carousel-inner{
+          width: 100%;
+        }
       }
     }
 

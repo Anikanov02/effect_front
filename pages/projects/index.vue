@@ -322,6 +322,9 @@ export default {
     })
     this.siteUrl = process.env.apiUrl
     await this.getProjectTypes()
+    if(this.$route.query.type != null){
+      this.currentType = this.$route.query.type;
+    }
     this.getProjects(this.currentType)
   }
 }
