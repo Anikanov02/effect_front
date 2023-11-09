@@ -272,6 +272,7 @@ export default {
   },
   mounted() {
     this.siteUrl = process.env.apiUrl
+    console.log(this.seo)
     this.getProjects()
   }
 }
