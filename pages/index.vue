@@ -84,29 +84,6 @@
         </nuxt-link>
       </div>
     </div>
-    <div id="" class="news-all
-     container-main margin-main" ref="news">
-      <h2>
-        Новини
-      </h2>
-      <div class="news">
-        <template v-for="(element, index) in this.news" >
-          <div :class="`box box-${index + 1}`" @click.prevent="GotoNewsPiece(element.id)">
-          <img
-            :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
-          <div class="desc">
-            <p class="title-main">{{element.attributes.main_title}}</p>
-            <p class="title-remain">{{ element.attributes.title_remain }}</p>
-          </div>
-        </div>
-        </template>
-      </div>
-      <div class="all-news">
-          <nuxt-link to="news" class="btn-all">
-            переглянути всі
-          </nuxt-link>
-        </div>  
-    </div>
     <div id="partners" class="partners container-main margin-main" ref="partners">
       <h2>
         Наші партнери
