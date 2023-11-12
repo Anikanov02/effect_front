@@ -84,6 +84,29 @@
         </nuxt-link>
       </div>
     </div>
+    <div id="" class="news-all
+     container-main margin-main" ref="news">
+      <h2>
+        Новини
+      </h2>
+      <div class="news">
+        <template v-for="(element, index) in this.news" >
+          <div :class="`box box-${index + 1}`" @click.prevent="GotoNewsPiece(element.id)">
+          <img
+            :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
+          <div class="desc">
+            <p class="title-main">{{element.attributes.main_title}}</p>
+            <p class="title-remain">{{ element.attributes.title_remain }}</p>
+          </div>
+        </div>
+        </template>
+      </div>
+      <div class="all-news">
+          <nuxt-link to="news" class="btn-all">
+            переглянути всі
+          </nuxt-link>
+        </div>  
+    </div>
     <div id="partners" class="partners container-main margin-main" ref="partners">
       <h2>
         Наші партнери
@@ -1212,32 +1235,7 @@ export default {
     }
   }
 
-  .partners {
-    path {
-      fill: #C9C9C9;
-    }
-
-    h2 {
-      font-size: var(--fz1);
-      font-weight: 600;
-      font-family: 'Montserrat Alternates', sans-serif;
-      margin-bottom: 60px;
-    }
-
-    .all-partners {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-column-gap: 95px;
-      grid-row-gap: 30px;
-
-
-      .partner {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-      }
-    }
-    .news-all{
+  .news-all{
       h2 {
         font-size: var(--fz1);
         font-weight: 600;
@@ -1363,38 +1361,30 @@ export default {
         }
       }
     }
-    .partners {
-      path {
-        fill: #C9C9C9;
-      }
-      h2 {
-        font-size: var(--fz1);
-        font-weight: 600;
-        font-family: 'Montserrat Alternates', sans-serif;
-        margin-bottom: 60px;
-      }
-      .all-parners {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-column-gap: 95px;
-        grid-row-gap: 30px;
-        .partner {
-          display: flex;
-          &:hover {
-            img {
-              opacity: 1;
-            }
-          }
-          img {
-            opacity: 1;
-          }
-        }
 
-        img {
-          opacity: .5;
-          transition: .3s;
-          height: 100%;
-        }
+  .partners {
+    path {
+      fill: #C9C9C9;
+    }
+
+    h2 {
+      font-size: var(--fz1);
+      font-weight: 600;
+      font-family: 'Montserrat Alternates', sans-serif;
+      margin-bottom: 60px;
+    }
+
+    .all-partners {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 95px;
+      grid-row-gap: 30px;
+
+
+      .partner {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
       }
     }
   }
