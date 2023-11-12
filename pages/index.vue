@@ -263,11 +263,8 @@ export default {
     return {
       siteUrl: '',
       projects: [],
-<<<<<<< HEAD
       projectTypes: [],
-=======
       news: [],
->>>>>>> origin/feature/news
       currentPage: 1,
       count: 5,
       prewPage: 0,
@@ -811,7 +808,6 @@ export default {
           Authorization: `Bearer ${process.env.tokken}`
         }
       })
-<<<<<<< HEAD
         .then(({data}) => {
           this.projectTypes = data.data;
           this.$nextTick(() =>{
@@ -833,19 +829,6 @@ export default {
     redirectToAnotherPage(url) {
       // Change the URL to the page you want to redirect to
       window.open(url, '_blank')
-    }
-  },
-  mounted() {
-    this.siteUrl = process.env.apiUrl;
-    this.getProjects();
-    this.getYoutubeVideos();
-    this.getInstagram()
-    
-    
-    setTimeout(() => {
-      window.addEventListener('scroll', this.onScroll);
-    });
-=======
     },
     async getNews() {
       await this.$axios.get(`${process.env.apiUrl}/api/news?populate[previewPicture]=*&pagination[pageSize]=5&sort=date:desc`, {
@@ -870,14 +853,15 @@ export default {
     },
   },
   mounted() {
-    this.siteUrl = process.env.apiUrl
-    this.getProjects()
+    this.siteUrl = process.env.apiUrl;
+    this.getProjects();
+    this.getYoutubeVideos();
+    this.getInstagram()
     this.getNews()
-    setTimeout(()=> {
-      window.addEventListener('scroll', this.onScroll)
-    })
-
->>>>>>> origin/feature/news
+    
+    setTimeout(() => {
+      window.addEventListener('scroll', this.onScroll);
+    });
     this.$nextTick(() => {
       try {
         if (document.documentElement.offsetWidth > 601) {
@@ -1272,10 +1256,6 @@ export default {
 
       .partner {
         display: flex;
-<<<<<<< HEAD
-
-        &:hover {
-=======
         justify-content: center;
         margin-top: 30px;
       }
@@ -1428,7 +1408,6 @@ export default {
               opacity: 1;
             }
           }
->>>>>>> origin/feature/news
           img {
             opacity: 1;
           }
