@@ -45,9 +45,9 @@
             Реквізити
           </p>
           <div class="requisites">
-            <p class="label">UA1111111111111111111111111111</p>
-            <p class="label">ГО ЕФЕКТ ДИТИНИ</p>
-            <p class="label-mt35">Код отримувача: 44024979</p>
+            <p class="label">{{ requisites.iban }}</p>
+            <p class="label">{{ requisites.name }}</p>
+            <p class="label-mt35">Код отримувача: {{ requisites.code }}</p>
           </div>
           <nuxt-link to="/" class="btn-donate">
             підтримати
@@ -84,6 +84,7 @@ export default {
   async fetch({store}) {
     await Promise.all([
       store.dispatch('default/fetch'),
+      store.dispatch('rekviziti/fetch'),
     ])
   },
   computed: {
@@ -94,9 +95,14 @@ export default {
       google_link: 'default/google_link',
       email: 'default/email',
       phones: 'default/phones',
-      socs: 'default/socs'
+      socs: 'default/socs',
+      requisites: 'rekviziti/requisites',
     })
   },
+  mounted(){
+    console.log(this.requisites)
+    console.log('after req')
+  }
 }
 </script>
 
