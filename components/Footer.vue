@@ -41,7 +41,18 @@
           </div>
         </div>
         <div class="right">
-          <FormSendMail />
+          <p class="title">
+            Реквізити
+          </p>
+          <div class="requisites">
+            <p class="label">{{ requisites.iban }}</p>
+            <p class="label">{{ requisites.name }}</p>
+            <p class="label-mt35">Код отримувача: {{ requisites.code }}</p>
+          </div>
+          <nuxt-link to="/" class="btn-donate">
+            підтримати
+            <span class="svg-donate"></span>
+          </nuxt-link>
         </div>
       </div>
       <div class="bottom">
@@ -73,6 +84,7 @@ export default {
   async fetch({store}) {
     await Promise.all([
       store.dispatch('default/fetch'),
+      store.dispatch('rekviziti/fetch'),
     ])
   },
   computed: {
@@ -83,9 +95,14 @@ export default {
       google_link: 'default/google_link',
       email: 'default/email',
       phones: 'default/phones',
-      socs: 'default/socs'
+      socs: 'default/socs',
+      requisites: 'rekviziti/requisites',
     })
   },
+  mounted(){
+    console.log(this.requisites)
+    console.log('after req')
+  }
 }
 </script>
 
@@ -104,7 +121,6 @@ export default {
     .top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
       .left {
         .title {
           font-size: var(--fz1);
@@ -168,6 +184,38 @@ export default {
           }
         }
       }
+      .right{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        
+        .title {
+          font-size: var(--fz1);
+          font-weight: 600;
+          font-family: 'Montserrat Alternates', sans-serif;
+          margin-bottom: 10px;
+        }
+        .requisites{
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          .label {
+            font-size: var(--fz3);
+            font-weight: 400;
+            font-family: 'Montserrat Alternates', sans-serif;
+            margin-bottom: 15px;
+          }
+          .label-mt35{
+            font-size: var(--fz3);
+            font-weight: 400;
+            font-family: 'Montserrat Alternates', sans-serif;
+            margin-top: 35px;
+          }
+        }
+        .btn-donate{
+          margin-top: auto;
+        }
+      }     
     }
     .bottom {
       display: flex;
@@ -277,6 +325,14 @@ export default {
         }
         .right {
           width: 100%;
+          align-items: start;
+          .requisites{
+            align-items: start;
+
+            .label-mt35{
+              margin-top: 0px;
+            }
+          }
         }
       }
       .bottom {

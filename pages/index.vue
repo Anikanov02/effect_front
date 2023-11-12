@@ -302,8 +302,9 @@ export default {
       store.dispatch('mainGallery/fetch'),
       store.dispatch('partners/fetch'),
       store.dispatch('documents/fetch'),
-      store.dispatch('homePage/fetch')
-    ]);
+      store.dispatch('homePage/fetch'),
+      store.dispatch('rekviziti/fetch'),
+    ])
   },
   computed: {
     ...mapGetters({
