@@ -91,7 +91,7 @@
       </button>
     </div>
     <div v-if="projects.length <= 0" style="margin: 50px 0; text-align: center;">
-      <h2>В цьому розділі проектів ще немає</h2>
+      <h2>В цьому розділі проектів ще немає проектів</h2>
     </div>
   </div>
 </template>
