@@ -50,6 +50,11 @@
           </div>
         </template>
       </div>
+      <div class="all-founders">
+        <nuxt-link to="founders" class="btn-all">
+          переглянути усіх
+        </nuxt-link>
+      </div>
     </div>
     <div id="projects" class="projects margin-main" ref="projects">
       <h2>
@@ -156,7 +161,6 @@
       </div>
     </div>
 
-    </div>
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
       <h2>
         Документація
@@ -1051,6 +1055,17 @@ export default {
             font-weight: 400;
           }
         }
+      }
+      
+    }
+
+    .all-founders {
+      display: flex;
+      justify-content: end;
+      margin-top: 30px;
+
+      .btn-all{
+        max-width: 180px;
       }
     }
   }
