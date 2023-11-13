@@ -1,5 +1,5 @@
 <template>
-    <div id="news-piece" class="container-projects">
+    <div id="news-piece" class="container-main">
       <div class="top">
         <h2>{{ news.attributes.title }}</h2>
       </div>

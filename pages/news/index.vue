@@ -1,6 +1,6 @@
 <template>
-    <div id="news" class="container-projects">
-      <div class="top">
+    <div id="news" class="">
+      <div class="top container-projects">
         <h2>Новини</h2>
         <div class="search">
           <input type="text" @keypress="InputSearch($event)" @keyup="InputSearch($event)" v-model="search" />
@@ -18,7 +18,7 @@
       </div>
   
   
-      <div class="all-news">
+      <div class="all-news container-projects">
         <template v-if="ifSearch">
           <template v-for="(news_item, index) in searchNews">
             <div class="news-item"
@@ -245,7 +245,6 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 60px;
-      margin-right: 35px;
   
       h2 {
         font-size: var(--fz1);
@@ -393,7 +392,6 @@
       position: relative;
       width: calc(100vw - 42px);
       justify-content: end;
-      margin-right: 0;
   
       .prew-page {
         margin-right: 11px;

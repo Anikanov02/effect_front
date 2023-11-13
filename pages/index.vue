@@ -120,6 +120,9 @@
       </div>
     </div>
     <div id="youtube" class="youtube container-main margin-main">
+      <h2>
+        Ютуб
+      </h2>
       <div class="videos">
         <div class="left">
           <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
@@ -175,77 +178,82 @@
       </div>
     </div>
     <div id="instagram" class="instagram container-main margin-main">
-      <div class="panel quote">
-        <svg>
-          <circle r="60%" cx="0" cy="0" fill="#50A785" />
-        </svg>
-        <div class="text_holder">
-          <p>Талант -- це світло на шляху до великого!</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div v-if="instagram[0]">
-          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-            viewBox="0,0,256,256" style="fill:#FFFFFF;">
-            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-              font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-              <g transform="scale(5.12,5.12)">
-                <path
-                  d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
-                </path>
-              </g>
-            </g>
+      <h2>
+        Інстаграм
+      </h2>
+      <div class="panels">
+        <div class="panel quote">
+          <svg>
+            <circle r="60%" cx="0" cy="0" fill="#50A785" />
           </svg>
-          <a :href="instagram[0].attributes.permalink">
-            <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
-          </a>
+          <div class="text_holder">
+            <p>Талант -- це світло на шляху до великого!</p>
+          </div>
         </div>
-        <img v-else :src="require('~/assets/images/inst_image.png')">
-      </div>
-      <div class="panel quote">
-        <svg>
-          <circle r="60%" cx="100%" cy="100%" fill="#C6569A" />
-        </svg>
-        <div class="text_holder">
-          <p>Талант -- це світло на шляху до великого!</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div v-if="instagram[1]">
-          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-            viewBox="0,0,256,256" style="fill:#FFFFFF;">
-            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-              font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-              <g transform="scale(5.12,5.12)">
-                <path
-                  d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
-                </path>
+        <div class="panel">
+          <div v-if="instagram[0]">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+              viewBox="0,0,256,256" style="fill:#FFFFFF;">
+              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <g transform="scale(5.12,5.12)">
+                  <path
+                    d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
+                  </path>
+                </g>
               </g>
-            </g>
+            </svg>
+            <a :href="instagram[0].attributes.permalink">
+              <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
+            </a>
+          </div>
+          <img v-else :src="require('~/assets/images/inst_image.png')">
+        </div>
+        <div class="panel quote">
+          <svg>
+            <circle r="60%" cx="100%" cy="100%" fill="#C6569A" />
           </svg>
-          <a :href="instagram[1].attributes.permalink">
-            <img class="inst-image" :src="instagram[1].attributes.media_url" alt="">
-          </a>
+          <div class="text_holder">
+            <p>Талант -- це світло на шляху до великого!</p>
+          </div>
         </div>
-        <img v-else :src="require('~/assets/images/inst_image.png')">
-      </div>
-      <div class="panel quote">
-        <svg>
-          <circle r="40%" cx="0" cy="0" fill="#A62585" />
-        </svg>
-        <svg>
-          <circle r="13%" cx="80%" cy="75%" fill="#EFDC00" />
-        </svg>
-        <div class="text_holder">
-          <p>Талант - <br>це світло на шляху до великого!</p>
+        <div class="panel">
+          <div v-if="instagram[1]">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+              viewBox="0,0,256,256" style="fill:#FFFFFF;">
+              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <g transform="scale(5.12,5.12)">
+                  <path
+                    d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
+                  </path>
+                </g>
+              </g>
+            </svg>
+            <a :href="instagram[1].attributes.permalink">
+              <img class="inst-image" :src="instagram[1].attributes.media_url" alt="">
+            </a>
+          </div>
+          <img v-else :src="require('~/assets/images/inst_image.png')">
         </div>
-      </div>
-      <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
-        <div class="text_holder">
-          <p class="inst_tag">@efectdytyny</p>
-          <p class="subtext">перейти на сторінку</p>
+        <div class="panel quote">
+          <svg>
+            <circle r="40%" cx="0" cy="0" fill="#A62585" />
+          </svg>
+          <svg>
+            <circle r="13%" cx="80%" cy="75%" fill="#EFDC00" />
+          </svg>
+          <div class="text_holder">
+            <p>Талант - <br>це світло на шляху до великого!</p>
+          </div>
+        </div>
+        <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
+          <div class="text_holder">
+            <p class="inst_tag">@efectdytyny</p>
+            <p class="subtext">перейти на сторінку</p>
+          </div>
         </div>
       </div>
 
@@ -603,10 +611,8 @@ export default {
         element.style.width = `${carouselWidth / cardCount}px`
       });
       cardWidth = document.querySelector('.card-container').offsetWidth;
-      console.log(cardWidth)
 
       window.addEventListener('resize', () => {
-        console.log(window.innerWidth)
         if(window.innerWidth < 1100 && window.innerWidth > 830 ){
           cardCount = 2 
         }
@@ -1145,7 +1151,7 @@ export default {
     
     .carousel-container{
       position: relative;
-      margin: 50px auto;
+      margin: 0px auto;
       min-height: 200px;
       .carousel-inner{
         overflow: hidden;
@@ -1261,7 +1267,7 @@ export default {
           border-radius: 6px;
 
           img{
-            max-width: 100%;
+            width: 100%;
             height: 100%;
             opacity: 1;
             object-fit: cover;
@@ -1393,6 +1399,12 @@ export default {
 
     //TODO
 
+    h2 {
+      font-size: var(--fz1);
+      font-weight: 600;
+      font-family: 'Montserrat Alternates', sans-serif;
+      margin-bottom: 60px;
+    }
 
     .videos {
       display: flex;
@@ -1448,8 +1460,15 @@ export default {
             flex-direction: column;
 
             .name {
+              display: block;
               font-weight: 600;
               line-height: normal;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2; /* number of lines to show */
+                      line-clamp: 2;
+              -webkit-box-orient: vertical;
             }
 
             .added-ago {
@@ -1522,112 +1541,122 @@ export default {
   }
 
   .instagram {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
-    //grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 50px;
-    grid-row-gap: 50px;
-    margin-top: 150px;
+    
 
-    .panel {
-      max-width: 400px;
-      aspect-ratio: 1/1;
-      border-radius: 6px;
-      position: relative;
+    h2 {
+      font-size: var(--fz1);
+      font-weight: 600;
+      font-family: 'Montserrat Alternates', sans-serif;
+      margin-bottom: 60px;
+    }
+    .panels{
 
+      display: grid;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+      //grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 50px;
+      grid-row-gap: 50px;
 
-
-      .logo {
-        position: absolute;
-        left: 0;
-        top: 0;
-        padding: 5px;
-        width: 15%;
-        height: 15%;
-        background: rgb(54, 11, 83);
-        background: linear-gradient(320deg, rgba(54, 11, 83, 1) 5%, rgba(253, 29, 29, 1) 58%, rgba(252, 176, 69, 1) 100%);
-        border-radius: 6px 0 6px 0;
+      .panel {
+        max-width: 400px;
+        aspect-ratio: 1/1;
+        border-radius: 6px;
+        position: relative;
 
 
-        pointer-events: none;
+
+        .logo {
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 5px;
+          width: 15%;
+          height: 15%;
+          background: rgb(54, 11, 83);
+          background: linear-gradient(320deg, rgba(54, 11, 83, 1) 5%, rgba(253, 29, 29, 1) 58%, rgba(252, 176, 69, 1) 100%);
+          border-radius: 6px 0 6px 0;
+
+
+          pointer-events: none;
+        }
+
+        img {
+          display: block;
+          height: 100%;
+          max-width: 100%;
+          object-fit: cover;
+          border-radius: 6px;
+
+          box-shadow: none;
+          transition: .3s;
+
+          &:hover {
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.717);
+          }
+        }
       }
 
-      img {
-        display: block;
-        height: 100%;
-        max-width: 100%;
-        object-fit: cover;
-        border-radius: 6px;
+      .quote {
+        border: 3px solid#e4e4e4;
+        position: relative;
+        place-items: center;
 
+        svg {
+          z-index: -1;
+          position: absolute;
+          border-radius: 4px;
+          display: block;
+          height: 100%;
+          width: 100%
+        }
+
+        .text_holder {
+          height: 100%;
+          padding: 0 15%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          p {
+            color: var(--text-color, #202221);
+            font-family: Montserrat Alternates;
+            font-size: var(--fz1);
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            white-space: pre-line;
+          }
+        }
+      }
+
+      #link {
+        border: none;
+        background-color: #52A785;
         box-shadow: none;
         transition: .3s;
 
         &:hover {
-          box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.717);
+          cursor: pointer;
+          box-shadow: 0px 0px 30px 0px rgb(94, 194, 156);
+
         }
-      }
-    }
-
-    .quote {
-      border: 3px solid#e4e4e4;
-      position: relative;
-      place-items: center;
-
-      svg {
-        z-index: -1;
-        position: absolute;
-        border-radius: 4px;
-        display: block;
-        height: 100%;
-        width: 100%
-      }
-
-      .text_holder {
-        height: 100%;
-        padding: 0 15%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
 
         p {
-          color: var(--text-color, #202221);
-          font-family: Montserrat Alternates;
+          color: var(--white, #FFF);
           font-size: var(--fz1);
-          font-style: normal;
-          font-weight: 600;
-          line-height: normal;
-          white-space: pre-line;
         }
-      }
-    }
 
-    #link {
-      border: none;
-      background-color: #52A785;
-      box-shadow: none;
-      transition: .3s;
-
-      &:hover {
-        cursor: pointer;
-        box-shadow: 0px 0px 30px 0px rgb(94, 194, 156);
-
-      }
-
-      p {
-        color: var(--white, #FFF);
-        font-size: var(--fz1);
-      }
-
-      .subtext {
-        margin-top: 10px;
-        text-align: center;
-        font-family: Montserrat Alternates;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 26px;
-        /* 144.444% */
+        .subtext {
+          margin-top: 10px;
+          text-align: center;
+          font-family: Montserrat Alternates;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 26px;
+          /* 144.444% */
+        }
       }
     }
   }
@@ -1702,7 +1731,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1210px) {
   #homePage {
     .main-gallery {
       margin-bottom: 15px;
@@ -1765,10 +1794,35 @@ export default {
           .track{
             .card-container{
               .card{
-                filter: brightness(100%)
+                img{
+                  filter: brightness(100%);
+                }
               }
             }
           } 
+        }
+      }
+    }
+
+    .news-all{
+
+      h2 {
+        width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
+        margin-bottom: 20px;
+      }
+
+      .news{
+        grid-template-rows: 300px 200px 200px;
+        grid-gap: 15px;
+        .box{
+          img{
+            opacity: .25;
+          }
+
+          .desc{
+            display: block;
+          }
         }
       }
     }
@@ -1782,6 +1836,15 @@ export default {
 
       .all-partners {
         grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .youtube {
+
+      h2 {
+        width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
+        margin-bottom: 20px;
       }
     }
 
@@ -1800,6 +1863,14 @@ export default {
         .btn-all {
           height: 18px;
         }
+      }
+    }
+
+    .instagram{
+      h2 {
+        width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
+        margin-bottom: 20px;
       }
     }
   }
@@ -1859,6 +1930,25 @@ export default {
 
             .desc {
               flex: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .news-all{
+      .news{
+
+        .box{
+          .desc{
+            margin-left: 20px;
+            margin-bottom: 10px;
+            
+            .title-main{
+              font-size: 24px;
+            }
+            .title-remain{
+              font-size: 16px;
             }
           }
         }
@@ -1971,6 +2061,13 @@ export default {
       }
     }
 
+    .news-all{
+      .news{
+        grid-template-rows: 150px 100px 100px;
+        grid-gap: 8px;
+      }
+    }
+
     .youtube {
       .videos {
         .left {
@@ -2012,39 +2109,64 @@ export default {
 
     .instagram {
 
-      grid-column-gap: 15px;
-      grid-row-gap: 15px;
-      margin-top: 50px;
+      .panels{
+        grid-column-gap: 15px;
+        grid-row-gap: 15px;
 
-      .quote {
-        border-width: 1px;
+        .quote {
+          border-width: 1px;
 
-        .text_holder {
+          .text_holder {
 
+            p {
+              font-size: 14px;
+              line-height: 15px;
+            }
+
+          }
+
+        }
+
+        #link {
           p {
-            font-size: 14px;
+            font-size: 10px;
+          }
+
+          .subtext {
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
             line-height: 15px;
+            /* 150% */
           }
 
         }
 
       }
+    }
+  }
+}
 
-      #link {
-        p {
-          font-size: 10px;
+@media screen and (max-width: 500px) {
+
+  #homePage{
+    .projects {
+      .carousel-container{
+        .carousel-inner{
+          .track{
+            .card-container{
+              height: 300px;
+
+              .card{
+                span{
+                  font-size: 20px;
+                  margin: 10px 15px;
+                }
+              }
+            }
+          }
         }
-
-        .subtext {
-          font-size: 10px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: 15px;
-          /* 150% */
-        }
-
       }
-
     }
   }
 }

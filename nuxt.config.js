@@ -6,7 +6,7 @@ export default {
     //apiUrl: 'http://localhost:1341'
 
     //local
-    tokken: '862e71e546becaff6278976bf2aceff9f26a679b883d9107c696e7381dda4b85c54054edc45177b31ca3b6d51484674a5914d824e4fe024c5ac28a33bf05d7a6c05044d7c67bff0fcae96f3eb81a1e32e1fd749478c7f6d9d70a971f57d4cb8560a630f7ae1cbc182361bfa73e49749008b63419362769ebfa310e87d6da9a14',
+    tokken: '6ae960b6bb280bbc0e47dad633e596ce93b69fc6161c73e9acfc9243f6aee0e9b47690a10c0ffb45bb90ae061aa035c85e8abf2a22209cd9ef5d3aa0bad86d1e34ce2e6d85b82f22c786582c7d01bdae858f84e71f5b97101f393d4bd22d9844436c871e81b5c5088efa40a3d16d1c0e2c8297bc7d696077c1002d9ae7b748e1',
     apiUrl: 'http://localhost:1341'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head

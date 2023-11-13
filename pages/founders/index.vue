@@ -163,7 +163,7 @@
           margin-top: 70px;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          grid-column-gap: 115px;
+          grid-gap: 115px;
 
           .user {
             .top {
