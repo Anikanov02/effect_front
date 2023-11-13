@@ -90,6 +90,12 @@ export default {
           toMain: this.$route.path.split('/')[1] !== 'projects' ? true : false
         },
         {
+          name: 'новини',
+          to: 'news',
+          ref: 'news',
+          disabled: false
+        }, 
+        {
           name: 'партнери',
           to: 'partners',
           ref: 'partners',

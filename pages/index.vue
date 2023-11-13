@@ -14,6 +14,7 @@
         </template>
       </figure>
     </div>
+
     <div class="about container-main margin-main" id="about" ref="about">
       <div class="informations">
         <div class="left">
@@ -56,6 +57,7 @@
         </nuxt-link>
       </div>
     </div>
+
     <div id="projects" class="projects container-main margin-main" ref="projects">
       <h2>
         Проекти
@@ -84,8 +86,8 @@
         </nuxt-link>
       </div>
     </div>
-    <div id="" class="news-all
-     container-main margin-main" ref="news">
+
+    <div id="news" class="news-all container-main margin-main" ref="news">
       <h2>
         Новини
       </h2>
@@ -107,6 +109,7 @@
           </nuxt-link>
         </div>  
     </div>
+
     <div id="partners" class="partners container-main margin-main" ref="partners">
       <h2>
         Наші партнери
@@ -119,6 +122,7 @@
         </template>
       </div>
     </div>
+
     <div id="youtube" class="youtube container-main margin-main">
       <h2>
         Ютуб
@@ -177,6 +181,7 @@
         </div>
       </div>
     </div>
+
     <div id="instagram" class="instagram container-main margin-main">
       <h2>
         Інстаграм

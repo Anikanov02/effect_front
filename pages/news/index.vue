@@ -88,7 +88,7 @@
         </button>
       </div>
       <div v-else>
-        <H2 style="margin: 100px 0;">За цим запитом нічого не знайдено</H2>
+        <H2 style="margin: 100px 0; text-align: center;">За цим запитом нічого не знайдено</H2>
       </div>
   
     </div>

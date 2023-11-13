@@ -82,6 +82,12 @@ export default {
           disabled: false
         },
         {
+          name: 'новини',
+          to: 'news',
+          ref: 'news',
+          disabled: false
+        }, 
+        {
           name: 'партнери',
           to: 'partners',
           ref: 'partners',
