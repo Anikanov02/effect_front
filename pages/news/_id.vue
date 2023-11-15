@@ -154,11 +154,11 @@
       },
       GetDate(date) {
         let month = new Date(date).getMonth();
-        let months = [
-          'січеня',
+        let months_uk = [
+          'січня',
           'лютого',
-          'квітеня',
-          'березеня',
+          'квітня',
+          'березня',
           'травня',
           'червня',
           'липня',
@@ -168,6 +168,27 @@
           'листопада',
           'грудня'
         ]
+        let months_en = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ]
+        let months = null
+        if(this.$i18n.locale == 'uk'){
+          months = months_uk
+        }
+        else if(this.$i18n.locale == 'en'){
+          months = months_en
+        }
         let a = String
         months.forEach((d, index) => {
           if (index == month) {

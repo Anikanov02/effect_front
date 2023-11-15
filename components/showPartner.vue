@@ -16,7 +16,7 @@
           {{parner.desc}}
         </p>
         <a class="btn-link" :href="parner.link" v-if="parner.link !== null && parner.link !== ''" target="_blank" rel="noopener noreferrer">
-          перейти на сайт
+          {{ this.$t('home.partners.goto') }}
           <span class="arrow-right"></span>
         </a>
       </div>

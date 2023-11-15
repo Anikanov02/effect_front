@@ -7,7 +7,7 @@ export default {
 
     //local
     tokken: '6ae960b6bb280bbc0e47dad633e596ce93b69fc6161c73e9acfc9243f6aee0e9b47690a10c0ffb45bb90ae061aa035c85e8abf2a22209cd9ef5d3aa0bad86d1e34ce2e6d85b82f22c786582c7d01bdae858f84e71f5b97101f393d4bd22d9844436c871e81b5c5088efa40a3d16d1c0e2c8297bc7d696077c1002d9ae7b748e1',
-    apiUrl: 'http://localhost:1341'
+    apiUrl: 'http://kristex.asuscomm.com:1342'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -56,7 +56,8 @@ export default {
         useCookie: true,
         cookieKey: 'i18n_redirected',
         alwaysRedirect: false,
-        fallbackLocale: 'uk'
+        fallbackLocale: 'uk',
+        strategy: "prefix",
       },
       locales: [
         {
@@ -64,6 +65,12 @@ export default {
           code: 'uk',
           iso: 'uk-UA',
           file: 'uk-UA.js'
+        },
+        {
+          name: 'English',
+          code: 'en',
+          iso: 'en-US',
+          file: 'en-US.js'
         }
       ],
       lazy: true,
@@ -82,5 +89,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend(config, ctx) {}
+  },
+  server: {
+    host: "0.0.0.0"
   }
 }

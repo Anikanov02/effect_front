@@ -24,7 +24,7 @@
       </template>
       <li class="btn-menu">
         <nuxt-link to="/" class="btn-donate">
-          підтримати
+          {{this.$t('misc.support')}}
           <span class="svg-donate"></span>
         </nuxt-link>
       </li>
@@ -53,7 +53,7 @@
           </template>
           <li class="btn-menu">
             <nuxt-link to="/" class="btn-donate">
-              підтримати
+              {{this.$t('misc.support')}}
               <span class="svg-donate"></span>
             </nuxt-link>
           </li>
@@ -70,37 +70,37 @@ export default {
       burgerOn: false,
       menu: [
         {
-          name: 'про нас',
+          name: this.$t('header.about'),
           to: 'about',
           ref: 'about',
           disabled: false
         }, 
         {
-          name: 'проекти',
+          name: this.$t('header.projects'),
           to: 'projects',
           ref: 'projects',
           disabled: false
         },
         {
-          name: 'новини',
+          name: this.$t('header.news'),
           to: 'news',
           ref: 'news',
           disabled: false
         }, 
         {
-          name: 'партнери',
+          name: this.$t('header.partners'),
           to: 'partners',
           ref: 'partners',
           disabled: false
         }, 
         {
-          name: 'документація',
+          name: this.$t('header.documentation'),
           to: 'documentations',
           ref: 'documentations',
           disabled: false
         },
         {
-          name: 'контакти',
+          name: this.$t('header.contacts'),
           to: 'footer',
           ref: 'footer',
           disabled: false

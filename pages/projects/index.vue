@@ -91,7 +91,7 @@
       </button>
     </div>
     <div v-if="projects.length <= 0" style="margin: 50px 0; text-align: center;">
-      <h2>В цьому розділі проектів ще немає проектів</h2>
+      <h2>  {{ this.$t('projects.empty') }} </h2>
     </div>
   </div>
 </template>
@@ -232,7 +232,7 @@ export default {
     },
     GetDayDate(date) {
       let day = new Date(date).getDay()
-      let days = [
+      let days_uk = [
         'неділя',
         'понеділок',
         'вівторок',
@@ -241,6 +241,23 @@ export default {
         "п'ятниця",
         'субота',
       ]
+      let days_en = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ]
+      let days = null
+      if(this.$i18n.locale == 'uk'){
+        days = days_uk
+      }
+      else if(this.$i18n.locale == 'en'){
+        days = days_en
+      }
+
       let a = String
       days.forEach((d, index) => {
         if (index == day) {
@@ -272,7 +289,7 @@ export default {
       console.log("type set to: " + this.currentType)
     },
     async getProjectTypes(){
-      await this.$axios.get(`${process.env.apiUrl}/api/project-types`, {
+      await this.$axios.get(`${process.env.apiUrl}/api/project-types?locale=${this.$i18n.locale}`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
@@ -284,8 +301,10 @@ export default {
       })
     },
     async getProjects(type) {
-      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=999&sort=date:desc&filters[types][type][$eq]=` + type, {
-
+      await this.$axios.get(`${process.env.apiUrl}/api/proektis?populate=*&pagination[pageSize]=999&sort=date:desc&filters[types][type][$eq]=${type}&locale=${this.$i18n.locale}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
       })
       .then(data => {
         let i = 1

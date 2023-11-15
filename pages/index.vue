@@ -26,7 +26,7 @@
           </p>
           <p class="desc" v-html="$md.render(about.desc)"></p>
           <nuxt-link to="/" class="btn-donate">
-            підтримати
+            {{this.$t('misc.support')}}
             <span class="svg-donate"></span>
           </nuxt-link>
         </div>
@@ -52,15 +52,15 @@
         </template>
       </div>
       <div class="all-founders">
-        <nuxt-link to="founders" class="btn-all">
-          переглянути усіх
+        <nuxt-link :to="localePath('founders')" class="btn-all">
+          {{ this.$t('home.about.showAll') }}
         </nuxt-link>
       </div>
     </div>
 
     <div id="projects" class="projects container-main margin-main" ref="projects">
       <h2>
-        Проекти
+        {{this.$t('home.projects.title')}}
       </h2>
       <div class="carousel-container" ref="gal_prod">
         <div class="carousel-inner">
@@ -81,17 +81,17 @@
         </div>
       </div>
       <div class="all-projects">
-        <nuxt-link to="projects" class="btn-all">
-          переглянути всі
+        <nuxt-link :to="localePath('projects')" class="btn-all">
+          {{this.$t('home.projects.showAll')}}
         </nuxt-link>
       </div>
     </div>
 
     <div id="news" class="news-all container-main margin-main" ref="news">
       <h2>
-        Новини
+        {{ this.$t('home.news.title') }}
       </h2>
-      <div class="news">
+      <div class="news-grid">
         <template v-for="(element, index) in this.news" >
           <div :class="`box box-${index + 1}`" @click.prevent="GotoNewsPiece(element.id)">
           <img
@@ -104,15 +104,15 @@
         </template>
       </div>
       <div class="all-news">
-          <nuxt-link to="news" class="btn-all">
-            переглянути всі
+          <nuxt-link :to="localePath('news')" class="btn-all">
+            {{this.$t('home.news.showAll')}}
           </nuxt-link>
         </div>  
     </div>
 
     <div id="partners" class="partners container-main margin-main" ref="partners">
       <h2>
-        Наші партнери
+        {{this.$t('home.partners.title')}}
       </h2>
       <div class="all-partners">
         <template v-for="par in partners">
@@ -125,7 +125,7 @@
 
     <div id="youtube" class="youtube container-main margin-main">
       <h2>
-        Ютуб
+        {{this.$t('home.youtube.title')}}
       </h2>
       <div class="videos">
         <div class="left">
@@ -151,7 +151,7 @@
 
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
       <h2>
-        Документація
+        {{this.$t('home.documentation.title')}}
       </h2>
       <div class="all-docs">
         <template v-for="(doc, index) in docs">
@@ -175,8 +175,8 @@
           </a>
         </template>
         <div class="div">
-          <nuxt-link to="documentations" class="btn-all">
-            переглянути всі
+          <nuxt-link :to="localePath('documentations')" class="btn-all">
+            {{this.$t('home.documentation.showAll')}}
           </nuxt-link>
         </div>
       </div>
@@ -184,7 +184,7 @@
 
     <div id="instagram" class="instagram container-main margin-main">
       <h2>
-        Інстаграм
+        {{this.$t('home.instagram.title')}}
       </h2>
       <div class="panels">
         <div class="panel quote">
@@ -192,37 +192,40 @@
             <circle r="60%" cx="0" cy="0" fill="#50A785" />
           </svg>
           <div class="text_holder">
-            <p>Талант -- це світло на шляху до великого!</p>
+            <p>{{instagram_quotes.quote_1}}</p>
           </div>
         </div>
-        <div class="panel">
-          <div v-if="instagram[0]">
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-              viewBox="0,0,256,256" style="fill:#FFFFFF;">
-              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-                font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                <g transform="scale(5.12,5.12)">
-                  <path
-                    d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
-                  </path>
-                </g>
+
+        <div class="panel" v-if="instagram[0]">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+            viewBox="0,0,256,256" style="fill:#FFFFFF;">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+              font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(5.12,5.12)">
+                <path
+                  d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
+                </path>
               </g>
-            </svg>
-            <a :href="instagram[0].attributes.permalink">
-              <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
-            </a>
-          </div>
-          <img v-else :src="require('~/assets/images/inst_image.png')">
+            </g>
+          </svg>
+          <a :href="instagram[0].attributes.permalink">
+            <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
+          </a>
         </div>
+        <div v-else class="panel">
+          <img :src="require('~/assets/images/inst_image.png')">
+        </div>
+
         <div class="panel quote">
           <svg>
             <circle r="60%" cx="100%" cy="100%" fill="#C6569A" />
           </svg>
           <div class="text_holder">
-            <p>Талант -- це світло на шляху до великого!</p>
+            <p>{{instagram_quotes.quote_2}}</p>
           </div>
         </div>
+
         <div class="panel">
           <div v-if="instagram[1]">
             <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
@@ -243,6 +246,7 @@
           </div>
           <img v-else :src="require('~/assets/images/inst_image.png')">
         </div>
+
         <div class="panel quote">
           <svg>
             <circle r="40%" cx="0" cy="0" fill="#A62585" />
@@ -251,13 +255,14 @@
             <circle r="13%" cx="80%" cy="75%" fill="#EFDC00" />
           </svg>
           <div class="text_holder">
-            <p>Талант - <br>це світло на шляху до великого!</p>
+            <p>{{instagram_quotes.quote_3}}</p>
           </div>
         </div>
+
         <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
           <div class="text_holder">
             <p class="inst_tag">@efectdytyny</p>
-            <p class="subtext">перейти на сторінку</p>
+            <p class="subtext">{{this.$t('home.instagram.goto')}}</p>
           </div>
         </div>
       </div>
@@ -309,6 +314,7 @@ export default {
   computed: {
     ...mapGetters({
       about: 'about/about',
+      instagram_quotes: 'about/instagram',
       members: 'about-members/members',
       partners: 'partners/partners',
       gallery: 'mainGallery/gallery',
@@ -565,7 +571,12 @@ export default {
       }
     },
     goToProjectType(type){
-      this.$router.push("/projects?type=" + type)
+      if(this.$i18n.locale == 'uk'){
+        this.$router.push(`/projects?type=${type}`)
+      }
+      else if(this.$i18n.locale == 'en'){
+        this.$router.push(this.$i18n.locale + `/projects?type=${type}`)
+      }
     },
     getActivePosition() {
       let value = '';
@@ -588,9 +599,6 @@ export default {
       let day = d.split('-')[2];
       let month = d.split('-')[1];
       return day + '.' + month;
-    },
-    test(){
-      const card_track = this.$refs.card_track
     },
     projectsCarousel(){
       const prev = document.querySelector('.prev');
@@ -814,7 +822,7 @@ export default {
         })
     },
     async getProjects() {
-      await this.$axios.get(`${process.env.apiUrl}/api/project-types?populate=previewPicture`, {
+      await this.$axios.get(`${process.env.apiUrl}/api/project-types?populate=previewPicture&locale=${this.$i18n.locale}`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
@@ -842,7 +850,7 @@ export default {
       window.open(url, '_blank')
     },
     async getNews() {
-      await this.$axios.get(`${process.env.apiUrl}/api/news?populate[previewPicture]=*&pagination[pageSize]=5&sort=date:desc`, {
+      await this.$axios.get(`${process.env.apiUrl}/api/news?populate[previewPicture]=*&pagination[pageSize]=5&sort=date:desc&locale=${this.$i18n.locale}`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
@@ -860,7 +868,12 @@ export default {
       })
     },
     GotoNewsPiece(id){
-      this.$router.push(`news/${id}`)
+      if(this.$i18n.locale == 'uk'){
+        this.$router.push(`news/${id}`)
+      }
+      else if(this.$i18n.locale == 'en'){
+        this.$router.push(this.$i18n.locale + `/news/${id}`)
+      }
     },
   },
   mounted() {
@@ -869,6 +882,7 @@ export default {
     this.getYoutubeVideos();
     this.getInstagram()
     this.getNews()
+    
     
     setTimeout(() => {
       window.addEventListener('scroll', this.onScroll);
@@ -906,9 +920,8 @@ export default {
       }
       catch { }
       
-      //this.projectsCarousel()
+      //console.log(this.$i18n.locale);
       console.log(this.$refs);
-      this.test()
       console.log('after mounted');
     });
   },
@@ -1258,7 +1271,7 @@ export default {
         justify-content: end;
         margin-top: 30px;
       }
-      .news{ 
+      .news-grid{ 
         display: grid;
         grid-template-columns: 3fr 1fr 1fr 3fr;
         grid-template-rows: 450px 300px 300px;
@@ -1817,7 +1830,7 @@ export default {
         margin-bottom: 20px;
       }
 
-      .news{
+      .news-grid{
         grid-template-rows: 300px 200px 200px;
         grid-gap: 15px;
         .box{
@@ -1942,7 +1955,7 @@ export default {
     }
 
     .news-all{
-      .news{
+      .news-grid{
 
         .box{
           .desc{
@@ -2067,7 +2080,7 @@ export default {
     }
 
     .news-all{
-      .news{
+      .news-grid{
         grid-template-rows: 150px 100px 100px;
         grid-gap: 8px;
       }

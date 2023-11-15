@@ -2,7 +2,7 @@
     <div id="founders" class="container-main">
       <div class="top">
         <h2>
-          Усі засновники
+          {{ this.$t('founders.title') }}
         </h2>
       </div>
       <div class="founders-list">
@@ -109,7 +109,7 @@
     },
     methods: {
       async getFounders() {
-        await this.$axios.get(`${process.env.apiUrl}/api/founders?populate=*&pagination[pageSize]=999`, {
+        await this.$axios.get(`${process.env.apiUrl}/api/founders?populate=*&pagination[pageSize]=999&locale=${this.$i18n.locale}`, {
           headers: {
             Authorization: `Bearer ${process.env.tokken}`
           }

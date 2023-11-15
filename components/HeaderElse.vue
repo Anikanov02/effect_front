@@ -1,6 +1,6 @@
 <template>
   <header id="header" class="container">
-    <nuxt-link to="/">
+    <nuxt-link :to="localePath('/')">
       <span class="logo-header"></span>
     </nuxt-link>
     <button class="burger-btn" @click="openBurg()">
@@ -27,7 +27,7 @@
       </template>
       <li class="btn-menu">
         <nuxt-link to="/" class="btn-donate">
-          підтримати
+          {{this.$t('misc.support')}}
           <span class="svg-donate"></span>
         </nuxt-link>
       </li>
@@ -59,7 +59,7 @@
           </template>
           <li class="btn-menu">
             <nuxt-link to="/" class="btn-donate">
-              підтримати
+              {{this.$t('misc.support')}}
               <span class="svg-donate"></span>
             </nuxt-link>
           </li>
@@ -76,41 +76,41 @@ export default {
       burgerOn: false,
       menu: [
         {
-          name: 'про нас',
+          name: this.$t('header.about'),
           to: 'about',
           ref: 'about',
           disabled: false,
           toMain: true
         }, 
         {
-          name: 'проекти',
+          name: this.$t('header.projects'),
           to: 'projects',
           ref: 'projects',
           disabled: false,
           toMain: this.$route.path.split('/')[1] !== 'projects' ? true : false
         },
         {
-          name: 'новини',
+          name: this.$t('header.news'),
           to: 'news',
           ref: 'news',
           disabled: false
         }, 
         {
-          name: 'партнери',
+          name: this.$t('header.partners'),
           to: 'partners',
           ref: 'partners',
           disabled: false,
           toMain: true
         }, 
         {
-          name: 'документація',
+          name: this.$t('header.documentation'),
           to: 'documentations',
           ref: 'documentations',
           disabled: false,
           toMain: this.$route.path.split('/')[1] !== 'documentations' ? true : false
         },
         {
-          name: 'контакти',
+          name: this.$t('header.contacts'),
           to: 'footer',
           ref: 'footer',
           disabled: false,

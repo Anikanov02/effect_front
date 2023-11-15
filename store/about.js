@@ -12,7 +12,7 @@ export const actions = {
   async fetch({getters, commit}) {
     if(!getters.data) {
       await this.$axios
-      .get(`${process.env.apiUrl}/api/homa-page?populate[about][populate][img][populate]=*`, {
+      .get(`${process.env.apiUrl}/api/homa-page?populate[about][populate][img][populate]=*&populate=instagram&locale=${this.$i18n.locale}`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }
@@ -25,5 +25,6 @@ export const actions = {
 }
 
 export const getters = {
-  about: state => state.data && state.data.data.attributes.about ? state.data.data.attributes.about : {}
+  about: state => state.data && state.data.data.attributes.about ? state.data.data.attributes.about : {},
+  instagram: state => state.data && state.data.data.attributes.instagram ? state.data.data.attributes.instagram : {}
 }

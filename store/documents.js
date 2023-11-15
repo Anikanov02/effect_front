@@ -12,7 +12,7 @@ export const actions = {
   async fetch({getters, commit}) {
     if(!getters.data) {
       await this.$axios
-      .get(`${process.env.apiUrl}/api/dokumentacziya?populate[documents][populate]=*&pagination[pageSize]=999&populate[seo][populate]=*`, {
+      .get(`${process.env.apiUrl}/api/dokumentacziya?populate[documents][populate]=*&pagination[pageSize]=999&populate[seo][populate]=*&locale=${this.$i18n.locale}`, {
         headers: {
           Authorization: `Bearer ${process.env.tokken}`
         }

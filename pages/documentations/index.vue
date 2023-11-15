@@ -2,7 +2,7 @@
   <div id="documents" class="container-main">
     <div class="top">
       <h2>
-        Усі документи
+        {{ this.$t('documentation.all') }}
       </h2>
       <div class="search">
         <input type="text" @keypress="InputSearch($event)" @keyup="InputSearch($event)" v-model="search">

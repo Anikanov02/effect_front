@@ -1,7 +1,7 @@
 <template>
-    <div id="news" class="">
+    <div id="news" class="news">
       <div class="top container-projects">
-        <h2>Новини</h2>
+        <h2>{{this.$t('home.news.title')}}</h2>
         <div class="search">
           <input type="text" @keypress="InputSearch($event)" @keyup="InputSearch($event)" v-model="search" />
           <button class="btn-search" @click.prevent="searchNewsItem()">
@@ -11,12 +11,10 @@
       </div>
   
       <div class="type-selector">
-        <button :class="{ active: currentType == 'all' }" @click.prevent="SetType('all')">Всі</button>
-        <button :class="{ active: currentType == 'blog' }" @click.prevent="SetType('blog')">Блог команди</button>
-        <button :class="{ active: currentType == 'massMedia' }" @click.prevent="SetType('massMedia')">Ми у ЗМІ</button>
-      
+        <button :class="{ active: currentType == 'all' }" @click.prevent="SetType('all')"> {{ this.$t('news.types.all') }} </button>
+        <button :class="{ active: currentType == 'blog' }" @click.prevent="SetType('blog')"> {{ this.$t('news.types.blog') }} </button>
+        <button :class="{ active: currentType == 'massMedia' }" @click.prevent="SetType('massMedia')"> {{ this.$t('news.types.massMedia') }} </button>
       </div>
-  
   
       <div class="all-news container-projects">
         <template v-if="ifSearch">
@@ -70,6 +68,7 @@
             </template>
         </template>
       </div>
+      
       <div v-if="this.paginations.allPage > 0" class="paginations container-projects">
         <button class="prew-page" @click.prevent="GotoPage(paginations.currentPage - 1)">
           <span class="prew-arrow2"></span>
@@ -133,7 +132,7 @@
         else {
           filterString = filterString + type;
         }
-        await this.$axios.get(`${process.env.apiUrl}/api/news?populate[paragraph]=*&populate[previewPicture]=*&pagination[pageSize]=999&sort=date:desc` + filterString, {
+        await this.$axios.get(`${process.env.apiUrl}/api/news?populate[paragraph]=*&populate[previewPicture]=*&pagination[pageSize]=999&sort=date:desc&locale=${this.$i18n.locale}${filterString}`, {
           headers: {
             Authorization: `Bearer ${process.env.tokken}`
           }
@@ -176,11 +175,11 @@
       },
       GetDate(date) {
         let month = new Date(date).getMonth();
-        let months = [
-          'січеня',
+        let months_uk = [
+          'січня',
           'лютого',
-          'квітеня',
-          'березеня',
+          'квітня',
+          'березня',
           'травня',
           'червня',
           'липня',
@@ -190,6 +189,29 @@
           'листопада',
           'грудня'
         ]
+
+        let months_en = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ]
+        let months = null
+        if(this.$i18n.locale == 'uk'){
+          months = months_uk
+        }
+        else if(this.$i18n.locale == 'en'){
+          months = months_en
+        }
+
         let a = String
         months.forEach((d, index) => {
           if (index == month) {
@@ -237,7 +259,7 @@
   </script>
   
   <style lang="scss">
-  #news {
+  .news {
     border-bottom: 1px solid #bdbdbd;
     margin-top: 21px;
   
@@ -449,7 +471,7 @@
   }
   
   @media screen and (max-width: 1760px) {
-    #news {
+    .news {
       .top {
         .search {
           input {
@@ -461,7 +483,7 @@
   }
   
   @media screen and (max-width: 1210px) {
-    #news {
+    .news {
       .all-news {
         .news-item {
           img {
@@ -473,7 +495,7 @@
   }
   
   @media screen and (max-width: 1100px) {
-    #news {
+    .news {
       margin-top: 20px;
   
       .top {
@@ -498,7 +520,7 @@
   }
   
   @media screen and (max-width: 860px) {
-    #news {
+    .news {
       .all-news {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
       }
@@ -506,7 +528,7 @@
   }
   
   @media screen and (max-width: 600px) {
-    #news {
+    .news {
       .top {
         flex-direction: column;
         justify-content: flex-start;

@@ -42,15 +42,15 @@
         </div>
         <div class="right">
           <p class="title">
-            Реквізити
+            {{this.$t('footer.requisites')}}
           </p>
           <div class="requisites">
-            <p class="label">{{ requisites.iban }}</p>
-            <p class="label">{{ requisites.name }}</p>
-            <p class="label-mt35">Код отримувача: {{ requisites.code }}</p>
+            <p class="label">{{ iban }}</p>
+            <p class="label">{{ name }}</p>
+            <p class="label-mt35">{{ this.$t('contacts.recipient') }}: {{ code }}</p>
           </div>
           <nuxt-link to="/" class="btn-donate">
-            підтримати
+            {{this.$t('misc.support')}}
             <span class="svg-donate"></span>
           </nuxt-link>
         </div>
@@ -96,11 +96,13 @@ export default {
       email: 'default/email',
       phones: 'default/phones',
       socs: 'default/socs',
-      requisites: 'rekviziti/requisites',
+      iban: 'default/iban',
+      name: 'default/name',
+      code: 'default/code',
     })
   },
   mounted(){
-    console.log(this.requisites)
+    console.log(this.name)
     console.log('after req')
   }
 }
