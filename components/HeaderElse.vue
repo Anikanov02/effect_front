@@ -49,7 +49,7 @@
               <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-if="m.toMain && m.to !== $route.path.split('/')[1]">
                 {{m.name}}
               </nuxt-link>
-              <nuxt-link :to="`/${m.to}`"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to == $route.path.split('/')[1]">
+              <nuxt-link :to="`/${m.to}`" :ref="m.ref"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to == $route.path.split('/')[1]">
                 {{m.name}}
               </nuxt-link>
               <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 

@@ -18,7 +18,7 @@ export default {
   },
   components: { Footer },
   mounted () {
-    if (this.$route.path === '/') {
+    if (this.$route.path === '/' || this.$route.path === '/en') {
       this.mainHeader = true
       this.elseHeader = false
     } else {
@@ -29,7 +29,7 @@ export default {
   watch: {
     $route(to, from) {
       document.documentElement.style.overflow = "auto"
-      if (to.path === '/') {
+      if (to.path === '/' || to.path === '/en') {
         this.mainHeader = true
         this.elseHeader = false
       } else {

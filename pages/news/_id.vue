@@ -301,7 +301,7 @@
     }
   }
   
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1000px) {
     #news-piece {
   
       .main-image {
@@ -309,7 +309,7 @@
       }
   
       .news-block {
-        grid-template-columns: 1fr;
+        grid-template-columns: 2fr;
         grid-row-gap: 20px;
   
         .image-holder {

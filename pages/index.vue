@@ -678,6 +678,23 @@ export default {
     },
     onScroll(e) {
       if (document.documentElement.offsetWidth > 1101) {
+        let top = window.pageYOffset;
+        if (top < this.lastScroll) {
+          try {
+            this.$parent.$parent.$refs.headerMain.$el.style.top = '0px';
+          }
+          catch { }
+        }
+        else {
+          if (window.pageYOffset >= 300) {
+            try {
+              this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px';
+            }
+            catch { }
+          }
+        }
+        this.lastScroll = top;
+
         for (let key in this.$refs) {
           if (key == 'about') {
             if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
@@ -726,10 +743,13 @@ export default {
         else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 35 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
           this.$parent.$parent.$refs.headerMain.$refs.footer[0].classList.remove('active');
         }
+        
+      }
+      else {
         let top = window.pageYOffset;
         if (top < this.lastScroll) {
           try {
-            this.$parent.$parent.$refs.headerMain.$el.style.top = '0px';
+            this.$parent.$parent.$refs.headerMain.$el.style.top = '-1px';
           }
           catch { }
         }
@@ -742,8 +762,7 @@ export default {
           }
         }
         this.lastScroll = top;
-      }
-      else {
+        
         for (let key in this.$refs) {
           if (key == 'about') {
             if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
@@ -792,22 +811,7 @@ export default {
         else if (window.pageYOffset < this.$parent.$parent.$refs.footer.$el.offsetTop - 18 || window.pageYOffset > this.$parent.$parent.$refs.footer.$el.offsetTop + this.$parent.$parent.$refs.footer.$el.offsetHeight) {
           this.$parent.$parent.$refs.headerMain.$refs.footer[1].classList.remove('active');
         }
-        let top = window.pageYOffset;
-        if (top < this.lastScroll) {
-          try {
-            this.$parent.$parent.$refs.headerMain.$el.style.top = '-1px';
-          }
-          catch { }
-        }
-        else {
-          if (window.pageYOffset >= 300) {
-            try {
-              this.$parent.$parent.$refs.headerMain.$el.style.top = '-150px';
-            }
-            catch { }
-          }
-        }
-        this.lastScroll = top;
+        
       }
     },
     async getInstagram() {
@@ -922,6 +926,7 @@ export default {
       
       //console.log(this.$i18n.locale);
       console.log(this.$refs);
+      console.log(this.$parent.$parent.$refs.headerMain.$refs)
       console.log('after mounted');
     });
   },
@@ -1323,6 +1328,11 @@ export default {
               font-size: 18px;
               font-weight: 400;
               line-height: 26px;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
             }
           }
 
@@ -1576,7 +1586,6 @@ export default {
       grid-row-gap: 50px;
 
       .panel {
-        max-width: 400px;
         aspect-ratio: 1/1;
         border-radius: 6px;
         position: relative;
@@ -2083,6 +2092,14 @@ export default {
       .news-grid{
         grid-template-rows: 150px 100px 100px;
         grid-gap: 8px;
+
+        .box{
+          .desc{
+            .title-remain{
+              line-height: 1;
+            }
+          }
+        }
       }
     }
 
@@ -2181,6 +2198,26 @@ export default {
                   margin: 10px 15px;
                 }
               }
+            }
+          }
+        }
+      }
+    }
+
+    .news-all{
+      .news-grid{
+
+        .box{
+          .desc{
+            margin-left: 10px;
+            margin-bottom: 5px;
+            
+            .title-main{
+              font-size: 16px;
+            }
+            .title-remain{
+              font-size: 10px;
+              line-height: 1;
             }
           }
         }
