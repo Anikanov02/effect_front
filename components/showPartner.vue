@@ -15,7 +15,7 @@
         <p class="desc">
           {{parner.desc}}
         </p>
-        <a class="btn-link" :href="parner.link" v-if="parner.link !== null && parner.link !== ''" target="_blank" rel="noopener noreferrer">
+        <a class="btn-link" :href="parner.link" @click.prevent='goTo(parner.link)' v-if="parner.link !== null && parner.link !== ''" target="_blank" rel="noopener noreferrer">
           {{ this.$t('home.partners.goto') }}
           <span class="arrow-right"></span>
         </a>
@@ -37,6 +37,9 @@ export default {
     close() {
       this.on = false
       document.documentElement.style.overflow = ''
+    },
+    goTo(link){
+      window.open(link, '_blank')
     }
   }
 }

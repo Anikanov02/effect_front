@@ -1102,6 +1102,8 @@ export default {
 
         .btn-donate {
           margin-top: 75px;
+          display: flex;
+          justify-content: center;
         }
 
         .desc {

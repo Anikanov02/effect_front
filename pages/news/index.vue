@@ -501,7 +501,6 @@
       .top {
         align-items: center;
         margin-bottom: 20px;
-        margin-right: 0;
   
         .search {
           width: calc(100% - 300px);

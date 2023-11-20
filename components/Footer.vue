@@ -328,12 +328,18 @@ export default {
         .right {
           width: 100%;
           align-items: start;
+          .title{
+            margin-bottom: 0;
+          }
           .requisites{
             align-items: start;
-
             .label-mt35{
               margin-top: 0px;
             }
+          }
+
+          .btn-donate{
+            margin-top: 20px;
           }
         }
       }

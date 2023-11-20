@@ -18,10 +18,15 @@
             {{m.name}}
           </nuxt-link> -->
           <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}">
-            {{m.name}}
+            {{$t(`${m.name}`)}}
           </button>
         </li>
       </template>
+      <li class="btn-menu">
+        <button @click.prevent="changeLocale()" class="menu-btn">
+          {{this.$t('misc.change_lang')}}
+        </button>
+      </li>
       <li class="btn-menu">
         <nuxt-link to="/" class="btn-donate">
           {{this.$t('misc.support')}}
@@ -47,10 +52,15 @@
                 {{m.name}}
               </nuxt-link> -->
               <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}">
-                {{m.name}}
+                {{$t(`${m.name}`)}}
               </button>
             </li>
           </template>
+          <li class="btn-menu">
+            <button @click.prevent="changeLocale()" class="menu-btn">
+              {{this.$t('misc.change_lang')}}
+            </button>
+          </li>
           <li class="btn-menu">
             <nuxt-link to="/" class="btn-donate">
               {{this.$t('misc.support')}}
@@ -70,37 +80,37 @@ export default {
       burgerOn: false,
       menu: [
         {
-          name: this.$t('header.about'),
+          name: 'header.about',
           to: 'about',
           ref: 'about',
           disabled: false
         }, 
         {
-          name: this.$t('header.projects'),
+          name: 'header.projects',
           to: 'projects',
           ref: 'projects',
           disabled: false
         },
         {
-          name: this.$t('header.news'),
+          name: 'header.news',
           to: 'news',
           ref: 'news',
           disabled: false
         }, 
         {
-          name: this.$t('header.partners'),
+          name: 'header.partners',
           to: 'partners',
           ref: 'partners',
           disabled: false
         }, 
         {
-          name: this.$t('header.documentation'),
+          name: 'header.documentation',
           to: 'documentations',
           ref: 'documentations',
           disabled: false
         },
         {
-          name: this.$t('header.contacts'),
+          name: 'header.contacts',
           to: 'footer',
           ref: 'footer',
           disabled: false
@@ -145,6 +155,10 @@ export default {
         });
       }
       this.closeBurg()
+    },
+    changeLocale() {
+      let lang = this.$i18n.locale === 'en'? 'uk' : 'en'
+      this.$i18n.setLocale(lang);
     }
   },
   watch: {

@@ -15,16 +15,21 @@
       <template v-for="(m, index) in menu">
         <li class="btn-menu" :key="index">
           <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-if="m.toMain && m.to !== $route.path.split('/')[1]">
-            {{m.name}}
+            {{$t(`${m.name}`)}}
           </nuxt-link>
           <nuxt-link :to="`/${m.to}`"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to == $route.path.split('/')[1]">
-            {{m.name}}
+            {{$t(`${m.name}`)}}
           </nuxt-link>
           <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 
-            {{m.name}}
+            {{$t(`${m.name}`)}}
           </button>
         </li>
       </template>
+      <li class="btn-menu">
+        <button @click.prevent="changeLocale()" class="menu-btn">
+          {{this.$t('misc.change_lang')}}
+        </button>
+      </li>
       <li class="btn-menu">
         <nuxt-link to="/" class="btn-donate">
           {{this.$t('misc.support')}}
@@ -47,16 +52,21 @@
           <template v-for="(m, index) in menu">
             <li class="btn-menu" :key="index">
               <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-if="m.toMain && m.to !== $route.path.split('/')[1]">
-                {{m.name}}
+                {{$t(`${m.name}`)}}
               </nuxt-link>
               <nuxt-link :to="`/${m.to}`" :ref="m.ref"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to == $route.path.split('/')[1]">
-                {{m.name}}
+                {{$t(`${m.name}`)}}
               </nuxt-link>
               <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 
-                {{m.name}}
+                {{$t(`${m.name}`)}}
               </button>
             </li>
           </template>
+          <li class="btn-menu">
+            <button @click.prevent="changeLocale()" class="menu-btn">
+              {{this.$t('misc.change_lang')}}
+            </button>
+          </li>
           <li class="btn-menu">
             <nuxt-link to="/" class="btn-donate">
               {{this.$t('misc.support')}}
@@ -76,41 +86,42 @@ export default {
       burgerOn: false,
       menu: [
         {
-          name: this.$t('header.about'),
+          name: 'header.about',
           to: 'about',
           ref: 'about',
           disabled: false,
           toMain: true
         }, 
         {
-          name: this.$t('header.projects'),
+          name: 'header.projects',
           to: 'projects',
           ref: 'projects',
           disabled: false,
           toMain: this.$route.path.split('/')[1] !== 'projects' ? true : false
         },
         {
-          name: this.$t('header.news'),
+          name: 'header.news',
           to: 'news',
           ref: 'news',
-          disabled: false
+          disabled: false,
+          toMain: this.$route.path.split('/')[1] !== 'news' ? true : false
         }, 
         {
-          name: this.$t('header.partners'),
+          name: 'header.partners',
           to: 'partners',
           ref: 'partners',
           disabled: false,
           toMain: true
         }, 
         {
-          name: this.$t('header.documentation'),
+          name: 'header.documentation',
           to: 'documentations',
           ref: 'documentations',
           disabled: false,
           toMain: this.$route.path.split('/')[1] !== 'documentations' ? true : false
         },
         {
-          name: this.$t('header.contacts'),
+          name: 'header.contacts',
           to: 'footer',
           ref: 'footer',
           disabled: false,
@@ -149,6 +160,10 @@ export default {
           behavior: "smooth"
         });
       }
+    },
+    changeLocale() {
+      let lang = this.$i18n.locale === 'en'? 'uk' : 'en'
+      this.$i18n.setLocale(lang)
     }
   },
   mounted() {

@@ -61,5 +61,6 @@ export default {
   },
   misc: {
     support: 'support',
+    change_lang: 'укр'
   }
 };

@@ -61,5 +61,6 @@ export default {
   },
   misc: {
     support: 'підтримати',
+    change_lang: 'en'
   }
 };
