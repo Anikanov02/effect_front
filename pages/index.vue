@@ -129,7 +129,7 @@
       </h2>
       <div class="videos">
         <div class="left">
-          <YouTubeEmbed id="static-video" :video-id="yourVideoId"></YouTubeEmbed>
+          <YouTubeEmbed id="static-video" :video-id="youtubeMainVideoId"></YouTubeEmbed>
         </div>
         <div class="right">
           <template v-for="video in youtubeVideos">
@@ -259,7 +259,7 @@
           </div>
         </div>
 
-        <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage()"> <!--TODOredirect to instagram-->
+        <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage(socs[2].link)"> <!--TODOredirect to instagram-->
           <div class="text_holder">
             <p class="inst_tag">@efectdytyny</p>
             <p class="subtext">{{this.$t('home.instagram.goto')}}</p>
@@ -294,7 +294,6 @@ export default {
         startPoint: 0,
         endPoint: 0,
       },
-      yourVideoId: '8Eu3jmEUlzc', //TODO: create backend dependency
       youtubeVideos: [],
       instagram: [],
     };
@@ -303,6 +302,7 @@ export default {
     await Promise.all([
       store.dispatch('default/fetch'),
       store.dispatch('about/fetch'),
+      store.dispatch('youtube/fetch'),
       store.dispatch('about-members/fetch'),
       store.dispatch('mainGallery/fetch'),
       store.dispatch('partners/fetch'),
@@ -315,9 +315,11 @@ export default {
     ...mapGetters({
       about: 'about/about',
       instagram_quotes: 'about/instagram',
+      youtubeMainVideoId: 'youtube/youtube',
       members: 'about-members/members',
       partners: 'partners/partners',
       gallery: 'mainGallery/gallery',
+      socs: 'default/socs',
       docs: 'documents/docs',
       seo: 'homePage/seo'
     })
@@ -928,6 +930,8 @@ export default {
       console.log(this.$refs);
       console.log(this.$parent.$parent.$refs.headerMain.$refs)
       console.log('after mounted');
+      console.log(this.youtubeMainVideoId);
+
     });
   },
   components: { YouTubeEmbed }
