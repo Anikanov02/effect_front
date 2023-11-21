@@ -1301,11 +1301,9 @@ export default {
             opacity: 1;
             object-fit: cover;
             border-radius: 6px;
-
+            pointer-events: none;
             transition: .3s;
-            &:hover{
-              opacity: .25;
-            }
+
           }
 
           .desc{
@@ -1344,7 +1342,9 @@ export default {
 
           &:hover{
             cursor: pointer;
-
+            img{
+              opacity: .25;
+            }
             .desc{
               display: block;
             }

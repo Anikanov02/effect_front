@@ -7,7 +7,7 @@
     </div>
     <div v-else class="dropdown container-projects">
       <div class="dropdown-type-selector">
-        <button class="dropbtn">{{this.currentTypeName}} &#11167;</button>
+        <button class="dropbtn">{{this.currentTypeName}} &#x2193;</button>
         <div class="dropdown-content">
           <template v-for="(element, index) in projectTypes">
             <button  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
