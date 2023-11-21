@@ -116,12 +116,43 @@
     },
     async fetch({ store }) {
       await Promise.all([store.dispatch("default/fetch")]);
+      await Promise.all([store.dispatch("newsSeo/fetch")]);
     },
     computed: {
-      ...mapGetters({}),
+      ...mapGetters({
+        seo: 'newsSeo/seo',
+      }),
     },
     head() {
-      //TODO seo
+      const i18nSeo = this.$nuxtI18nSeo();
+      return {
+        htmlAttrs: {
+          site: 'Ефект дитини',
+          created_by: 'hoba.digital',
+          ...i18nSeo.htmlAttrs
+        },
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            property: 'og:description',
+            content: this.seo.desc
+          },
+          {
+            hid: 'title',
+            name: 'title',
+            property: 'og:title',
+            content: this.seo.title
+          },
+          {
+            hid: 'og:image',
+            property: 'og:image',
+            content: this.siteUrl + this.seo.img.data.attributes.url
+          },
+          ...i18nSeo.meta
+        ],
+        title: this.seo.title
+      };
     },
     methods: {
       async getNews(type) {

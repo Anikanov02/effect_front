@@ -23,6 +23,9 @@
           <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 
             {{$t(`${m.name}`)}}
           </button>
+          <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else> 
+            {{$t(`${m.name}`)}}
+          </button>
         </li>
       </template>
       <li class="btn-menu">
