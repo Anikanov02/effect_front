@@ -93,3 +93,4 @@ sw.*
 
 # dist folder
 /dist
+.vscode/settings.json

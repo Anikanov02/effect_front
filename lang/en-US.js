@@ -1,7 +1,7 @@
 export default {
   header: {
     about: 'about us',
-    projects: 'projects',
+    projects: 'programs',
     news: 'news',
     partners: 'partners',
     documentation: 'documentation',
@@ -15,7 +15,7 @@ export default {
       showAll: 'show all',
     },
     projects: {
-      title: 'Projects',
+      title: 'Programs',
       showAll: 'show all',
     },
     news: {

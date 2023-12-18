@@ -137,6 +137,9 @@ export default {
   },
   mounted() {
     this.siteUrl = process.env.apiUrl
+    this.$nextTick(() => {
+      console.log(this.$refs)
+    });
   }
 }
 </script>

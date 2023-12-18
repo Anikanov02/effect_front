@@ -23,9 +23,9 @@
           <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 
             {{$t(`${m.name}`)}}
           </button>
-          <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else> 
+          <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else>
             {{$t(`${m.name}`)}}
-          </button>
+          </nuxt-link>
         </li>
       </template>
       <li class="btn-menu">
@@ -63,6 +63,9 @@
               <button :ref="m.ref" @click.prevent="goTo(m.to)" class="menu-btn" :class="{disabled: m.disabled == true}" v-else-if="!m.toMain && m.to !== $route.path.split('/')[1]"> 
                 {{$t(`${m.name}`)}}
               </button>
+              <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-else>
+            {{$t(`${m.name}`)}}
+          </nuxt-link>
             </li>
           </template>
           <li class="btn-menu">
@@ -100,14 +103,14 @@ export default {
           to: 'projects',
           ref: 'projects',
           disabled: false,
-          toMain: this.$route.path.split('/')[1] !== 'projects' ? true : false
+          toMain: true
         },
         {
           name: 'header.news',
           to: 'news',
           ref: 'news',
           disabled: false,
-          toMain: this.$route.path.split('/')[1] !== 'news' ? true : false
+          toMain: true
         }, 
         {
           name: 'header.partners',
@@ -121,7 +124,7 @@ export default {
           to: 'documentations',
           ref: 'documentations',
           disabled: false,
-          toMain: this.$route.path.split('/')[1] !== 'documentations' ? true : false
+          toMain: true
         },
         {
           name: 'header.contacts',

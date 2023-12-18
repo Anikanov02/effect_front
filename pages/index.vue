@@ -289,6 +289,7 @@ export default {
       nextPage: 0,
       maxPage: 0,
       nextPage: 0,
+      docs: [],
       slideProjects: {
         initPoint: 0,
         startPoint: 0,
@@ -306,7 +307,6 @@ export default {
       store.dispatch('about-members/fetch'),
       store.dispatch('mainGallery/fetch'),
       store.dispatch('partners/fetch'),
-      store.dispatch('documents/fetch'),
       store.dispatch('homePage/fetch'),
       store.dispatch('rekviziti/fetch'),
     ])
@@ -320,7 +320,6 @@ export default {
       partners: 'partners/partners',
       gallery: 'mainGallery/gallery',
       socs: 'default/socs',
-      docs: 'documents/docs',
       seo: 'homePage/seo'
     })
   },
@@ -848,7 +847,20 @@ export default {
         }
       }).then(data => {
         this.youtubeVideos = data.data.data
-        //window.console.log(JSON.stringify(this.youtubeVideos, null, 2))
+      })
+    },
+    async getDocumentations() {
+      await this.$axios.get(`${process.env.apiUrl}/api/dokumentacziya?populate[documents][populate]=*&pagination[pageSize]=*&populate[seo][populate]=*&locale=${this.$i18n.locale}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.tokken}`
+        }
+      }).then(data => {
+        var documents = data.data.data.attributes.documents
+        if(documents.length > 0) {
+          for (let i = 0; i < 3; i++) {
+            this.docs.push(documents[i])
+          } 
+        }
       })
     },
     redirectToAnotherPage(url) {
@@ -886,8 +898,9 @@ export default {
     this.siteUrl = process.env.apiUrl;
     this.getProjects();
     this.getYoutubeVideos();
-    this.getInstagram()
-    this.getNews()
+    this.getInstagram();
+    this.getNews();
+    this.getDocumentations();
     
     
     setTimeout(() => {
@@ -1265,7 +1278,7 @@ export default {
 
     .all-projects {
       display: flex;
-      justify-content: center;
+      justify-content: end;
       margin-top: 30px;
     }
   }
@@ -1540,6 +1553,7 @@ export default {
     .all-docs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       grid-column-gap: 120px;
       grid-row-gap: 60px;
 
@@ -1566,8 +1580,14 @@ export default {
           }
         }
       }
-
+      .div{
+        grid-row: 2;
+        grid-column: 3;
+        display: flex;
+        justify-content: end;
+      }
       .btn-all {
+
         height: calc(50px - 22px);
         margin-top: 5px;
       }

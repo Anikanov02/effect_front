@@ -2,7 +2,12 @@
   <div id="projects-page" class="prod">
     <div v-if="this.windowWidth > 1100" class="type-selector">
       <template v-for="(element, index) in projectTypes">
-        <button :class="{ active: currentType == element.attributes.type }" :title="element.attributes.name"  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
+        <div style="position: relative;">
+          <button :class="{ active: currentType == element.attributes.type }" :title="element.attributes.name"  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
+          <div class="desc">
+            <p>{{ element.attributes.desc }}</p>
+          </div>
+        </div>
       </template>
     </div>
     <div v-else class="dropdown container-projects">
@@ -14,6 +19,7 @@
           </template>
         </div>
       </div>
+      <p>{{ currentDesc }}</p>
     </div>
     <div v-if="projects.length > 0" class="projs container-projects">
       <div class="left">
@@ -168,6 +174,7 @@ export default {
       projectTypes: [],
       currentType: "",
       currentTypeName: "",
+      currentDesc: "",
       paginations: {
         inPage: 5,
         allPage: 0,
@@ -283,6 +290,7 @@ export default {
         if(element.attributes.type == this.currentType)
         {
           this.currentTypeName = element.attributes.name
+          this.currentDesc = element.attributes.desc
         }
       });
       this.getProjects(this.currentType)
@@ -298,6 +306,7 @@ export default {
         this.projectTypes = data.data.data;
         this.currentType = this.projectTypes[0].attributes.type
         this.currentTypeName = this.projectTypes[0].attributes.name
+        this.currentDesc = this.projectTypes[0].attributes.desc
       })
     },
     async getProjects(type) {
@@ -356,8 +365,8 @@ export default {
     .type-selector {
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
-      gap: 30px;
+      justify-content: center;
+      gap: 50px;
 
       position: relative;
 
@@ -380,6 +389,10 @@ export default {
         
         &:hover {
           font-weight: 600;
+        }
+
+        &:hover+.desc{
+          opacity: 1;
         }
         
         &::before {
@@ -406,6 +419,25 @@ export default {
         height: 8px;
         background-color: var(--pink);
         border-radius: 6px;
+      }
+
+      .desc{
+        position: absolute;
+        width: 500px;
+        
+        padding: 15px;
+
+        opacity: 0;
+        transition: all .3s;
+
+        background: #fff;
+        border: 1px solid #BDBDBD;
+        border-radius: 6px;
+
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
       }
 
     }
@@ -451,7 +483,13 @@ export default {
         &:hover .dropdown-content {
           display: block;
         }
+
+        
       }
+
+      p{
+          margin-bottom: 20px;
+        }
     }
 
     
@@ -657,6 +695,25 @@ export default {
       .projs {
         grid-column-gap: 50px;
         grid-template-columns: 425px 1fr;
+      }
+
+      .type-selector>div:first-child > .desc {
+        left: 0;
+        transform: translateX(0);
+      }
+
+      .type-selector>div:nth-child(2) > .desc {
+        transform: translateX(-30%);
+      }
+
+      .type-selector>div:nth-child(5) > .desc {
+        transform: translateX(-70%);
+      }
+
+      .type-selector>div:last-child > .desc {
+        left: unset;
+        right: 0;
+        transform: translateX(0);
       }
     }
   }

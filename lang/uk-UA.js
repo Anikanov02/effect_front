@@ -1,7 +1,7 @@
 export default {
   header: {
     about: 'про нас',
-    projects: 'проекти',
+    projects: 'програми',
     news: 'новини',
     partners: 'партнери',
     documentation: 'документація',
@@ -12,11 +12,11 @@ export default {
   },
   home: {
     about: {
-      showAll: 'показати усіх'
+      showAll: 'переглянути всіх'
     },
     projects: {
-      title: 'Проекти',
-      showAll: 'показати усі',
+      title: 'Програми',
+      showAll: 'показати всі',
     },
     news: {
       title: 'Новини',
@@ -27,14 +27,14 @@ export default {
       goto: 'перейти на сайт'
     },
     youtube: {
-      title: 'Ютуб'
+      title: 'Youtube'
     },
     documentation: {
-      title: 'Documentation',
-      showAll: 'переглянути усі',
+      title: 'Документація',
+      showAll: 'переглянути всі',
     },
     instagram: {
-      title: 'Істаграм',
+      title: 'Instagram',
       //TODO quotes
       goto: 'перейти на сторінку'
     },
@@ -51,10 +51,10 @@ export default {
     empty: 'В цьому розділі ще немає проектів',
   },
   founders: {
-    title: 'Усі засновники',
+    title: 'Всі засновники',
   },
   documentation:{
-    all: 'Усі документи'
+    all: 'Всі документи'
   },
   contacts: {
     recipient: 'Код отримувача'
