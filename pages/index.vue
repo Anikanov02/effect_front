@@ -16,7 +16,7 @@
     </div>
 
     <div class="about container-main margin-main" id="about" ref="about">
-      <div class="informations">
+      <div class="history" id="history">
         <div class="left">
           <img :src="siteUrl + about.img.data.attributes.url" alt="">
         </div>
@@ -25,10 +25,28 @@
             {{ about.title }}
           </p>
           <p class="desc" v-html="$md.render(about.desc)"></p>
-          <nuxt-link to="/" class="btn-donate">
-            {{this.$t('misc.support')}}
-            <span class="svg-donate"></span>
-          </nuxt-link>
+        </div>
+      </div>
+      <div class="history" id="mission">
+        <div class="left">
+          <img :src="siteUrl + about.img.data.attributes.url" alt="">
+        </div>
+        <div class="right">
+          <p class="title">
+            {{ about.title }}
+          </p>
+          <p class="desc" v-html="$md.render(about.desc)"></p>
+        </div>
+      </div>
+      <div class="history" id="principles">
+        <div class="left">
+          <img :src="siteUrl + about.img.data.attributes.url" alt="">
+        </div>
+        <div class="right">
+          <p class="title">
+            {{ about.title }}
+          </p>
+          <p class="desc" v-html="$md.render(about.desc)"></p>
         </div>
       </div>
       <div class="founders">
@@ -1057,9 +1075,13 @@ export default {
   }
 
   .about {
-    .informations {
+    .history {
       display: flex;
       justify-content: space-between;
+
+      &:nth-child(2){
+        flex-direction: row-reverse;
+      }
 
       .left {
         width: 50%;
@@ -1080,7 +1102,8 @@ export default {
         max-width: calc(50% - 60px);
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        margin-top: 70px;
+        //justify-content: flex-end;
         position: relative;
 
         p,
@@ -1088,34 +1111,34 @@ export default {
           z-index: 1;
         }
 
-        &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -25px;
-          z-index: 0;
-          width: 128px;
-          height: 128px;
-          display: inline-block;
-          background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik02My44NTM4IDYuNjUzNDFlLTA1QzI4LjU4ODMgNi45NjE3MWUtMDUgNS4yMjg2NmUtMDUgMjguNTg4NCA1LjUzNjk2ZS0wNSA2My44NTM4QzUuODQ1MjZlLTA1IDk5LjExOTIgMjguNTg4NCAxMjcuNzA4IDYzLjg1MzggMTI3LjcwOEM5OS4xMTkyIDEyNy43MDggMTI3LjcwOCA5OS4xMTkyIDEyNy43MDggNjMuODUzOEMxMjcuNzA4IDI4LjU4ODQgOTkuMTE5MiA2LjM0NTExZS0wNSA2My44NTM4IDYuNjUzNDFlLTA1WiIgZmlsbD0iI0VGREMwMCIvPgo8L3N2Zz4');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-        }
+        // &::after {
+        //   content: '';
+        //   position: absolute;
+        //   top: 0;
+        //   left: -25px;
+        //   z-index: 0;
+        //   width: 128px;
+        //   height: 128px;
+        //   display: inline-block;
+        //   background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik02My44NTM4IDYuNjUzNDFlLTA1QzI4LjU4ODMgNi45NjE3MWUtMDUgNS4yMjg2NmUtMDUgMjguNTg4NCA1LjUzNjk2ZS0wNSA2My44NTM4QzUuODQ1MjZlLTA1IDk5LjExOTIgMjguNTg4NCAxMjcuNzA4IDYzLjg1MzggMTI3LjcwOEM5OS4xMTkyIDEyNy43MDggMTI3LjcwOCA5OS4xMTkyIDEyNy43MDggNjMuODUzOEMxMjcuNzA4IDI4LjU4ODQgOTkuMTE5MiA2LjM0NTExZS0wNSA2My44NTM4IDYuNjUzNDFlLTA1WiIgZmlsbD0iI0VGREMwMCIvPgo8L3N2Zz4');
+        //   background-repeat: no-repeat;
+        //   background-position: center;
+        //   background-size: contain;
+        // }
 
-        &::before {
-          content: '';
-          position: absolute;
-          right: 0;
-          z-index: 0;
-          width: 106px;
-          height: 106px;
-          display: inline-block;
-          background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA2IiBoZWlnaHQ9IjEwNiIgdmlld0JveD0iMCAwIDEwNiAxMDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xMDYgMEM0Ny40NjM0IC0yLjU1ODcyZS0wNiA1LjU1MzY4ZS0wNiA0Ny40ODY4IDIuOTk1OTllLTA2IDEwNkwxMDYgMTA2TDEwNiAwWiIgZmlsbD0iIzUyQTc4NSIvPgo8L3N2Zz4');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-        }
+        // &::before {
+        //   content: '';
+        //   position: absolute;
+        //   right: 0;
+        //   z-index: 0;
+        //   width: 106px;
+        //   height: 106px;
+        //   display: inline-block;
+        //   background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA2IiBoZWlnaHQ9IjEwNiIgdmlld0JveD0iMCAwIDEwNiAxMDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xMDYgMEM0Ny40NjM0IC0yLjU1ODcyZS0wNiA1LjU1MzY4ZS0wNiA0Ny40ODY4IDIuOTk1OTllLTA2IDEwNkwxMDYgMTA2TDEwNiAwWiIgZmlsbD0iIzUyQTc4NSIvPgo8L3N2Zz4');
+        //   background-repeat: no-repeat;
+        //   background-position: center;
+        //   background-size: contain;
+        // }
 
         .btn-donate {
           margin-top: 75px;
@@ -1794,7 +1817,7 @@ export default {
     .about {
       margin-top: 40px;
 
-      .informations {
+      .history {
         flex-direction: column;
 
         .right {
