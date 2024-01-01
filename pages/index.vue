@@ -16,39 +16,19 @@
     </div>
 
     <div class="about container-main margin-main" id="about" ref="about">
-      <div class="history" id="history">
-        <div class="left">
-          <img :src="siteUrl + about.img.data.attributes.url" alt="">
+      <template v-for="(aboutBlock, index) in about">
+        <div class="about" :d="'history_' + index">
+          <div class="left">
+            <img :src="siteUrl + aboutBlock.Img.data.attributes.url" alt="">
+          </div>
+          <div class="right">
+            <p class="title">
+              {{ aboutBlock.Title }}
+            </p>
+            <p class="desc" v-html="$md.render(aboutBlock.Desc)"></p>
+          </div>
         </div>
-        <div class="right">
-          <p class="title">
-            {{ about.title }}
-          </p>
-          <p class="desc" v-html="$md.render(about.desc)"></p>
-        </div>
-      </div>
-      <div class="history" id="mission">
-        <div class="left">
-          <img :src="siteUrl + about.img.data.attributes.url" alt="">
-        </div>
-        <div class="right">
-          <p class="title">
-            {{ about.title }}
-          </p>
-          <p class="desc" v-html="$md.render(about.desc)"></p>
-        </div>
-      </div>
-      <div class="history" id="principles">
-        <div class="left">
-          <img :src="siteUrl + about.img.data.attributes.url" alt="">
-        </div>
-        <div class="right">
-          <p class="title">
-            {{ about.title }}
-          </p>
-          <p class="desc" v-html="$md.render(about.desc)"></p>
-        </div>
-      </div>
+      </template>
       <div class="founders">
         <template v-for="m in members">
           <div class="user" :key="m.id">
@@ -80,13 +60,14 @@
       <h2>
         {{this.$t('home.projects.title')}}
       </h2>
+      <p>{{ programmsDesc }}</p>
       <div class="carousel-container" ref="gal_prod">
         <div class="carousel-inner">
           <template>
           <div class="track" ref="card_track">
               <div v-for="prType in projectTypes" class="card-container" @click.prevent="goToProjectType(prType.attributes.type)">
                 <div class="card" ref="card">
-                  <img class=".img" :src="siteUrl + prType.attributes.previewPicture.data.attributes.url"></img>
+                  <img class=".img" :src="siteUrl + prType.attributes.previewPicture.data.attributes.url"/>
                   <span>{{prType.attributes.name}}</span>
                 </div>
               </div>
@@ -94,8 +75,12 @@
         </template>
         </div>
         <div class="nav">
-          <button class="prev material-symbols-outlined">chevron_left</button>
-          <button class="next material-symbols-outlined">chevron_right</button>
+          <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+  <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+</svg></button>
+          <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+<path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+</svg></button>
         </div>
       </div>
       <div class="all-projects">
@@ -338,7 +323,8 @@ export default {
       partners: 'partners/partners',
       gallery: 'mainGallery/gallery',
       socs: 'default/socs',
-      seo: 'homePage/seo'
+      seo: 'homePage/seo',
+      programmsDesc: 'homePage/programmsDesc'
     })
   },
   head() {
@@ -961,7 +947,7 @@ export default {
       console.log(this.$refs);
       console.log(this.$parent.$parent.$refs.headerMain.$refs)
       console.log('after mounted');
-      console.log(this.youtubeMainVideoId);
+      console.log(this.about);
 
     });
   },
@@ -1075,7 +1061,7 @@ export default {
   }
 
   .about {
-    .history {
+    .about {
       display: flex;
       justify-content: space-between;
 
@@ -1211,12 +1197,16 @@ export default {
       font-size: var(--fz1);
       font-weight: 600;
       font-family: 'Montserrat Alternates', sans-serif;
-      margin-bottom: 60px;
+      margin-bottom: 20px;
+    }
+
+    p{
+      width: 50%;
     }
     
     .carousel-container{
       position: relative;
-      margin: 0px auto;
+      margin: 32px auto 0px;
       min-height: 200px;
       .carousel-inner{
         overflow: hidden;
@@ -1226,14 +1216,15 @@ export default {
 
           .card-container{
             flex-shrink: 0;
-            height: 450px;
+            height: 430px;
             box-sizing: border-box;
 
             .card{
               position: relative;
 
-              width: 100%;
+              width: 370px;
               height: 100%;
+              margin: 0 auto;
               display: flex;
               flex-direction: column;
               justify-content: end;
@@ -1256,16 +1247,39 @@ export default {
               }
 
               span{
-                color: var(--white, #FFF);
+                color: var(--white, #FFF);  
+                height: 80px;                
                 font-family: Montserrat Alternates;
                 font-size: 30px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
-                margin: 20px 40px;
+                padding: 20px 40px;
                 z-index: 1;
+
+                
               }
+
+              
             }
+
+          }
+          :nth-child(3n-2){
+            span{  
+              background-color: #52A785D9;
+            }
+          }
+
+          :nth-child(3n-1){
+            span{
+              background-color: #A62585D9;
+            }
+          }
+
+          :nth-child(3n){
+            span{
+              background-color: #EFDC00D9;
+            } 
           }
         }
       }
@@ -1275,8 +1289,6 @@ export default {
           position: absolute;
           width: 30px;
           height: 80px;
-          background-color: var(--pink);
-          border-radius: 6px;
           top: 50%;
           z-index: 2;
           transform: translateY(-50%);
@@ -1284,7 +1296,7 @@ export default {
         }
 
         .prev{
-          left: -15px;
+          left: -40px;
           display: none;
         }
         .show{
@@ -1294,7 +1306,7 @@ export default {
           display: none;
         }
         .next{
-          right: -15px;
+          right: -40px;
         }
       }
     }
@@ -1817,7 +1829,7 @@ export default {
     .about {
       margin-top: 40px;
 
-      .history {
+      .about {
         flex-direction: column;
 
         .right {
@@ -1873,6 +1885,7 @@ export default {
                 img{
                   filter: brightness(100%);
                 }
+                
               }
             }
           } 

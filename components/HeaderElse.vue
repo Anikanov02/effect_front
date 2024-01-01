@@ -12,6 +12,24 @@
       </svg>
     </button>
     <ul class="menu">
+
+      <li class="btn-menu">
+        <button @click.prevent="" class="menu-btn">
+          <span>{{ $t('header.about') }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 9" fill="none">
+              <path d="M6.80584 7.90334C6.40623 8.44715 5.59376 8.44716 5.19416 7.90334L1.10774 2.34214C0.622459 1.68172 1.09404 0.75 1.91358 0.75L10.0864 0.750001C10.906 0.750001 11.3775 1.68172 10.8923 2.34214L6.80584 7.90334Z" fill="black"/>
+            </svg>
+          </span>
+        </button>
+        <div class="submenu">
+
+          <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="nuxt-link">{{ $t('header.about_submenu.about_org') }}</nuxt-link>
+          <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="nuxt-link">{{ $t('header.about_submenu.team') }}</nuxt-link>
+          <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="nuxt-link">{{ $t('header.about_submenu.overwatch') }}</nuxt-link>
+          <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="nuxt-link">{{ $t('header.about_submenu.children_overwatch') }}</nuxt-link>
+        </div>
+      </li>
+
       <template v-for="(m, index) in menu">
         <li class="btn-menu" :key="index">
           <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-if="m.toMain && m.to !== $route.path.split('/')[1]">
@@ -52,6 +70,42 @@
         </div>
         <div class="bg"></div>
         <ul class="menu">
+          <li id="hamsubmenuOpener" class="btn-menu">
+            <button  @click.prevent="openSubmenu()" class="menu-btn">
+              <span>{{ $t('header.about') }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 9" fill="none">
+                  <path d="M6.80584 7.90334C6.40623 8.44715 5.59376 8.44716 5.19416 7.90334L1.10774 2.34214C0.622459 1.68172 1.09404 0.75 1.91358 0.75L10.0864 0.750001C10.906 0.750001 11.3775 1.68172 10.8923 2.34214L6.80584 7.90334Z" fill="black"/>
+                </svg>
+              </span>
+            </button>          
+          </li>
+          <li id="hamsubmenuCloser" class="btn-menu" style="display: none;">
+            <button @click.prevent="openSubmenu()" class="menu-btn">
+              <span>{{ $t('header.about') }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
+                  <path d="M5.19416 1.09666C5.59377 0.552845 6.40624 0.552844 6.80584 1.09666L10.8923 6.65786C11.3775 7.31828 10.906 8.25 10.0864 8.25L1.91358 8.25C1.09404 8.25 0.622459 7.31828 1.10774 6.65786L5.19416 1.09666Z" fill="#52A785"/>
+                </svg>
+              </span>
+            </button>          
+          </li>
+          
+
+          <ul class="hamsubmenu">
+            <li class="btn-menu">
+              <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="menu-btn">{{ $t('header.about_submenu.about_org') }}</nuxt-link>
+            </li>
+            <li class="btn-menu">
+              <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="menu-btn">{{ $t('header.about_submenu.team') }}</nuxt-link>
+            </li>
+            <li class="btn-menu">
+              <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="menu-btn">{{ $t('header.about_submenu.overwatch') }}</nuxt-link>
+            </li>
+            <li class="btn-menu">
+              <nuxt-link :to="{ path: localePath('/'), hash: `#about` }" class="menu-btn">{{ $t('header.about_submenu.children_overwatch') }}</nuxt-link>
+            </li>
+
+          </ul>
+
           <template v-for="(m, index) in menu">
             <li class="btn-menu" :key="index">
               <nuxt-link :to="{ path: localePath('/'), hash: `#${m.to}` }"  class="menu-btn" active-class="active" :class="{disabled: m.disabled == true}" v-if="m.toMain && m.to !== $route.path.split('/')[1]">
@@ -90,14 +144,7 @@ export default {
   data() {
     return {
       burgerOn: false,
-      menu: [
-        {
-          name: 'header.about',
-          to: 'about',
-          ref: 'about',
-          disabled: false,
-          toMain: true
-        }, 
+      menu: [ 
         {
           name: 'header.projects',
           to: 'projects',
@@ -144,6 +191,26 @@ export default {
     closeBurg() {
       document.documentElement.style.overflow = "auto"
       this.burgerOn = false
+    },
+    openSubmenu() {
+      var hamSubmenus = document.getElementsByClassName('hamsubmenu')
+
+      const hamsubmenuOpener = document.getElementById('hamsubmenuOpener');
+      const hamsubmenuCloser = document.getElementById('hamsubmenuCloser');
+      for (var i = 0; i < hamSubmenus.length; i++) {
+        if(this.hamsubmenuOn){
+          hamSubmenus[i].style.display = 'none'
+          this.hamsubmenuOn = false
+          hamsubmenuOpener.style.display = 'block'
+          hamsubmenuCloser.style.display = 'none'
+        }
+        else{
+          hamSubmenus[i].style.display = 'block'
+          this.hamsubmenuOn = true
+          hamsubmenuOpener.style.display = 'none'
+          hamsubmenuCloser.style.display = 'block'
+        }
+      }
     },
     goTo(link) {
       if (link !== null) {
@@ -218,6 +285,7 @@ export default {
       display: flex;
       align-items: center;
       .btn-menu {
+        position: relative;
         margin-right: 50px;
         &:nth-last-child(-n+1) {
           margin-right: 0;
@@ -234,16 +302,75 @@ export default {
             color: lightgrey;
             pointer-events: none
           }
+          &:hover {
+            .menu-btn {
+              &.disabled {
+                color: lightgrey;
+              }
+              color: var(--green);
+            }
+          }
         }
+
+        .submenu{
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: -26px;
+          width: max-content;
+
+          background-color: #fff;
+          padding: 26px;
+
+          font-size: var(--fz3);
+          font-weight: 600;
+          border-radius: 13px;
+          z-index: 1;
+
+          .nuxt-link{
+            color: var(--text-color, #202221);
+            font-family: Montserrat;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 40px;
+            width: fit-content;
+
+            &:hover{
+              color: var(--green);
+            }
+          }
+        }
+
         &:hover {
           .menu-btn {
             &.disabled {
               color: lightgrey;
             }
             color: var(--green);
+
+            span{
+              color: var(--green);
+
+              svg{
+                path{
+                  fill:var(--green)
+                }
+              }
+            }
+
+            
+          }
+
+          .submenu{
+            display: flex;
+            flex-direction: column;
           }
         }
+        
       }
+
+      
     }
     .humburger {
       display: none;
@@ -280,7 +407,7 @@ export default {
         display: flex;
         flex-direction: column;
         .btn-menu {
-          margin-bottom: 35px;
+          margin-bottom: 20px;
           margin-right: 0;
           display: flex;
           text-align: center;
@@ -328,6 +455,28 @@ export default {
       }
       .humburger {
         display: flex;
+      }
+
+      .submenu{
+        display: flex;
+        flex-direction: column;
+
+      }
+
+      .hamsubmenu{
+        display: none;
+        margin-bottom: 20px;
+        .btn-menu{
+          .menu-btn{
+            color: var(--text-color, #202221);
+            text-align: center;
+            font-family: Montserrat;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 30px;
+          }
+        }
       }
     }
   }

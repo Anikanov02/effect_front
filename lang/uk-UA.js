@@ -1,11 +1,17 @@
 export default {
   header: {
-    about: 'про нас',
-    projects: 'програми',
-    news: 'новини',
-    partners: 'партнери',
-    documentation: 'документація',
-    contacts: 'контакти',
+    about: 'Про нас',
+    projects: 'Програми',
+    news: 'Новини',
+    partners: 'Партнери',
+    documentation: 'Документація',
+    contacts: 'Контакти',
+    about_submenu: {
+      about_org: 'Про організацію',
+      team: 'Команда',
+      overwatch: 'Наглядова рада',
+      children_overwatch: 'Дитяча наглядова рада'
+    }
   },
   footer: {
     requisites: 'Реквізити',

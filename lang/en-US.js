@@ -1,11 +1,17 @@
 export default {
   header: {
-    about: 'about us',
-    projects: 'programs',
-    news: 'news',
-    partners: 'partners',
-    documentation: 'documentation',
-    contacts: 'contacts',
+    about: 'About us',
+    projects: 'Programs',
+    news: 'News',
+    partners: 'Partners',
+    documentation: 'Documentation',
+    contacts: 'Contacts',
+    about_submenu: {
+      about_org: 'About organization',
+      team: 'Team',
+      overwatch: 'Supervisory board',
+      children_overwatch: 'Children\'s supervisory board'
+    }
   },
   footer: {
     requisites: 'Requisites',
