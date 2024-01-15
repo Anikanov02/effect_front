@@ -15,7 +15,7 @@
 
       <!-- * * TOP BUTTONS -->
       <li class="btn-menu">
-        <button @click.prevent="" class="menu-btn">
+        <button @click.prevent="" class="menu-btn" ref="about">
           <span>{{ $t('header.about') }}
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 9" fill="none">
               <path d="M6.80584 7.90334C6.40623 8.44715 5.59376 8.44716 5.19416 7.90334L1.10774 2.34214C0.622459 1.68172 1.09404 0.75 1.91358 0.75L10.0864 0.750001C10.906 0.750001 11.3775 1.68172 10.8923 2.34214L6.80584 7.90334Z" fill="black"/>
@@ -25,9 +25,9 @@
         <div class="submenu">
           <!-- Add your buttons here -->
           <button @click.prevent="goTo('about')">{{ $t('header.about_submenu.about_org') }}</button>
-          <button>{{ $t('header.about_submenu.team') }}</button>
-          <button>{{ $t('header.about_submenu.overwatch') }}</button>
-          <button>{{ $t('header.about_submenu.children_overwatch') }}</button>
+          <button @click.prevent="goTo('team')">{{ $t('header.about_submenu.team') }}</button>
+          <button @click.prevent="goTo('supervis')">{{ $t('header.about_submenu.overwatch') }}</button>
+          <button @click.prevent="goTo('supervis-children')">{{ $t('header.about_submenu.children_overwatch') }}</button>
         </div>
       </li>
       <template v-for="(m, index) in menu">
@@ -67,7 +67,7 @@
 
         <ul class="menu">
           <li id="hamsubmenuOpener" class="btn-menu">
-            <button  @click.prevent="openSubmenu()" class="menu-btn">
+            <button  @click.prevent="openSubmenu()" class="menu-btn" ref="about">
               <span>{{ $t('header.about') }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 9" fill="none">
                   <path d="M6.80584 7.90334C6.40623 8.44715 5.59376 8.44716 5.19416 7.90334L1.10774 2.34214C0.622459 1.68172 1.09404 0.75 1.91358 0.75L10.0864 0.750001C10.906 0.750001 11.3775 1.68172 10.8923 2.34214L6.80584 7.90334Z" fill="black"/>
@@ -76,7 +76,7 @@
             </button>          
           </li>
           <li id="hamsubmenuCloser" class="btn-menu" style="display: none;">
-            <button @click.prevent="openSubmenu()" class="menu-btn">
+            <button @click.prevent="openSubmenu()" class="menu-btn" ref="about">
               <span>{{ $t('header.about') }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
                   <path d="M5.19416 1.09666C5.59377 0.552845 6.40624 0.552844 6.80584 1.09666L10.8923 6.65786C11.3775 7.31828 10.906 8.25 10.0864 8.25L1.91358 8.25C1.09404 8.25 0.622459 7.31828 1.10774 6.65786L5.19416 1.09666Z" fill="#52A785"/>
@@ -225,7 +225,17 @@ export default {
     },
     changeLocale() {
       let lang = this.$i18n.locale === 'en'? 'uk' : 'en'
-      this.$i18n.setLocale(lang);
+
+      const currentRoute = this.$route.path;
+
+      // Check if the current route is '/news/{someid}'
+      if (currentRoute.includes('/news/')) {
+        // Navigate to '/news' route
+        this.$router.push(lang === 'en'? '/en/news' : '/news');
+      }
+      else{
+        this.$i18n.setLocale(lang)
+      }
     }
   },
   watch: {

@@ -18,50 +18,52 @@
   
       <div class="all-news container-projects">
         <template v-if="ifSearch">
-          <template v-for="(news_item, index) in searchNews">
+          <template v-for="(element, index) in searchNews">
             <div class="news-item"
-              v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage"
-              @click.prevent="GotoNewsPiece(news_item.id)">
-              <img
-                :src="news_item.attributes.previewPicture.data !== null ? siteUrl + news_item.attributes.previewPicture.data.attributes.url : null"
-                alt="">
+              v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage">
+              <div class="category" :style="GetColorByNewsType(element.attributes.type)">
+                <p>{{ GetNewsType(element.attributes.type) }}</p>
+              </div>
+              <img @click.prevent="GotoNewsPiece(element.id)"
+                :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
               <div class="desc">
-                <p class="title-word">{{ news_item.attributes.main_title }}</p>
-                <p class="title-remain">{{ news_item.attributes.title_remain }}</p>
-                <p class="text">{{ news_item.attributes.shortParagraph }}</p>
-  
+                <p class="title-main">{{element.attributes.main_title}}</p>
+                <p class="title-remain">{{ element.attributes.title_remain }}</p>
+                <p class="text">{{ element.attributes.shortParagraph }}</p>
+                
                 <div class="meta">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
                     <path
                       d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
                       fill="#828282" />
                   </svg>
-                  <p class="date">{{ GetDate(news_item.attributes.date) }}</p>
+                  <p class="date">{{ GetDate(element.attributes.date) }}</p>
                 </div>
               </div>
             </div>
           </template>
         </template>
         <template v-else>
-            <template v-for="(news_item, index) in news">
+            <template v-for="(element, index) in news">
               <div class="news-item"
-                v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage"
-                @click.prevent="GotoNewsPiece(news_item.id)">
-                <img
-                  :src="news_item.attributes.previewPicture.data !== null ? siteUrl + news_item.attributes.previewPicture.data.attributes.url : null"
-                  alt="">
+              v-if="index < paginations.currentPage * paginations.inPage && index >= paginations.prewPage * paginations.inPage">
+                <div class="category" :style="GetColorByNewsType(element.attributes.type)">
+                  <p>{{ GetNewsType(element.attributes.type) }}</p>
+                </div>
+                <img @click.prevent="GotoNewsPiece(element.id)"
+                  :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
                 <div class="desc">
-                  <p class="title-word">{{ news_item.attributes.main_title }}</p>
-                  <p class="title-remain">{{ news_item.attributes.title_remain }}</p>
-                  <p class="text">{{ news_item.attributes.shortParagraph }}</p>
-  
+                  <p class="title-main">{{element.attributes.main_title}}</p>
+                  <p class="title-remain">{{ element.attributes.title_remain }}</p>
+                  <p class="text">{{ element.attributes.shortParagraph }}</p>
+                  
                   <div class="meta">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
                       <path
                         d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
                         fill="#828282" />
                     </svg>
-                    <p class="date">{{ GetDate(news_item.attributes.date) }}</p>
+                    <p class="date">{{ GetDate(element.attributes.date) }}</p>
                   </div>
                 </div>
               </div>
@@ -168,22 +170,22 @@
             Authorization: `Bearer ${process.env.tokken}`
           }
         })
-          .then(data => {
-            this.news = data.data.data;
-            this.news.forEach((element) => {
-              var main_title = element.attributes.title;
-              if (main_title !== null) {
-                var words = main_title.split(" ");
-                element.attributes.main_title = words.shift();
-                element.attributes.title_remain = words.join(' ');
-              }
-              var text = element.attributes.paragraph[0].text;
-              if (text !== null) {
-                element.attributes.shortParagraph = text.slice(0, 70) + " ...";
-              }
-            })
-            this.calculatePaginations(this.news.length);
+        .then(data => {
+          this.news = data.data.data;
+          this.news.forEach((element) => {
+            var main_title = element.attributes.title;
+            if (main_title !== null) {
+              var words = main_title.split(" ");
+              element.attributes.main_title = words.shift();
+              element.attributes.title_remain = words.join(' ');
+            }
+            var text = element.attributes.paragraph[0].text;
+            if (text !== null) {
+              element.attributes.shortParagraph = text.slice(0, 70) + " ...";
+            }
           })
+          this.calculatePaginations(this.news.length);
+        })
       },
       GotoPage(p) {
         if (p !== 0 && p <= this.paginations.allPage) {
@@ -200,6 +202,13 @@
         this.$router.push(`news/${id}`)
       },
       calculatePaginations(elementsCount) {
+        window.addEventListener('resize', () => {
+          this.paginations.inPage = 9
+        if(window.innerWidth < 1300){
+          this.paginations.inPage = 6
+        }
+      })
+
         this.paginations.allPage > 1 ? this.paginations.nextPage = 2 : this.paginations.nextPage = 0
         this.paginations.allPage = Math.ceil(elementsCount / this.paginations.inPage)
         this.paginations.prewPage = 0
@@ -281,6 +290,41 @@
           this.ifSearch = true;
         }
       },
+      GetNewsType(t){
+        if(this.$i18n.locale == 'uk'){
+          if(t == 'blog'){
+            return 'Блог Команди'
+          }
+          else if(t == 'massMedia'){
+            return 'Ми у ЗМІ'
+          }
+          else if(t == 'all'){
+            return 'Всі'
+          }
+        }
+        else if(this.$i18n.locale == 'en'){
+          if(t == 'blog'){
+            return 'Blog'
+          }
+          else if(t == 'massMedia'){
+            return 'Mass Media'
+          }
+          else if(t == 'all'){
+            return 'All'
+          }
+        }
+      },
+      GetColorByNewsType(t){
+        if(t == 'blog'){
+            return 'background-color: #A62585;'
+          }
+          else if(t == 'massMedia'){
+            return 'background-color: #52A785;'
+          }
+          else if(t == 'all'){
+            return 'background-color: #52A785;'
+          }
+      },
     },
     mounted() {
       this.siteUrl = process.env.apiUrl;
@@ -298,6 +342,7 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 60px;
+      max-width: 1800px;
   
       h2 {
         font-size: var(--fz1);
@@ -326,7 +371,7 @@
   
       position: relative;
   
-      margin: 20px 0;
+      margin: 20px 0 100px;
   
       border-bottom: 1px solid #BDBDBD;
   
@@ -363,66 +408,103 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(100px, 1fr));
       grid-column-gap: 35px;
-      grid-row-gap: 50px;
+      grid-row-gap: 70px;
+      max-width: 1800px;
   
-      .news-item {
+      .news-item{
+        position: relative;
         border-radius: 6px;
-        border: 1px solid var(--Gray-4, #bdbdbd);
-        display: flex;
-        flex-direction: column;
-        transition: .3s;
-  
-        img {
-          width: 100%;
-          height: 290px;
-          border-radius: 6px;
-          object-fit: cover;
-        }
-  
-        &:hover {
-          border: 1px solid var(--dark-pink, #a62585);
-          cursor: pointer;
-          transition: .3s;
-        }
-  
-        .desc {
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
-  
-          margin: 15px 30px;
-  
-          p {
-            color: var(--text-color, #202221);
+
+        .category{
+          top: 0;
+          margin-top: -13px;
+          margin-left: 10px;
+          padding: 0 14px;
+          position: absolute;
+          border-radius: 20px;
+          height: 26px;
+          background-color: #A62585;
+
+          p{
+            color: #FFF;
             font-family: Montserrat Alternates;
+            font-size: 16px;
             font-style: normal;
             font-weight: 400;
+            line-height: 26px;
           }
-  
-          .title-word {
+        }
+
+        img{
+          width: 100%;
+          height: 250px;
+          opacity: 1;
+          object-fit: cover;
+          border-radius: 6px;
+          transition: .3s;
+          cursor: pointer;
+        }
+
+        .desc{
+          position: relative;
+          width: calc(100% - 100px);
+          margin: 0 auto;
+          margin-top: -40px;
+          border-radius: 10px;
+          background: #FFFEFE;
+          box-sizing: border-box;
+          padding: 27px 24px;
+          box-shadow: 2px 2px 24px 0px rgba(0, 0, 0, 0.08);
+
+          p{
+            color: var(--text-color, #202221);
+            font-family: Montserrat Alternates;
             font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 26px
+          }
+          .title-main{
+            font-size: 18px;
+            font-style: normal;
             font-weight: 600;
             line-height: 26px;
           }
-  
-          .title-remain {
-            font-size: 18px;
+
+          .title-remain{
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
             line-height: 26px;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
           }
-  
-          .text {
+
+          .text{
+            font-family: Montserrat Alternates;
             font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
             line-height: 150%;
-  
-            margin-top: 12px;
-            margin-bottom: 18px;
+
+            margin-top: 8px;
+
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
           }
-  
+
           .meta {
             display: flex;
             flex-direction: row;
             align-items: center;
             margin-top: auto;
+            margin-top: 24px;
   
             svg {
               fill: var(--Gray-3, #828282);
@@ -431,7 +513,10 @@
   
             .date {
               color: var(--Gray-3, #828282);
+              font-family: Montserrat Alternates;
               font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
               line-height: 26px;
             }
           }
@@ -512,6 +597,14 @@
       }
     }
   }
+
+  @media screen and (max-width: 1300px) {
+    .news {
+      .all-news{
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+      }
+    }
+  }
   
   @media screen and (max-width: 1210px) {
     .news {
@@ -549,10 +642,42 @@
     }
   }
   
-  @media screen and (max-width: 860px) {
+
+  @media screen and (max-width: 750px) {
     .news {
+      .type-selector{
+        width: calc(100vw - 40px);
+        border-bottom: none;
+        margin: 0 auto 50px;
+
+        button{
+          margin-bottom: 0;
+          border-radius: 6px;
+          background: #F4F4F4;
+          padding: 4px 20px 8px;
+          flex-grow: 1;
+        }
+
+        button.active{
+          font-weight: normal;
+          background: #A62585;
+          color: #fff;
+        }
+
+        button.active::after{
+          display: none;
+        }
+      }
+
       .all-news {
-        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        grid-template-columns: repeat(1, minmax(100px, 1fr));
+        grid-row-gap: 50px;
+
+        .news-item{
+          .desc{
+            width: calc(100% - 48px);
+          }
+        }
       }
     }
   }
@@ -581,6 +706,28 @@
   
       .paginations {
         justify-content: start;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .news{
+      .type-selector{
+        gap: 15px;
+        button{
+          
+          font-size: 14px;
+        }
+      }
+
+      .all-news{
+        .news-item{
+          .desc{
+            .meta{
+              margin-top: 10px;
+            }
+          }
+        }
       }
     }
   }

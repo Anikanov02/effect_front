@@ -1,6 +1,6 @@
 <template>
-  <transition name="showPar">
-    <div id="showPartner" v-if="on" @click.prevent="close()">
+  <transition name="showMem">
+    <div id="showMember" v-if="on" @click.prevent="close()">
       <div class="partner">
         <button class="btn-close" @click.prevent="close()">
           <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
@@ -9,20 +9,16 @@
             <rect x="14.0254" y="34.709" width="29.25" height="4.61842" rx="2.30921" transform="rotate(-45 14.0254 34.709)" fill="white"/>
           </svg>
         </button>
-        <img :src="parner.img ? pageUrl + parner.img.data.attributes.url : null" alt="">
+        <img :src="member.image.data ? pageUrl + member.image.data.attributes.url : null" alt="">
         <p class="title">
-          {{parner.name}}
+          {{member.name}}
         </p>
         <p class="label">
-          {{parner.label}}
+          {{member.position}}
         </p>
         <p class="desc">
-          {{parner.desc}}
+          {{member.desc}}
         </p>
-        <a class="btn-link" :href="parner.link" @click.prevent='goTo(parner.link)' v-if="parner.link !== null && parner.link !== ''" target="_blank" rel="noopener noreferrer">
-          {{ this.$t('home.partners.goto') }}
-          <span class="arrow-right"></span>
-        </a>
       </div>
     </div>
   </transition>
@@ -33,7 +29,7 @@ export default {
   data () {
     return {
       on: false,
-      parner: {},
+      member: {},
       pageUrl: ''
     }
   },
@@ -50,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @keyframes showPar {
+  @keyframes showMem {
     0% {
       opacity: 0;
     }
@@ -59,14 +55,14 @@ export default {
     }
   }
 
-  .showPar-enter-active {
-    animation: showPar .5s;
+  .showMem-enter-active {
+    animation: showMem .5s;
   }
-  .showPar-leave-active {
-    animation: showPar .5s reverse;
+  .showMem-leave-active {
+    animation: showMem .5s reverse;
   }
 
-  #showPartner {
+  #showMember {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -83,26 +79,31 @@ export default {
       padding: 40px 120px 75px 120px;
       background-color: var(--white);
       position: relative;
-
+      display: flex;
+      flex-direction: column;
+      
       .btn-close{
         margin-top: 34px;
         margin-right: 46px;
       }
 
       img {
-        width: 195px;
+        width: 350px;
         height: auto;
         object-fit: cover;
         margin-bottom: 30px;
+        align-self: center;
       }
       .title {
         font-size: var(--fz1);
         font-weight: 600;
         font-family: 'Montserrat Alternates', sans-serif;
+        align-self: center;
       }
       .label {
         font-weight: 600;
         margin-bottom: 30px;
+        align-self: center;
       }
       .desc {
         margin-bottom: 50px;
@@ -123,7 +124,7 @@ export default {
   }
 
   @media screen and (max-width: 600px) {
-    #showPartner {
+    #showMember {
       overflow: auto;
       align-items: flex-start;
       justify-content: flex-start;
@@ -131,6 +132,7 @@ export default {
       background-color: var(--white);
       backdrop-filter: blur(0);
       .partner {
+
         width: 100%;
         padding: 15px 20px 30px 20px;
         height: auto;
@@ -146,7 +148,7 @@ export default {
         .desc {
           margin-bottom: 20px;
         }
-
+        
         .btn-close{
           width: 30px;
           height: 30px;

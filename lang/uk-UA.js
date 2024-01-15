@@ -1,4 +1,8 @@
 export default {
+  general:{
+    site_name: 'Ефект дитини',
+    all_rights: 'Всі права захищені',
+  },
   header: {
     about: 'Про нас',
     projects: 'Програми',
@@ -14,7 +18,10 @@ export default {
     }
   },
   footer: {
-    requisites: 'Реквізити',
+    want_help: 'Хочеш нам допомогти?',
+    suggest_help: 'Будь яка фінансова допомога проекту - це крок до кращого майбутнього',
+    edrpou: "ЄДРПОУ",
+    tel: 'tel.'
   },
   home: {
     about: {
@@ -33,7 +40,9 @@ export default {
       goto: 'перейти на сайт'
     },
     youtube: {
-      title: 'Youtube'
+      title: 'Youtube',
+      more: 'Більше відео про нашу діяльність знайдете на',
+      our_channel: 'нашому каналі'
     },
     documentation: {
       title: 'Документація',
@@ -68,5 +77,8 @@ export default {
   misc: {
     support: 'підтримати',
     change_lang: 'en'
+  },
+  error:{
+    text: "Ой! На жаль, перегляд сторінки недоступний або її не існує..."
   }
 };

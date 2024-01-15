@@ -35,4 +35,7 @@ export const getters = {
   iban: state => state.data && state.data.data.attributes.iban ? state.data.data.attributes.iban : '',
   name: state => state.data && state.data.data.attributes.name ? state.data.data.attributes.name : '',
   code: state => state.data && state.data.data.attributes.code ? state.data.data.attributes.code : '',
+  legalAddress: state => state.data && state.data.data.attributes.LegalAddress ? state.data.data.attributes.LegalAddress : '',
+  mainEmail: state => state.data && state.data.data.attributes.MainEmail ? state.data.data.attributes.MainEmail : '',
+
 }

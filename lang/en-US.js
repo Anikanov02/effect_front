@@ -1,4 +1,8 @@
 export default {
+  general:{
+    site_name: 'Child\'s effect',
+    all_rights: 'All rights reserved',
+  },
   header: {
     about: 'About us',
     projects: 'Programs',
@@ -10,11 +14,14 @@ export default {
       about_org: 'About organization',
       team: 'Team',
       overwatch: 'Supervisory board',
-      children_overwatch: 'Children\'s supervisory board'
+      children_overwatch: 'Child\'s supervisory board'
     }
   },
   footer: {
-    requisites: 'Requisites',
+    want_help: 'Do you want to help us?',
+    suggest_help: 'Any financial support for the project is a step towards a better future',
+    edrpou: "EDRPOU code",
+    tel: 'тел.'
   },
   home: {
     about: {
@@ -34,6 +41,8 @@ export default {
     },
     youtube: {
       title: 'Youtube',
+      more: 'You can find more videos about our activities on',
+      our_channel: 'our channel'
     },
     documentation: {
       title: 'Documentation',
@@ -68,5 +77,8 @@ export default {
   misc: {
     support: 'support',
     change_lang: 'укр'
+  },
+  error:{
+    text: "Oh! Sorry, the page view is unavailable or does not exist..."
   }
 };

@@ -1,16 +1,18 @@
 <template>
   <div id="projects-page" class="prod">
-    <div v-if="this.windowWidth > 1100" class="type-selector">
-      <template v-for="(element, index) in projectTypes">
-        <div style="position: relative;">
-          <button :class="{ active: currentType == element.attributes.type }" :title="element.attributes.name"  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
-          <div class="desc">
-            <p>{{ element.attributes.desc }}</p>
+    <div class="type-selector">
+      <div class="type-selector-inner container-projects">
+        <template v-for="(element, index) in projectTypes">
+          <div style="position: relative;">
+            <button :class="{ active: currentType == element.attributes.type }" :title="element.attributes.name"  @click.prevent="SetType(element.attributes.type)">{{element.attributes.name}}</button>
+            <div class="desc">
+              <p>{{ element.attributes.desc }}</p>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
-    <div v-else class="dropdown container-projects">
+    <!-- <div v-else class="dropdown container-projects">
       <div class="dropdown-type-selector">
         <button class="dropbtn">{{this.currentTypeName}} &#x2193;</button>
         <div class="dropdown-content">
@@ -20,7 +22,7 @@
         </div>
       </div>
       <p>{{ currentDesc }}</p>
-    </div>
+    </div> -->
     <div v-if="projects.length > 0" class="projs container-projects">
       <div class="left">
         <div class="all-projects">
@@ -373,73 +375,107 @@ export default {
       margin: 20px 0;
 
       border-bottom: 1px solid #BDBDBD;
-
-      button {
-        position: relative;
-        margin-bottom: 40px;
-        padding: 0 5px;
-        width: fit-content;
-
-        color: var(--text-color, #202221);
-        font-family: Montserrat;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: normal;
-        line-height: normal;
-        
-        &:hover {
-          font-weight: 600;
-        }
-
-        &:hover+.desc{
-          opacity: 1;
-        }
-        
-        &::before {
-          display: block;
-          content: attr(title);
-          font-weight: bold;
-          height: 0;
-          overflow: hidden;
-          visibility: hidden;
-        }
-
-      }
-
-      button.active {
-        font-weight: 700;
-      }
-
-      button.active::after {
-        position: absolute;
-        content: " ";
-        bottom: -44px;
-        left: 0;
+      .type-selector-inner{
+        display: flex;
+        justify-content: space-between;
         width: 100%;
-        height: 8px;
-        background-color: var(--pink);
-        border-radius: 6px;
+        div:first-child > .desc {
+          left: 0;
+          transform: translateX(0);
+        }
+
+        div:last-child > .desc {
+          left: unset;
+          right: 0;
+          transform: translateX(0);
+        }
+      
+
+        button {
+          position: relative;
+          margin-bottom: 40px;
+          padding: 0 5px;
+          width: fit-content;
+
+          color: var(--text-color, #202221);
+          font-family: Montserrat;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: normal;
+          line-height: normal;
+          
+          &:hover {
+            font-weight: 600;
+          }
+
+          &:hover+.desc{
+            opacity: 1;
+          }
+          
+          &::before {
+            display: block;
+            content: attr(title);
+            font-weight: bold;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+          }
+
+        }
+
+        button.active {
+          font-weight: 700;
+        }
+
+        button.active::after {
+          position: absolute;
+          content: " ";
+          bottom: -44px;
+          left: 0;
+          width: 100%;
+          height: 8px;
+          background-color: var(--pink);
+          border-radius: 6px;
+        }
+
+        .desc{
+          position: absolute;
+          width: 500px;
+          
+          padding: 15px;
+
+          opacity: 0;
+          transition: all .3s;
+
+          background: #FFF9F6;
+          border-radius: 6px;
+
+          top: 60px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 2;
+        }
       }
 
-      .desc{
-        position: absolute;
-        width: 500px;
-        
-        padding: 15px;
+    }
 
-        opacity: 0;
-        transition: all .3s;
+    .type-selector.type-selector-inner>div:first-child > .desc {
+      left: 0;
+      transform: translateX(0);
+    }
 
-        background: #fff;
-        border: 1px solid #BDBDBD;
-        border-radius: 6px;
+    .type-selector.type-selector-inner>div:nth-child(2) > .desc {
+      transform: translateX(-30%);
+    }
 
-        top: 60px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-      }
+    .type-selector.type-selector-inner>div:nth-child(5) > .desc {
+      transform: translateX(-70%);
+    }
 
+    .type-selector.type-selector-inner>div:last-child > .desc {
+      left: unset;
+      right: 0;
+      transform: translateX(0);
     }
 
     .dropdown{
@@ -697,24 +733,7 @@ export default {
         grid-template-columns: 425px 1fr;
       }
 
-      .type-selector>div:first-child > .desc {
-        left: 0;
-        transform: translateX(0);
-      }
-
-      .type-selector>div:nth-child(2) > .desc {
-        transform: translateX(-30%);
-      }
-
-      .type-selector>div:nth-child(5) > .desc {
-        transform: translateX(-70%);
-      }
-
-      .type-selector>div:last-child > .desc {
-        left: unset;
-        right: 0;
-        transform: translateX(0);
-      }
+      
     }
   }
 
@@ -780,4 +799,49 @@ export default {
       }
     }
   }
+
+@media screen and (max-width: 1100px) {
+  #projects-page{
+    .type-selector{
+      border-bottom: none;
+      .type-selector-inner{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        gap: 20px;
+        -ms-overflow-style: none; /* for Internet Explorer, Edge */
+        scrollbar-width: none; 
+
+        &::-webkit-scrollbar {
+          display: none; /* for Chrome, Safari, and Opera */
+        }
+
+        div{
+          white-space: nowrap;
+          height: auto;
+          
+          button{
+            padding: 4px 19px 8px;
+            border-radius: 6px;
+            background: #F4F4F4;
+            margin-bottom: 0;
+            color: #000;
+          }
+
+          button.active{
+            background: var(--dark-pink, #A62585);
+            color: #fff;
+          }
+
+          button.active::after{
+          display: none;
+          }
+
+          .desc{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

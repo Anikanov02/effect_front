@@ -1,6 +1,8 @@
 <template>
   <main id="homePage">
     <showPartner ref="showPartner" />
+    <showMember ref="showMember" />
+    
     <div class="main-gallery">
       <figure>
         <template v-for="(gal, index) in gallery">
@@ -15,9 +17,9 @@
       </figure>
     </div>
 
-    <div class="about container-main margin-main" id="about" ref="about">
+    <div class="about margin-main" id="about" ref="about">
       <template v-for="(aboutBlock, index) in about">
-        <div class="about" :d="'history_' + index">
+        <div class="about  container-main">
           <div class="left">
             <img :src="siteUrl + aboutBlock.Img.data.attributes.url" alt="">
           </div>
@@ -29,30 +31,172 @@
           </div>
         </div>
       </template>
-      <div class="founders">
-        <template v-for="m in members">
-          <div class="user" :key="m.id">
-            <div class="top">
-              <img :src="siteUrl + m.img.data.attributes.url" alt="">
+
+      <div id="team" class="teams">
+        <div class="teams-container container-main">
+          <h2>{{ $t('header.about_submenu.team') }}</h2>
+          <div class="carousel-container">
+            <div class="nav nav-left">
+              <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+                <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+              </svg></button>
             </div>
-            <div class="bottom">
-              <p class="name">
-                {{ m.name }}
-              </p>
-              <p class="post">
-                {{ m.post }}
-              </p>
-              <p class="desc">
-                {{ m.desc }}
-              </p>
+            <div class="carousel-inner">
+              <div class="track">
+                <template>
+                  <div v-for="(m, index) in members" class="card-container">
+                    <div class="card">
+                      <div class="image-container" @click.prevent="showMemberIn(m.attributes)">
+                        <div class="circle-container">
+                          <div class="circle">
+                            <svg v-if="index % 3 === 0" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 270 270" fill="none">
+                              <path d="M135 1.98541e-05C60.4415 1.33359e-05 -1.10572e-05 60.4416 -1.75753e-05 135C-2.40935e-05 209.558 60.4415 270 135 270C209.558 270 270 209.558 270 135C270 60.4416 209.559 2.63722e-05 135 1.98541e-05Z" fill="#EFDC00"/>
+                            </svg>
+                            <svg v-else-if="index % 3 == 1" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 270 270" fill="none">
+                              <path d="M135 1.98541e-05C60.4415 1.33359e-05 -1.10572e-05 60.4416 -1.75753e-05 135C-2.40935e-05 209.558 60.4415 270 135 270C209.558 270 270 209.558 270 135C270 60.4416 209.559 2.63722e-05 135 1.98541e-05Z" fill="#52A785"/>
+                            </svg>
+                            <svg v-else-if="index % 3 === 2" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 270 270" fill="none">
+                              <path d="M135 1.98541e-05C60.4415 1.33359e-05 -1.10572e-05 60.4416 -1.75753e-05 135C-2.40935e-05 209.558 60.4415 270 135 270C209.558 270 270 209.558 270 135C270 60.4416 209.559 2.63722e-05 135 1.98541e-05Z" fill="#C6569A"/>
+                            </svg>
+                          </div>
+                        </div>
+                        <div class="image-inner">
+                          <img :src="siteUrl + m.attributes.image.data.attributes.url" alt="">
+                        </div>
+                        <div class="open-sign">
+                          <span>+</span>
+                        </div>
+                      </div>
+                      <div class="bio-container">
+                        <p class="name">{{ m.attributes.name }}</p>
+                        <p class="position">{{ m.attributes.position }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="nav nav-right">
+              <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+              <path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+            </svg></button>
             </div>
           </div>
-        </template>
+          <div class="page-slider">
+            <div class="page-slider-inner">
+              <span class="value min-value">01</span>
+              <div class="slider">
+                <div class="slider-back">
+                  <div class="slider-front"></div>
+                </div>
+              </div>
+              <span class="value max-value">02  </span>
+            </div>
+          </div>
+        
+        </div>
       </div>
-      <div class="all-founders">
-        <nuxt-link :to="localePath('founders')" class="btn-all">
-          {{ this.$t('home.about.showAll') }}
-        </nuxt-link>
+      <div id="supervis" class="teams">
+        <div class="teams-container  container-main">
+          <h2>{{ $t('header.about_submenu.overwatch') }}</h2>
+          <div class="carousel-container">
+            <div class="nav nav-left">
+              <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+                <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+              </svg></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="track">
+                <template>
+                  <div v-for="s in supervis" class="card-container">
+                    <div class="card">
+                      <div class="image-container" @click.prevent="showMemberIn(s.attributes)">
+                        <div class="image-inner">
+                          <img :src="siteUrl + s.attributes.image.data.attributes.url" alt="">
+                        </div>
+                        <div class="open-sign">
+                          <span>+</span>
+                        </div>
+                      </div>
+                      <div class="bio-container">
+                        <p class="name">{{ s.attributes.name }}</p>
+                        <p class="position">{{ s.attributes.position }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="nav nav-right">
+              <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+              <path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+            </svg></button>
+            </div>
+          </div>
+          <div class="page-slider">
+            <div class="page-slider-inner">
+              <span class="value min-value">01</span>
+              <div class="slider">
+                <div class="slider-back">
+                  <div class="slider-front"></div>
+                </div>
+              </div>
+              <span class="value max-value">02  </span>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+      <div id="supervis-children" class="teams">
+        <div class="teams-container container-main">
+          <h2>{{ $t('header.about_submenu.children_overwatch') }}</h2>
+          <div class="carousel-container">
+            <div class="nav nav-left">
+              <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+                <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+              </svg></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="track">
+                <template>
+                  <div v-for="m in childrenSupervis" class="card-container">
+                    <div class="card">
+                      <div class="image-container" @click.prevent="showMemberIn(m.attributes)">
+                        <div class="image-inner">
+                          <img :src="siteUrl + m.attributes.image.data.attributes.url" alt="">
+                        </div>
+                        <div class="open-sign">
+                          <span>+</span>
+                        </div>
+                      </div>
+                      <div class="bio-container">
+                        <p class="name">{{ m.attributes.name }}</p>
+                        <p class="position">{{ m.attributes.position }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="nav nav-right">
+              <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+              <path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+            </svg></button>
+            </div>
+          </div>
+          <div class="page-slider">
+            <div class="page-slider-inner">
+              <span class="value min-value">01</span>
+              <div class="slider">
+                <div class="slider-back">
+                  <div class="slider-front"></div>
+                </div>
+              </div>
+              <span class="value max-value">02</span>
+            </div>
+          </div>
+        
+        </div>
       </div>
     </div>
 
@@ -62,26 +206,29 @@
       </h2>
       <p>{{ programmsDesc }}</p>
       <div class="carousel-container" ref="gal_prod">
+        <div class="nav nav-left">
+              <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+                <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+              </svg></button>
+            </div>
         <div class="carousel-inner">
           <template>
-          <div class="track" ref="card_track">
-              <div v-for="prType in projectTypes" class="card-container" @click.prevent="goToProjectType(prType.attributes.type)">
-                <div class="card" ref="card">
-                  <img class=".img" :src="siteUrl + prType.attributes.previewPicture.data.attributes.url"/>
-                  <span>{{prType.attributes.name}}</span>
+            <div class="track" ref="card_track">
+                <div v-for="prType in projectTypes" class="card-container" @click.prevent="goToProjectType(prType.attributes.type)">
+                  <div class="card" ref="card">
+                    <img class=".img" :src="siteUrl + prType.attributes.previewPicture.data.attributes.url"/>
+                    <span>{{prType.attributes.name}}</span>
+                  </div>
                 </div>
-              </div>
-          </div>
-        </template>
+            </div>
+          </template>
         </div>
-        <div class="nav">
-          <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
-  <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
-</svg></button>
-          <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
-<path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
-</svg></button>
+        <div class="nav nav-right">
+              <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+              <path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+            </svg></button>
         </div>
+        
       </div>
       <div class="all-projects">
         <nuxt-link :to="localePath('projects')" class="btn-all">
@@ -94,16 +241,29 @@
       <h2>
         {{ this.$t('home.news.title') }}
       </h2>
-      <div class="news-grid">
-        <template v-for="(element, index) in this.news" >
-          <div :class="`box box-${index + 1}`" @click.prevent="GotoNewsPiece(element.id)">
-          <img
-            :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
-          <div class="desc">
-            <p class="title-main">{{element.attributes.main_title}}</p>
-            <p class="title-remain">{{ element.attributes.title_remain }}</p>
+      <div class="news-grid" >
+        <template v-for="(element, index) in this.news"  >
+          <div :class="`box`">
+            <div class="category" :style="GetColorByNewsType(element.attributes.type)">
+              <p>{{ GetNewsType(element.attributes.type) }}</p>
+            </div>
+            <img @click.prevent="GotoNewsPiece(element.id)"
+              :src="element.attributes.previewPicture.data !== null ? siteUrl + element.attributes.previewPicture.data.attributes.url : null" />
+            <div class="desc">
+              <p class="title-main">{{element.attributes.main_title}}</p>
+              <p class="title-remain">{{ element.attributes.title_remain }}</p>
+              <p class="text">{{ element.attributes.text }}</p>
+              
+              <div class="meta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+                  <path
+                    d="M4 9H6V11H4V9ZM18 4V18C18 19.1 17.1 20 16 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18L0.00999999 4C0.00999999 2.9 0.89 2 2 2H3V0H5V2H13V0H15V2H16C17.1 2 18 2.9 18 4ZM2 6H16V4H2V6ZM16 18V8H2V18H16ZM12 11H14V9H12V11ZM8 11H10V9H8V11Z"
+                    fill="#828282" />
+                </svg>
+                <p class="date">{{ GetDate(element.attributes.date) }}</p>
+              </div>
+            </div>
           </div>
-        </div>
         </template>
       </div>
       <div class="all-news">
@@ -117,13 +277,38 @@
       <h2>
         {{this.$t('home.partners.title')}}
       </h2>
-      <div class="all-partners">
+      <div class="carousel-container">
+        <div class="nav nav-left">
+          <button class="prev material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+            <path d="M18 2L2.74141 16.7818C2.3358 17.1747 2.3358 17.8253 2.74141 18.2182L18 33" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+          </svg></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="track">
+            <template>
+              <div v-for="par in partners" class="card-container">
+                <div class="card">
+                  <button @click.prevent="showParnerIn(par.attributes)" class="partner" :key="par.id">
+                  <img :src="siteUrl + par.attributes.img.data.attributes.url" alt="">
+                </button>
+                </div>  
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="nav nav-right">
+          <button class="next material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="35" viewBox="0 0 20 35" fill="none">
+          <path d="M2 33L17.2586 18.2182C17.6642 17.8253 17.6642 17.1747 17.2586 16.7818L2 2" stroke="#A62585" stroke-width="4" stroke-linecap="round"/>
+        </svg></button>
+        </div>
+      </div>
+      <!-- <div class="all-partners">
         <template v-for="par in partners">
           <button @click.prevent="showParnerIn(par.attributes)" class="partner" :key="par.id">
             <img :src="siteUrl + par.attributes.img.data.attributes.url" alt="">
           </button>
         </template>
-      </div>
+      </div> -->
     </div>
 
     <div id="youtube" class="youtube container-main margin-main">
@@ -150,6 +335,7 @@
           </template>
         </div>
       </div>
+      <p class="more-text">{{ this.$t('home.youtube.more') }}<a :href="socs[2].link"> {{ this.$t('home.youtube.our_channel') }}</a></p>
     </div>
 
     <div id="documentations" class="documentations container-main margin-main" ref="documentations">
@@ -200,18 +386,6 @@
         </div>
 
         <div class="panel" v-if="instagram[0]">
-          <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-            viewBox="0,0,256,256" style="fill:#FFFFFF;">
-            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-              font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-              <g transform="scale(5.12,5.12)">
-                <path
-                  d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
-                </path>
-              </g>
-            </g>
-          </svg>
           <a :href="instagram[0].attributes.permalink">
             <img class="inst-image" :src="instagram[0].attributes.media_url" alt="">
           </a>
@@ -229,25 +403,13 @@
           </div>
         </div>
 
-        <div class="panel">
-          <div v-if="instagram[1]">
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-              viewBox="0,0,256,256" style="fill:#FFFFFF;">
-              <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-                font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                <g transform="scale(5.12,5.12)">
-                  <path
-                    d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z">
-                  </path>
-                </g>
-              </g>
-            </svg>
+        <div class="panel" v-if="instagram[1]">
             <a :href="instagram[1].attributes.permalink">
               <img class="inst-image" :src="instagram[1].attributes.media_url" alt="">
             </a>
-          </div>
-          <img v-else :src="require('~/assets/images/inst_image.png')">
+        </div>
+        <div v-else class="panel">
+          <img :src="require('~/assets/images/inst_image.png')">
         </div>
 
         <div class="panel quote">
@@ -262,7 +424,7 @@
           </div>
         </div>
 
-        <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage(socs[2].link)"> <!--TODOredirect to instagram-->
+        <div id="link" class="panel quote" @click.prevent="redirectToAnotherPage(socs[1].link)"> <!--TODOredirect to instagram-->
           <div class="text_holder">
             <p class="inst_tag">@efectdytyny</p>
             <p class="subtext">{{this.$t('home.instagram.goto')}}</p>
@@ -284,8 +446,6 @@ export default {
     return {
       siteUrl: '',
       projects: [],
-      projectTypes: [],
-      news: [],
       currentPage: 1,
       count: 5,
       prewPage: 0,
@@ -308,10 +468,15 @@ export default {
       store.dispatch('about/fetch'),
       store.dispatch('youtube/fetch'),
       store.dispatch('about-members/fetch'),
+      store.dispatch('founders/fetch'),
+      store.dispatch('naglyadova-rada/fetch'),
+      store.dispatch('dityacha-naglyadova-rada/fetch'),
       store.dispatch('mainGallery/fetch'),
       store.dispatch('partners/fetch'),
       store.dispatch('homePage/fetch'),
       store.dispatch('rekviziti/fetch'),
+      store.dispatch('projectTypes/fetch'),
+      store.dispatch('news/fetch'),
     ])
   },
   computed: {
@@ -319,13 +484,17 @@ export default {
       about: 'about/about',
       instagram_quotes: 'about/instagram',
       youtubeMainVideoId: 'youtube/youtube',
-      members: 'about-members/members',
+      members: 'founders/founders',
+      supervis: 'naglyadova-rada/team',
+      childrenSupervis: 'dityacha-naglyadova-rada/team',
       partners: 'partners/partners',
       gallery: 'mainGallery/gallery',
       socs: 'default/socs',
       seo: 'homePage/seo',
-      programmsDesc: 'homePage/programmsDesc'
-    })
+      programmsDesc: 'homePage/programmsDesc',
+      news: 'news/news',
+      projectTypes: 'projectTypes/types'
+    }),
   },
   head() {
     const i18nSeo = this.$nuxtI18nSeo();
@@ -398,6 +567,12 @@ export default {
       this.$refs.showPartner.on = true;
       this.$refs.showPartner.parner = p;
       this.$refs.showPartner.pageUrl = this.siteUrl;
+      document.documentElement.style.overflow = 'hidden';
+    },
+    showMemberIn(m){
+      this.$refs.showMember.on = true;
+      this.$refs.showMember.member = m;
+      this.$refs.showMember.pageUrl = this.siteUrl;
       document.documentElement.style.overflow = 'hidden';
     },
     setActiveProjectMouse(pr) {
@@ -605,15 +780,109 @@ export default {
       let month = d.split('-')[1];
       return day + '.' + month;
     },
-    projectsCarousel(){
-      const prev = document.querySelector('.prev');
-      const next = document.querySelector('.next');
-      const track = document.querySelector('.track');
-      let carouselWidth = document.querySelector('.carousel-container').offsetWidth;
-
+    setMemberCarousel(carouselName){
+      carouselName = "#" + carouselName;
+      const prev = document.querySelector(carouselName + ' .prev');
+      const next = document.querySelector(carouselName + ' .next');
+      const track = document.querySelector(carouselName + ' .track');
+      const slider = document.querySelector(carouselName + ' .slider-front');
+      const maxValueText = document.querySelector(carouselName + ' .max-value')
+      let carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
+      let index = 0;
 
       
-      const card = document.querySelectorAll(".card-container")
+      const card = document.querySelectorAll(carouselName + " .card-container")
+      let cardWidth = card[0].offsetWidth;
+      
+      
+      let cardCount = 3
+      if(window.innerWidth < 1100){
+        cardCount = 2 
+      }
+      
+      card.forEach(element => {
+        element.style.width = `${carouselWidth / cardCount}px`
+      });
+      cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
+
+      window.addEventListener('resize', () => {
+        cardCount = 3;
+        if(window.innerWidth < 1100){
+          cardCount = 2;
+        }
+
+        pages = Math.ceil(card.length / cardCount);
+        maxValueText.innerHTML = `${pages<10? '0': ''}${pages}`;
+
+        track.style.transform = `translateX(0px)`;
+        slider.style.transform = `translateX(0px)`;
+        index = 0;
+        prev.classList.remove('show');
+        next.classList.add('show');
+        next.classList.remove('hide');
+
+        let sliderWidth = 100/pages;
+        slider.style.width = `${sliderWidth}%`;
+
+        carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
+        card.forEach(element => {
+          element.style.width = `${carouselWidth / cardCount}px`
+        });
+        cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
+      })
+
+      
+      let pages = Math.ceil(card.length / cardCount)
+      const sliderWidth = 100/pages
+      slider.style.width = `${sliderWidth}%`
+      let sliderPos = 0
+
+      maxValueText.innerHTML = `${pages<10? '0': ''}${pages}`;
+
+      next.addEventListener('click', () => {
+        if (window.innerWidth>=1100) {
+          index+=3;
+        }
+        else if(window.innerWidth < 1100){
+          index += 2 
+        }
+        sliderPos += 100/(pages-1);
+        prev.classList.add('show');
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+        slider.style.transform = `translateX(calc(${sliderPos}% * ${pages-1}))`;
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2)){
+          next.classList.add("hide")
+        }
+      })
+
+      prev.addEventListener('click', () => {
+        
+        if (window.innerWidth>=1100) {
+          index-=3;
+        }
+        else if(window.innerWidth < 1100){
+          index -= 2 
+        }
+        sliderPos -= 100/(pages-1);
+        if(index == 0){
+          prev.classList.remove('show');
+        }
+        next.classList.remove('hide');
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+        slider.style.transform = `translateX(calc(${sliderPos}% * ${pages-1}))`;
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2) ){
+          next.classList.add("hide")
+        }
+      })
+    },
+    setCarousel(carouselName){
+      carouselName = '#' + carouselName;
+      const prev = document.querySelector(carouselName + ' .prev');
+      const next = document.querySelector(carouselName + ' .next');
+      const track = document.querySelector(carouselName + ' .track');
+      let carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
+      
+      const card = document.querySelectorAll(carouselName + " .card-container")
       let cardWidth = card[0].offsetWidth;
       
       
@@ -626,22 +895,81 @@ export default {
       }
       
       card.forEach(element => {
-        element.style.width = `${carouselWidth / cardCount}px`
+        element.style.width = `${(carouselWidth - ((cardCount - 1) * 20)) / cardCount}px`
       });
-      cardWidth = document.querySelector('.card-container').offsetWidth;
+      cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
 
       window.addEventListener('resize', () => {
+        cardCount = 3
         if(window.innerWidth < 1100 && window.innerWidth > 830 ){
           cardCount = 2 
         }
         else if(window.innerWidth < 830){
           cardCount = 1
         }
-        carouselWidth = document.querySelector('.carousel-container').offsetWidth;
+        carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
+        card.forEach(element => {
+          element.style.width = `${(carouselWidth - ((cardCount - 1) * 20)) / cardCount}px`
+        });
+        cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
+      })
+
+      let index = 0;
+
+      next.addEventListener('click', () => {
+        index++;
+        prev.classList.add('show');
+        track.style.transform = `translateX(-${index * (cardWidth + 20)}px)`;
+
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2)){
+          next.classList.add("hide")
+        }
+      })
+
+      prev.addEventListener('click', () => {
+        index--;
+        if(index == 0){
+          prev.classList.remove('show');
+        }
+        next.classList.remove('hide');
+        track.style.transform = `translateX(-${index * (cardWidth +  20)}px)`;
+
+        if(track.offsetWidth - (index * cardWidth) <= Math.ceil(carouselWidth + cardWidth/2) ){
+          next.classList.add("hide")
+        }
+      })
+    },
+    setPartnersCarousel(){
+      let carouselName = '#partners';
+      const prev = document.querySelector(carouselName + ' .prev');
+      const next = document.querySelector(carouselName + ' .next');
+      const track = document.querySelector(carouselName + ' .track');
+      let carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
+      
+      const card = document.querySelectorAll(carouselName + " .card-container")
+      let cardWidth = card[0].offsetWidth;
+      
+      
+      let cardCount = 4
+      if(window.innerWidth < 1100){
+        cardCount = 2 
+      }
+      
+      card.forEach(element => {
+        element.style.width = `${carouselWidth / cardCount}px`
+      });
+      cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
+
+      window.addEventListener('resize', () => {
+        cardCount = 4
+        if(window.innerWidth < 1100){
+          cardCount = 2 
+        }
+        carouselWidth = document.querySelector(carouselName + ' .carousel-inner').offsetWidth;
         card.forEach(element => {
           element.style.width = `${carouselWidth / cardCount}px`
         });
-        cardWidth = document.querySelector('.card-container').offsetWidth;
+        cardWidth = document.querySelector(carouselName + ' .card-container').offsetWidth;
       })
 
       let index = 0;
@@ -668,6 +996,88 @@ export default {
           next.classList.add("hide")
         }
       })
+    },
+    GetNewsType(t){
+      if(this.$i18n.locale == 'uk'){
+        if(t == 'blog'){
+          return 'Блог Команди'
+        }
+        else if(t == 'massMedia'){
+          return 'Ми у ЗМІ'
+        }
+        else if(t == 'all'){
+          return 'Всі'
+        }
+      }
+      else if(this.$i18n.locale == 'en'){
+        if(t == 'blog'){
+          return 'Blog'
+        }
+        else if(t == 'massMedia'){
+          return 'Mass Media'
+        }
+        else if(t == 'all'){
+          return 'All'
+        }
+      }
+    },
+    GetColorByNewsType(t){
+      if(t == 'blog'){
+          return 'background-color: #A62585;'
+        }
+        else if(t == 'massMedia'){
+          return 'background-color: #52A785;'
+        }
+        else if(t == 'all'){
+          return 'background-color: #52A785;'
+        }
+    },
+    GetDate(date) {
+      let month = new Date(date).getMonth();
+      let months_uk = [
+        'січня',
+        'лютого',
+        'квітня',
+        'березня',
+        'травня',
+        'червня',
+        'липня',
+        'серпня',
+        'вересня',
+        'жовтня',
+        'листопада',
+        'грудня'
+      ]
+
+      let months_en = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ]
+      let months = null
+      if(this.$i18n.locale == 'uk'){
+        months = months_uk
+      }
+      else if(this.$i18n.locale == 'en'){
+        months = months_en
+      }
+
+      let a = String
+      months.forEach((d, index) => {
+        if (index == month) {
+          a = d
+        }
+      })
+      return new Date(date).getDate() + " " + a + " " + new Date(date).getFullYear();
     },
     onMousClick(el, index) {
       if (!this.$refs.gallery[index].classList.contains('in')) {
@@ -703,10 +1113,10 @@ export default {
         for (let key in this.$refs) {
           if (key == 'about') {
             if (window.pageYOffset >= this.$refs[key].offsetTop - 35 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.add('active');
+              this.$parent.$parent.$refs.headerMain.$refs.about.classList.add('active');
             }
             else if (window.pageYOffset < this.$refs[key].offsetTop - 35 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[0].classList.remove('active');
+              this.$parent.$parent.$refs.headerMain.$refs.about.classList.remove('active');
             }
           }
           if (key == 'projects') {
@@ -771,10 +1181,10 @@ export default {
         for (let key in this.$refs) {
           if (key == 'about') {
             if (window.pageYOffset >= this.$refs[key].offsetTop - 18 && window.pageYOffset <= this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.add('active');
+              this.$parent.$parent.$refs.headerMain.$refs.about.classList.add('active');
             }
             else if (window.pageYOffset < this.$refs[key].offsetTop - 18 || window.pageYOffset > this.$refs[key].offsetTop + this.$refs[key].offsetHeight) {
-              this.$parent.$parent.$refs.headerMain.$refs.about[1].classList.remove('active');
+              this.$parent.$parent.$refs.headerMain.$refs.about.classList.remove('active');
             }
           }
           if (key == 'projects') {
@@ -838,10 +1248,6 @@ export default {
       })
         .then(({data}) => {
           this.projectTypes = data.data;
-          this.$nextTick(() =>{
-
-            this.projectsCarousel();
-          })
         });
     },
     async getYoutubeVideos() {
@@ -871,24 +1277,8 @@ export default {
       // Change the URL to the page you want to redirect to
       window.open(url, '_blank')
     },
-    async getNews() {
-      await this.$axios.get(`${process.env.apiUrl}/api/news?populate[previewPicture]=*&pagination[pageSize]=5&sort=date:desc&locale=${this.$i18n.locale}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.tokken}`
-        }
-      })
-      .then(data => {
-        this.news = data.data.data
-        this.news.forEach((element) => {
-          var main_title = element.attributes.title;
-          if (main_title !== null) {
-            var words = main_title.split(" ");
-            element.attributes.main_title = words.shift();
-            element.attributes.title_remain = words.join(' ');
-          }
-        })
-      })
-    },
+   
+    
     GotoNewsPiece(id){
       if(this.$i18n.locale == 'uk'){
         this.$router.push(`news/${id}`)
@@ -900,10 +1290,9 @@ export default {
   },
   mounted() {
     this.siteUrl = process.env.apiUrl;
-    this.getProjects();
     this.getYoutubeVideos();
     this.getInstagram();
-    this.getNews();
+    //this.getNews();
     this.getDocumentations();
     
     
@@ -943,11 +1332,17 @@ export default {
       }
       catch { }
       
-      //console.log(this.$i18n.locale);
       console.log(this.$refs);
       console.log(this.$parent.$parent.$refs.headerMain.$refs)
+      console.log(this.$parent.$parent.$refs.headerMain.$refs.about)
       console.log('after mounted');
-      console.log(this.about);
+      this.setMemberCarousel('team');
+      this.setMemberCarousel('supervis');
+      this.setMemberCarousel('supervis-children');
+      this.setCarousel('projects');
+      this.setPartnersCarousel();
+
+ 
 
     });
   },
@@ -993,6 +1388,10 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
+
+            &:nth-child(3){
+              display: none;
+            }
           }
         }
 
@@ -1008,6 +1407,10 @@ export default {
               &:nth-child(2) {
                 transform: translateY(-100%);
               }
+
+              &:nth-child(3) {
+                transform: translateY(-100%);
+              }
             }
           }
 
@@ -1019,6 +1422,10 @@ export default {
                 }
 
                 &:nth-child(2) {
+                  transform: translateY(0);
+                }
+                
+                &:nth-child(3) {
                   transform: translateY(0);
                 }
               }
@@ -1037,6 +1444,10 @@ export default {
                 transform: translateY(100%);
                 object-fit: fill;
               }
+
+              &:nth-child(3) {
+                transform: translateY(100%);
+              }
             }
           }
 
@@ -1050,6 +1461,9 @@ export default {
                 }
 
                 &:nth-child(2) {
+                  transform: translateY(0);
+                }
+                &:nth-child(3) {
                   transform: translateY(0);
                 }
               }
@@ -1147,40 +1561,232 @@ export default {
       }
     }
 
-    .founders {
-      margin-top: 70px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-column-gap: 115px;
+    .teams {
+      padding: 50px 0;
+      .teams-container{
 
-      .user {
-        .top {
-          margin-bottom: 45px;
+
+        h2 {
+          font-size: var(--fz1);
+          font-weight: 600;
+          font-family: 'Montserrat Alternates', sans-serif;
+          margin-bottom: 20px;
         }
 
-        .bottom {
-          .name {
-            font-size: var(--fz1);
-            font-weight: 600;
-            font-family: 'Montserrat Alternates', sans-serif;
+        .carousel-container{
+          display: flex;
+          position: relative;
+          margin: 32px auto 0px;
+          min-height: 200px;
+          .carousel-inner{
+            overflow: hidden;
+            .track{
+              display: inline-flex;
+              transition: transform .6s;
+
+              .card-container{
+                flex-shrink: 0;
+                box-sizing: border-box;
+                padding: 0 60px;
+
+                .card{
+                  position: relative;
+                  height: 100%;
+                  width: 100%;
+                  margin: 0 auto;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  transition: .3s;
+                  padding: 0;
+                  
+                  
+
+                  .image-container{
+                    cursor: pointer;
+                    position: relative;
+                    width:fit-content;
+                    margin: 0 auto;
+
+                    .circle-container{
+                      position: absolute;
+                      height: fit-content;
+                      width: 100%;
+                      z-index: 1;
+                      bottom: 12px;
+
+                      .circle{
+                        width: 100%;
+                        svg{
+                          width: 100%;
+                        }
+                      }
+                    }
+
+                    .image-inner{
+                      position: relative;
+                      display: flex;
+                      align-items: end;
+                      justify-content: center;
+                      overflow: hidden;
+                      width: 100%;
+                      z-index: 2;
+                      img{
+                        height: 100%;
+                        width: 100%;
+                        object-fit: contain;
+                        object-position: center bottom;
+                      }
+                    }
+
+                    .open-sign{
+                      position: absolute;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 60px;
+                      height: 60px;
+                      z-index: 3;
+                      background-color: #EFDC00;
+                      border-radius: 50%;
+                      bottom: -10px;
+                      right: 0;
+
+                      span{
+                        font-family: Montserrat Alternates;
+                        font-size: 32.313px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: normal;
+                      }
+
+                    }
+                  }
+
+                  .bio-container{
+                    margin-top: 38px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .name {
+                      font-family: Montserrat Alternates;
+                      font-size: 24pt;
+                      font-style: normal;
+                      font-weight: 600;
+                      line-height: normal;
+                    }
+
+                    .position{
+                      margin-top: 6px;
+                      font-family: Montserrat;
+                      font-size: 18px;
+                      font-style: normal;
+                      font-weight: 500;
+                      line-height: 26px;
+                      justify-self: flex-end;
+                    }
+                  }
+                  
+                }
+
+              }
+              
+            }
+          }
+        
+          .nav{
+            display: flex;
+            align-items: center;
+            min-width: 20px;
           }
 
-          .post {
-            font-size: var(--fz3);
-            font-weight: 600;
-            margin-bottom: 35px;
+          .nav-left{
+            margin-right: 40px;
           }
 
-          .desc {
-            font-size: var(--fz3);
-            font-weight: 400;
+          .nav-right{
+            margin-left: 40px;
+          }
+
+          .prev{
+            display: none;
+          }
+          .show{
+            display: block;
+          }
+          .hide{
+            display: none;
+          }
+          .next{
+            right: -40px;
+          }
+        }
+
+        .page-slider{
+          margin-top: 28px;
+          width: 100%;
+
+          .page-slider-inner{
+            margin-left: 120px;
+            width: fit-content;
+
+            display: flex;
+            flex-direction: row;
+
+            .slider{
+              width: 300px;
+              margin: 0 10px;
+              display: flex;
+              align-items: center;
+
+              .slider-back{
+                position: relative;
+                width: 100%;
+                height: 2px;
+                background-color: black;
+
+                .slider-front{
+                  transition: transform .6s;
+                  position: absolute;
+                  bottom: 0;
+                  margin-bottom: -3px;
+                  left:0;
+                  width: 30%;
+                  height: 9px;
+                  background: #52A785;
+                }
+              }
+
+            }
+
+            .value{
+              font-family: Montserrat;
+              font-size: 21.714px;
+              font-style: normal;
+              font-weight: 500;
+            }
           }
         }
       }
-      
     }
 
-    .all-founders {
+    #supervis{
+      background: #FFF9F6;
+
+      .slider-front{
+        background-color: #EFDC00;
+      }
+    }
+    #supervis-children{
+
+      background: #52A78510;
+
+      .slider-front{
+        background-color: #A62585;
+      }
+    }
+
+    .all-teams {
       display: flex;
       justify-content: end;
       margin-top: 30px;
@@ -1192,7 +1798,7 @@ export default {
   }
 
   .projects {
-
+    margin-top: 75px;
     h2 {
       font-size: var(--fz1);
       font-weight: 600;
@@ -1205,6 +1811,7 @@ export default {
     }
     
     .carousel-container{
+      display: flex;
       position: relative;
       margin: 32px auto 0px;
       min-height: 200px;
@@ -1213,6 +1820,7 @@ export default {
         .track{
           display: inline-flex;
           transition: transform .6s;
+          gap: 20px;
 
           .card-container{
             flex-shrink: 0;
@@ -1222,7 +1830,7 @@ export default {
             .card{
               position: relative;
 
-              width: 370px;
+              width: 100%;
               height: 100%;
               margin: 0 auto;
               display: flex;
@@ -1285,30 +1893,32 @@ export default {
       }
 
       .nav{
-        button{
-          position: absolute;
-          width: 30px;
-          height: 80px;
-          top: 50%;
-          z-index: 2;
-          transform: translateY(-50%);
-          color: #fff;
-        }
-
-        .prev{
-          left: -40px;
-          display: none;
-        }
-        .show{
-          display: block;
-        }
-        .hide{
-          display: none;
-        }
-        .next{
-          right: -40px;
-        }
+        display: flex;
+        align-items: center;
+        min-width: 20px;
       }
+
+      .nav-left{
+        margin-right: 20px;
+      }
+
+      .nav-right{
+        margin-left: 20px;
+      }
+
+      .prev{
+        display: none;
+      }
+      .show{
+        display: block;
+      }
+      .hide{
+        display: none;
+      }
+      .next{
+        right: -40px;
+      }
+      
     }
 
     .all-projects {
@@ -1332,10 +1942,9 @@ export default {
       }
       .news-grid{ 
         display: grid;
-        grid-template-columns: 3fr 1fr 1fr 3fr;
-        grid-template-rows: 450px 300px 300px;
-        grid-column-gap: 30px;
-        grid-row-gap: 30px;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 35px;
 
         
 
@@ -1343,117 +1952,121 @@ export default {
           position: relative;
           border-radius: 6px;
 
+          .category{
+            top: 0;
+            margin-top: -13px;
+            margin-left: 10px;
+            padding: 0 14px;
+            position: absolute;
+            border-radius: 20px;
+            height: 26px;
+            background-color: #A62585;
+
+            p{
+              color: #FFF;
+              font-family: Montserrat Alternates;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 26px;
+            }
+          }
+
           img{
             width: 100%;
-            height: 100%;
+            height: 250px;
             opacity: 1;
             object-fit: cover;
             border-radius: 6px;
-            pointer-events: none;
             transition: .3s;
-
+            cursor: pointer;
           }
 
           .desc{
-            display: none;
-            position: absolute;
-            left: 0;
-            bottom: 0;
+            position: relative;
+            width: 355px;
+            margin: 0 auto;
+            margin-top: -40px;
+            border-radius: 10px;
+            background: #FFFEFE;
+            box-sizing: border-box;
+            padding: 27px 24px;
+            box-shadow: 2px 2px 24px 0px rgba(0, 0, 0, 0.08);
 
-            margin-left: 56px;
-            margin-bottom: 35px;
-
-            pointer-events: none;
             p{
               color: var(--text-color, #202221);
               font-family: Montserrat Alternates;
+              font-size: 18px;
               font-style: normal;
-              line-height: normal;
+              font-weight: 600;
+              line-height: 26px
             }
             .title-main{
-              font-size: 40px;
+              font-size: 18px;
+              font-style: normal;
               font-weight: 600;
-
+              line-height: 26px;
             }
 
             .title-remain{
-              font-size: 18px;
-              font-weight: 400;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 600;
               line-height: 26px;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+
+            .text{
+              font-family: Montserrat Alternates;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 150%;
+
+              margin-top: 8px;
+
               text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-line-clamp: 2;
               -webkit-box-orient: vertical;
               overflow: hidden;
             }
-          }
 
-          &:hover{
-            cursor: pointer;
-            img{
-              opacity: .25;
-            }
-            .desc{
-              display: block;
-            }
-          }
-        }
-
-        .box-1{
-          grid-area: 1 / 1 / 2 / 3;
-          background-color: #EFDC00;
-
-
-        }
-
-        .box-2{
-          grid-area: 1 / 3 / 2 / 5;
-          background-color: #C6569A;
-          .desc{
-            p{
-              color: #fff;
+            .meta {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-top: auto;
+              margin-top: 24px;
+    
+              svg {
+                fill: var(--Gray-3, #828282);
+                margin-right: 12px;
+              }
+    
+              .date {
+                color: var(--Gray-3, #828282);
+                font-family: Montserrat Alternates;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 26px;
+              }
             }
           }
         }
+      }
 
-        .box-3{
-          grid-area: 2 / 1 / 4 / 4;
-          background-color: #52A785;
-          color: #fff;
-          .desc{
-            p{
-              color: #fff;
-            }
-          }
-        }
-
-        .box-4{
-          grid-area: 2 / 4 / 3 / 5;
-          background-color: #A62585;
-          color: #fff;
-          .desc{
-            margin-left: 35px;
-            p{
-              color: #fff;
-            }
-          }
-        }
-
-        .box-5{
-          grid-area: 3 / 4 / 4 / 5;
-          background-color: #EFDC00;
-
-          .desc{
-            margin-left: 35px;
-          }
-        }
+      .all-news{
+        margin-top: 54px;
       }
     }
 
   .partners {
-    path {
-      fill: #C9C9C9;
-    }
 
     h2 {
       font-size: var(--fz1);
@@ -1462,18 +2075,71 @@ export default {
       margin-bottom: 60px;
     }
 
-    .all-partners {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-column-gap: 95px;
-      grid-row-gap: 30px;
+    .carousel-container{
+      display: flex;
+      position: relative;
+      margin: 32px auto 0px;
+      .carousel-inner{
+        overflow: hidden;
+        flex:1;
+        .track{
+          display: inline-flex;
+          transition: transform .6s;
 
+          .card-container{
+            flex-shrink: 0;
+            box-sizing: border-box;
+            padding: 0 50px;
 
-      .partner {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
+            .card{
+              position: relative;
+
+              width: 100%;
+              height: 100%;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              cursor: pointer;
+              
+              img{
+                width: 100%;
+                object-fit: contain;
+                z-index: 0;
+
+              }      
+            }
+          }
+        }
       }
+
+      .nav{
+        display: flex;
+        align-items: center;
+        min-width: 20px;
+      }
+
+      .nav-left{
+        margin-right: 20px;
+      }
+
+      .nav-right{
+        margin-left: 20px;
+      }
+
+      .prev{
+        display: none;
+      }
+      .show{
+        display: block;
+      }
+      .hide{
+        display: none;
+      }
+      .next{
+        right: -40px;
+      }
+      
     }
   }
 
@@ -1492,7 +2158,7 @@ export default {
       display: flex;
 
       .left {
-        flex: 2;
+        flex: 3;
 
         #static-video {
           height: 444px;
@@ -1505,7 +2171,7 @@ export default {
       }
 
       .right {
-        flex: 1;
+        flex: 2;
         margin-left: 50px;
 
         display: flex;
@@ -1570,10 +2236,28 @@ export default {
           }
         }
       }
+    }
 
 
+    .more-text{
+      margin-top: 40px;
+      width: 440px;
 
+      color: var(--text-color, #202221);
+      font-family: Montserrat Alternates;
+      font-size: 22.411px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 25.454px;
 
+      a{
+        color: #A62585;
+        font-family: Montserrat Alternates;
+        font-size: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
     }
   }
 
@@ -1650,6 +2334,7 @@ export default {
         aspect-ratio: 1/1;
         border-radius: 6px;
         position: relative;
+        height: 100%;
 
 
 
@@ -1751,15 +2436,15 @@ export default {
 }
 
 @media screen and (max-width: 1600px) {
-  #homePage {
-    .projects {
-      h2 {
-        margin: 0 auto;
-        max-width: 1300px;
-        margin-bottom: 60px;
-      }
-    }
-  }
+  // #homePage {
+  //   .projects {
+  //     h2 {
+  //       margin: 0 auto;
+  //       max-width: 1300px;
+  //       margin-bottom: 60px;
+  //     }
+  //   }
+  // }
 }
 
 @media screen and (max-width: 1660px) {
@@ -1806,9 +2491,7 @@ export default {
     }
 
     .partners {
-      .all-partners {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      
     }
 
     .youtube {
@@ -1830,12 +2513,16 @@ export default {
       margin-top: 40px;
 
       .about {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        &:nth-child(2) {
+          flex-direction: column-reverse;
+        }
 
         .right {
           max-width: unset;
           justify-content: flex-start;
-          padding-top: 25px;
+          padding-top: 0;
+          margin-top: 0;
 
           &::after {
             width: 75px;
@@ -1859,9 +2546,9 @@ export default {
 
         .left {
           width: 100%;
-          height: 290px;
+          height: fit-content;
           min-height: unset;
-          margin-bottom: 25px;
+          margin-top: 14px;
         }
       }
     }
@@ -1877,7 +2564,6 @@ export default {
       }
 
       .carousel-container{
-        width: 80%;
         .carousel-inner{
           .track{
             .card-container{
@@ -1902,17 +2588,19 @@ export default {
       }
 
       .news-grid{
-        grid-template-rows: 300px 200px 200px;
-        grid-gap: 15px;
+        grid-template-columns: 1fr 1fr;
         .box{
-          img{
-            opacity: .25;
+
+          &:nth-child(n + 3){
+            display: none;
           }
 
           .desc{
             display: block;
           }
         }
+
+        
       }
     }
 
@@ -1921,6 +2609,16 @@ export default {
 
       h2 {
         margin-bottom: 20px;
+      }
+
+      .carousel-container{
+        .carousel-inner{
+          .track{
+            .card-container{
+              padding: 0 25px;
+            }
+          }
+        }
       }
 
       .all-partners {
@@ -1935,6 +2633,14 @@ export default {
         max-width: calc(100vw - 40px);
         margin-bottom: 20px;
       }
+
+      .videos{
+        .left{
+          #static-video{
+            height: 380px;
+          }
+        }
+      }
     }
 
 
@@ -1948,6 +2654,8 @@ export default {
       .all-docs {
         grid-column-gap: 70px;
         grid-row-gap: 20px;
+
+        
 
         .btn-all {
           height: 18px;
@@ -1968,9 +2676,33 @@ export default {
 @media screen and (max-width: 830px) {
   #homePage {
     .about {
-      .founders {
-        display: flex;
-        flex-direction: column;
+      .teams {
+        .teams-container{
+          .carousel-container{
+            .carousel-inner{
+              .track{
+                .card-container{
+                  padding: 0 10px;
+                  .card{
+                    .image-container{
+                      .image-inner{
+                        height: 250px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .page-slider{
+            .page-slider-inner{
+              margin-left: 10px;
+            }
+          }
+        }
+
+
       }
     }
 
@@ -1981,12 +2713,32 @@ export default {
     }
 
     .documentations {
+
+      
+
       .all-docs {
         grid-template-columns: repeat(2, 1fr);
+
+        a{
+          &:nth-child(n+3){
+            display: none;
+          }
+        }
+
+        .div{
+          grid-column: 2;
+          justify-content: end;
+        }
+
       }
     }
 
     .projects{
+      
+      p{
+        width: 100%;
+      }
+
       .carousel-container{
         .carousel-inner{
           width: 100%;
@@ -2027,20 +2779,27 @@ export default {
 
     .news-all{
       .news-grid{
-
+        display: block;
         .box{
+          &:nth-child(n + 2){
+            display: none;
+          }
           .desc{
-            margin-left: 20px;
-            margin-bottom: 10px;
-            
+            width: unset;
+            margin-left: 40px;
+            margin-right: 40px;
             .title-main{
-              font-size: 24px;
+              font-size: 20px;
             }
             .title-remain{
               font-size: 16px;
             }
           }
         }
+      }
+      .all-news{
+        margin-top: 24px;
+
       }
     }
   }
@@ -2056,7 +2815,18 @@ export default {
         .blocks-img {
           width: 50%;
 
-          &:nth-child(even) {
+          .btn-gal{
+            img{
+              &:nth-child(3){
+                display: block;
+              }
+
+              &:nth-child(2){
+                display: none;
+              }
+            }
+          }
+          &:nth-child(n + 3) {
             display: none;
           }
 
@@ -2065,14 +2835,14 @@ export default {
               img {
                 object-position: right top;
 
-                &:nth-child(2) {
-                  object-position: center;
-                }
+                // &:nth-child(2) {
+                //   object-position: center;
+                // }
               }
             }
           }
 
-          &:nth-child(3) {
+          &:nth-child(2) {
             .btn-gal {
               img {
                 object-position: left top;
@@ -2109,12 +2879,10 @@ export default {
 
     .documentations {
       .all-docs {
-        grid-template-columns: 1fr;
-
+        grid-column-gap: 20px;
         .div {
           display: flex;
           align-items: center;
-          justify-content: center;
         }
       }
     }
@@ -2173,13 +2941,64 @@ export default {
           }
         }
       }
+
+      .more-text{
+        width: 100%;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 20px
+      }
     }
 
     .about {
-      .founders {
+      .teams {
         margin-top: 30px;
         grid-row-gap: 30px;
+        .teams-container{
+          .carousel-container{
+            .carousel-inner{
+              .track{
+                .card-container{
+                  .card{
+                    .image-container{
+                      .image-inner{
+                        height: fit-content;
+                      }
 
+                      .open-sign{
+                        height: 38px;
+                        width: 38px;
+
+                        span{
+                          font-size: 20px;
+                        }
+                      }
+                    }
+
+                    .bio-container{
+                      .name{
+                        font-size: 15pt;
+                      }
+
+                      .position{
+                        font-size: 10pt;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            .nav-right{
+              margin-left: 10px;
+            }
+
+            .nav-left{
+              margin-right: 10px;
+            }
+          }
+        }
         .user {
           .top {
             display: flex;
@@ -2247,6 +3066,20 @@ export default {
 @media screen and (max-width: 500px) {
 
   #homePage{
+    .about{
+      .teams{
+        .teams-container{
+          .page-slider{
+            .page-slider-inner{
+              .slider{
+                width: 190px;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .projects {
       .carousel-container{
         .carousel-inner{
@@ -2257,7 +3090,6 @@ export default {
               .card{
                 span{
                   font-size: 20px;
-                  margin: 10px 15px;
                 }
               }
             }
@@ -2271,16 +3103,60 @@ export default {
 
         .box{
           .desc{
-            margin-left: 10px;
-            margin-bottom: 5px;
             
             .title-main{
-              font-size: 16px;
+             
             }
             .title-remain{
-              font-size: 10px;
+              
               line-height: 1;
             }
+            .meta{
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .partners{
+      .carousel-container{
+
+        .carousel-inner{
+          .track{
+            .card-container{
+              padding: 0 8px;
+            }
+          }
+        }
+
+        .nav{
+          button{
+            svg{
+              width: 20px;
+              height: 30px;
+            }
+          }
+        }
+
+        .nav-right{
+          margin-left: 0;
+        }
+
+        .nav-left{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px){
+  #homePage{
+    .news-all{
+      .news-grid{
+        .box{
+          .desc{
           }
         }
       }
@@ -2299,9 +3175,7 @@ export default {
     .instagram {
       grid-template-columns: repeat(2, minmax(100px, 1fr));
 
-      div:nth-child(3) {
-        grid-area: 3;
-      }
+      
 
       div:nth-child(4) {
         grid-area: 2;

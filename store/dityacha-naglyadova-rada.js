@@ -12,7 +12,7 @@ export const state = () => ({
     async fetch({getters, commit}) {
       if(!getters.data) {
         await this.$axios
-        .get(`${process.env.apiUrl}/api/founders?populate=*&locale=${this.$i18n.locale}`, {
+        .get(`${process.env.apiUrl}/api/dityacha-naglyadova-radas?populate=*&locale=${this.$i18n.locale}`, {
           headers: {
             Authorization: `Bearer ${process.env.tokken}`
           }
@@ -25,6 +25,6 @@ export const state = () => ({
   }
   
   export const getters = {
-    founders: state => state.data && state.data.data ? state.data.data : {}
+    team: state => state.data && state.data.data ? state.data.data : {}
   }
   

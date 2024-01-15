@@ -4,6 +4,7 @@
   color: var(--white);
   display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 150px;
   border-radius: 6px;
   .svg-donate {
@@ -43,12 +44,14 @@
 }
 
 .btn-close {
-  width: 75px;
-  height: 75px;
+  width: 52px;
+  height: 52px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
+  background-color: #C6569A;
   top: 0;
   right: 0;
   &:hover {
@@ -71,6 +74,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    color: #fff;
   }
 }
 
